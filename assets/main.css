@@ -12,11 +12,18 @@ body {
   @apply w-full flex flex-col items-center;
 }
 .btn {
-  @apply px-4 py-2 rounded-xl;
+  @apply border px-4 py-2 rounded-xl transition focus:outline-blue-500;
 }
 .btn-primary {
-  @apply bg-blue-500 text-white;
+  @apply bg-blue-500 hover:bg-blue-600 text-white border-blue-500 focus:outline-blue-600;
 }
 .btn-pale {
-  @apply bg-white text-blue-500;
+  @apply bg-white hover:bg-light-50  text-blue-500;
+}
+label {
+  @apply mb-1;
+}
+input,
+select {
+  @apply px-4 py-2 rounded-lg border placeholder-gray-300 transition focus:outline-blue-500;
 }

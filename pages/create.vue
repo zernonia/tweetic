@@ -30,23 +30,38 @@ const downloadAll = () => {
     <ClientOnly>
       <div class="flex mt-8 justify-center">
         <div class="flex flex-col space-y-2">
-          <h4>Tweets</h4>
-          <template v-for="(tweet, index) in tweetsInput">
-            <input class="px-4 py-2 rounded-lg w-128" type="text" v-model="tweetsInput[index]" />
-          </template>
-          <button @click="tweetsInput.push('')" class="bg-light-500 px-4 py-2 rounded-lg">+</button>
+          <h4 class="text-xl mb-2 font-medium">Tweets</h4>
+          <div class="w-128 flex items-center" v-for="(tweet, index) in tweetsInput">
+            <input
+              placeholder="https://twitter.com/<user_name>/status/<tweet_id>"
+              class="w-full"
+              type="text"
+              v-model="tweetsInput[index]"
+            />
+            <button
+              class="px-3 h-full text-xs rounded-lg bg-light-300 transition hover:bg-light-500"
+              @click="tweetsInput.splice(index, 1)"
+            >
+              ✗
+            </button>
+          </div>
+          <button @click="tweetsInput.push('')" class="btn btn-pale w-120">+</button>
         </div>
 
-        <div class="ml-6 flex flex-col">
-          <h4>Option</h4>
-          <label for="layout">Layout</label>
-          <select class="px-4 py-2 rounded-lg w-48" v-model="tweetsOptions.layout" name="layout" id="layout">
-            <option value="">Default</option>
-            <option value="supabase">Supabase</option>
-          </select>
+        <div class="ml-6 flex flex-col justify-between">
+          <div class="flex flex-col">
+            <h4 class="text-xl mb-2 font-medium">Option</h4>
+            <label for="layout">Layout</label>
+            <select class="w-48" v-model="tweetsOptions.layout" name="layout" id="layout">
+              <option value="">Default</option>
+              <option value="supabase">Supabase</option>
+            </select>
+          </div>
 
-          <button @click="copyAll" class="mt-20 btn btn-primary">Copy</button>
-          <button @click="downloadAll" class="mt-2 btn btn-primary">Download</button>
+          <div class="mt-20 flex space-x-2">
+            <button @click="copyAll" class="btn btn-primary">Copy</button>
+            <button @click="downloadAll" class="btn btn-primary">Download</button>
+          </div>
         </div>
       </div>
 
