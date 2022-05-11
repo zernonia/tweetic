@@ -31,17 +31,11 @@ const tweetsOptions = useStorage("tweets-options", { layout: "" })
 
       <hr class="my-20" />
 
-      <!-- <div :key="tweetsOptions.layout">
+      <div :key="tweetsOptions.layout">
         <template v-for="(tweet, index) in tweetsInput" :key="tweet">
           <Tweet v-if="tweet" :url="tweet" :layout="tweetsOptions.layout"></Tweet>
         </template>
-      </div> -->
-
-      <MasonryWall :key="tweetsOptions.layout" :column-width="400" :items="tweetsInput" :gap="12">
-        <template #default="{ item, index }">
-          <Tweet v-if="item" :url="item" :layout="tweetsOptions.layout"></Tweet>
-        </template>
-      </MasonryWall>
+      </div>
     </ClientOnly>
   </div>
 </template>
