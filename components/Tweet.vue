@@ -8,7 +8,7 @@ const { data } = await useAsyncData(props.url, () =>
   $fetch("/api/tweet", {
     params: {
       url: props.url,
-      style: props.layout,
+      layout: props.layout,
     },
   })
 )
