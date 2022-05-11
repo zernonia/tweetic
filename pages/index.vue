@@ -2,19 +2,19 @@
 
 <template>
   <div class="mt-32 flex flex-col items-center overflow-hidden xl:overflow-visible">
-    <h1 class="text-6xl leading-18 font-bold text-center">
+    <h1 class="text-4xl md:text-6xl md:leading-18 font-bold text-center">
       Convert Tweets to <br />
       Static HTML
     </h1>
-    <h2 class="text-center mt-8 text-2xl text-gray-400">
+    <h2 class="text-center mt-8 text-xl md:text-2xl text-gray-400">
       Create your testimonial wall statically and<br />
       style it however you want!
     </h2>
 
-    <NuxtLink class="btn btn-primary text-xl mt-8" to="/create">Create now</NuxtLink>
+    <NuxtLink class="btn btn-primary md:text-xl mt-8" to="/create">Create now</NuxtLink>
 
-    <div class="flex flex-col items-center space-y-4 md:relative mt-32 w-full md:h-224">
-      <div class="absolute flex items-center -top-20 left-10 text-gray-300">
+    <div class="flex flex-col items-center space-y-4 md:relative mt-8 md:mt-32 w-full md:h-224">
+      <div class="md:absolute flex items-center -top-20 left-10 text-gray-300">
         <Arrow class="w-12"></Arrow>
         <span>Static HTML tweets</span>
       </div>
@@ -29,12 +29,12 @@
       ></Tweet>
 
       <Tweet class="md:absolute left-1/3 top-40" url="https://twitter.com/supabase/status/1524055594587795456"></Tweet>
-      <div class="absolute flex items-center left-1/2 top-26 text-gray-300">
+      <div class="md:absolute flex items-center left-1/2 top-26 text-gray-300">
         <span>Create manually or API</span>
-        <Arrow class="w-12 transform rotate-20 rotate-180 mr-4"></Arrow>
+        <Arrow class="w-12 transform rotate-180 mr-4"></Arrow>
       </div>
 
-      <div class="absolute flex items-center top-84 left-36 text-gray-300">
+      <div class="md:absolute flex items-center top-84 left-36 text-gray-300">
         <Arrow class="w-12 transform rotate-20 mr-4"></Arrow>
         <span>Free & Open Source</span>
       </div>
@@ -52,6 +52,11 @@
         url="https://twitter.com/sweekiat_lim/status/1517707225430519809"
         layout="supabase"
       ></Tweet>
+
+      <div class="md:absolute flex items-center right-10 top-110 text-gray-300">
+        <Arrow class="w-12 transform rotate-x-180 md:rotate-x-0 mr-4"></Arrow>
+        <span>Custom CSS class for styling</span>
+      </div>
     </div>
   </div>
 </template>
