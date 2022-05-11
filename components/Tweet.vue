@@ -19,5 +19,5 @@ defineExpose({ data })
 </script>
 
 <template>
-  <div v-if="!pending" v-html="data.html"></div>
+  <div v-if="data?.html?.length" v-html="data.html"></div>
 </template>

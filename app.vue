@@ -15,6 +15,16 @@ import Logo from "~~/assets/logo.svg"
     </div>
 
     <NuxtPage></NuxtPage>
+
+    <div class="flex flex-col justify-center md:flex-row md:items-center mt-auto pt-12 pb-3">
+      <p class="flex items-center w-max px-4">
+        Coded with l by <a class="ml-2" target="_blank" href="https://twitter.com/zernonia">Zernonia</a>
+      </p>
+
+      <span class="hidden md:block">|</span>
+
+      <a class="mx-2" target="_blank" href="https://github.com/zernonia/static-tweet">⭐️ GitHub</a>
+    </div>
   </div>
 </template>
 

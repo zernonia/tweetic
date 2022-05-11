@@ -1,12 +1,3 @@
-<script setup lang="ts">
-const tweets = [
-  { url: "https://twitter.com/zernonia/status/1512621505527484419", layout: "supabase" },
-  { url: "https://twitter.com/supabase/status/1524055596395528194", layout: "" },
-  { url: "https://twitter.com/supabase/status/1524055594587795456", layout: "" },
-  { url: "https://twitter.com/OSSInsight/status/1524071559865937920", layout: "supabase" },
-]
-</script>
-
 <template>
   <div class="mt-32 flex flex-col items-center">
     <h1 class="text-6xl leading-18 font-bold text-center">
@@ -20,10 +11,33 @@ const tweets = [
 
     <NuxtLink class="btn btn-primary text-xl mt-8" to="/create">Create now</NuxtLink>
 
-    <div class="mt-32 flex flex-wrap space-x-4 space-y-4">
-      <template v-for="tweet in tweets">
-        <Tweet v-if="tweet.url" :url="tweet.url" :layout="tweet.layout"></Tweet>
-      </template>
+    <div
+      class="flex flex-col items-center space-y-4 md:relative mt-32 w-full md:h-224 overflow-hidden xl:overflow-visible"
+    >
+      <Tweet
+        class="md:absolute top-0 left-0"
+        url="https://twitter.com/zernonia/status/1513020247690809346"
+        layout="supabase"
+      ></Tweet>
+      <Tweet
+        class="md:absolute right-0 -top-4"
+        url="https://twitter.com/sudonymously/status/1521878033929539584"
+      ></Tweet>
+      <Tweet class="md:absolute left-1/3 top-40" url="https://twitter.com/supabase/status/1524055594587795456"></Tweet>
+      <Tweet
+        class="md:absolute -left-20 top-108"
+        url="https://twitter.com/CodiferousCoder/status/1522233113207836675"
+      ></Tweet>
+      <Tweet
+        class="md:absolute -right-1/10 top-48"
+        url="https://twitter.com/OSSInsight/status/1524071559865937920"
+        layout="supabase"
+      ></Tweet>
+      <Tweet
+        class="md:absolute top-132 right-1/10"
+        url="https://twitter.com/sweekiat_lim/status/1517707225430519809"
+        layout="supabase"
+      ></Tweet>
     </div>
   </div>
 </template>
