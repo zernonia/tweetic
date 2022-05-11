@@ -1,7 +1,12 @@
+<script setup lang="ts">
+//@ts-ignore
+import Logo from "~~/assets/logo.svg"
+</script>
+
 <template>
   <div class="p-8 w-full max-w-screen-xl">
     <div class="flex items-center justify-between mb-6">
-      <NuxtLink to="/">Home</NuxtLink>
+      <NuxtLink to="/"><img :src="Logo" alt="static-tweet logo" class="h-16" /></NuxtLink>
 
       <div class="flex items-center space-x-2">
         <NuxtLink class="btn btn-pale" target="_blank" to="https://github.com/zernonia/static-tweet">GitHub</NuxtLink>
@@ -12,8 +17,6 @@
     <NuxtPage></NuxtPage>
   </div>
 </template>
-
-<script setup lang="ts"></script>
 
 <style>
 .tweet {
