@@ -4,3 +4,16 @@
   --text-primary: rgb(35 35 35);
   --text-secondary: rgb(31, 155, 240);
 }
+
+body {
+  @apply min-h-screen w-full bg-light-300  flex flex-col items-center;
+}
+.btn {
+  @apply px-4 py-2 rounded-xl;
+}
+.btn-primary {
+  @apply bg-blue-500 text-white;
+}
+.btn-pale {
+  @apply bg-white text-blue-500;
+}

@@ -1,10 +1,15 @@
 <template>
-  <div class="p-8 min-h-screen min-w-screen bg-light-300 flex flex-col space-y-4">
-    <Tweet url="https://twitter.com/zernonia/status/1512621505527484419" layout="supabase"></Tweet>
-    <Tweet url="https://twitter.com/supabase/status/1524055596395528194"></Tweet>
-    <Tweet url="https://twitter.com/CloudflareDev/status/1524069279787847680"></Tweet>
-    <Tweet url="https://twitter.com/supabase/status/1524055594587795456"></Tweet>
-    <Tweet url="https://twitter.com/OSSInsight/status/1524071559865937920"></Tweet>
+  <div class="p-8 w-full max-w-screen-xl">
+    <div class="flex items-center justify-between mb-6">
+      <NuxtLink to="/">Home</NuxtLink>
+
+      <div class="flex items-center space-x-2">
+        <NuxtLink class="btn btn-pale" target="_blank" to="https://github.com/zernonia/static-tweet">GitHub</NuxtLink>
+        <NuxtLink class="btn btn-primary" to="/create">Create</NuxtLink>
+      </div>
+    </div>
+
+    <NuxtPage></NuxtPage>
   </div>
 </template>
 
