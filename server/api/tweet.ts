@@ -1,11 +1,12 @@
-import { TweetOembed } from "~~/interface"
+import { TweetOembed, TweetOptions } from "~~/interface"
 import { constructHtml } from "../_lib/parser"
 
 export default defineEventHandler(async (event) => {
-  const { url } = useQuery(event)
+  const { url, style } = useQuery(event)
   const oembed = await $fetch<TweetOembed>(`https://publish.twitter.com/oembed?url=${url}`)
 
-  const html = constructHtml(oembed)
+  const options: TweetOptions = { style: style?.[0] }
+  const html = constructHtml(oembed, options)
 
   return {
     html,

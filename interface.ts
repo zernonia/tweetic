@@ -11,3 +11,7 @@ export interface TweetOembed {
   version: string
   width: number | null
 }
+
+export interface TweetOptions {
+  style?: string
+}

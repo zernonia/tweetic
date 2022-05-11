@@ -1,7 +1,5 @@
 <template>
-  <div class="p-8">
-    <!-- <NuxtWelcome /> -->
-
+  <div class="p-8 min-h-screen min-w-screen bg-light-300">
     <div v-for="tweet in tweetsHtml">
       <div class="mb-6" v-if="tweet.length" v-html="tweet"></div>
     </div>
@@ -22,7 +20,6 @@ onMounted(async () => {
         url: tweet,
       },
     })
-    console.log({ data })
     tweetsHtml.value.push(data.html)
   })
 })
@@ -32,8 +29,9 @@ onMounted(async () => {
 .tweet {
   width: 550px;
   padding: 2rem;
-  border: 1px solid rgb(234, 234, 234);
+  border: 1px solid var(--border);
   border-radius: 1rem;
+  background: white;
 }
 .tweet-header {
   display: flex;
@@ -53,10 +51,11 @@ onMounted(async () => {
   margin-left: 1rem;
 }
 .tweet-author-name {
+  line-height: 1rem;
   font-weight: 500;
 }
 .tweet-author-handler {
-  line-height: 1.4rem;
+  line-height: 1.8rem;
   color: var(--primary);
 }
 .tweet-logo {
@@ -67,5 +66,20 @@ onMounted(async () => {
 }
 .tweet-content a {
   color: var(--primary);
+}
+
+[data-style="supabase"] .tweet-author {
+  position: relative;
+}
+[data-style="supabase"] .tweet-logo {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: -4px;
+  left: -8px;
+  background: var(--primary);
+  color: white;
+  border-radius: 9999px;
+  padding: 0.2rem;
 }
 </style>
