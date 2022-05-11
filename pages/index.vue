@@ -1,4 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const tweets = [
+  { url: "https://twitter.com/zernonia/status/1512621505527484419", layout: "supabase" },
+  { url: "https://twitter.com/supabase/status/1524055596395528194", layout: "" },
+  { url: "https://twitter.com/supabase/status/1524055594587795456", layout: "" },
+  { url: "https://twitter.com/OSSInsight/status/1524071559865937920", layout: "supabase" },
+]
+</script>
 
 <template>
   <div class="mt-32 flex flex-col items-center">
@@ -14,11 +21,9 @@
     <NuxtLink class="btn btn-primary text-xl mt-8" to="/create">Create now</NuxtLink>
 
     <div class="mt-32 flex flex-wrap space-x-4 space-y-4">
-      <Tweet url="https://twitter.com/zernonia/status/1512621505527484419" layout="supabase"></Tweet>
-      <Tweet url="https://twitter.com/supabase/status/1524055596395528194"></Tweet>
-      <Tweet url="https://twitter.com/CloudflareDev/status/1524069279787847680"></Tweet>
-      <Tweet url="https://twitter.com/supabase/status/1524055594587795456"></Tweet>
-      <Tweet url="https://twitter.com/OSSInsight/status/1524071559865937920"></Tweet>
+      <template v-for="tweet in tweets">
+        <Tweet v-if="tweet.url" :url="tweet.url" :layout="tweet.layout"></Tweet>
+      </template>
     </div>
   </div>
 </template>

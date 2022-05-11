@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^8.4.2",
+    "@yeger/vue-masonry-wall": "^3.0.30",
     "node-html-parser": "^5.3.3"
   }
 }

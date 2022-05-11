@@ -821,6 +821,11 @@
     micromatch "^4.0.5"
     windicss "^3.5.1"
 
+"@yeger/vue-masonry-wall@^3.0.30":
+  version "3.0.30"
+  resolved "https://registry.yarnpkg.com/@yeger/vue-masonry-wall/-/vue-masonry-wall-3.0.30.tgz#a8f82fc49306b3e99266280babb7fb8876bddbf4"
+  integrity sha512-73bBpL2UDf2LBlh7gjIsqE5mFxxaBf/mU3zH1Klh0pTsA9/kbBQEK/3rLabiNoniHl6ePjX8QsKvyM3DJhnR6w==
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
