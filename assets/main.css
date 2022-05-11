@@ -6,7 +6,10 @@
 }
 
 body {
-  @apply min-h-screen w-full bg-light-300  flex flex-col items-center;
+  @apply min-h-screen bg-light-300;
+}
+#__nuxt {
+  @apply w-full flex flex-col items-center;
 }
 .btn {
   @apply px-4 py-2 rounded-xl;
