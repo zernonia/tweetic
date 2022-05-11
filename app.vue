@@ -1,6 +1,6 @@
 <template>
   <div class="p-8 min-h-screen min-w-screen bg-light-300 flex flex-col space-y-4">
-    <Tweet url="https://twitter.com/zernonia/status/1512621505527484419"></Tweet>
+    <Tweet url="https://twitter.com/zernonia/status/1512621505527484419" layout="supabase"></Tweet>
     <Tweet url="https://twitter.com/supabase/status/1524055596395528194"></Tweet>
     <Tweet url="https://twitter.com/CloudflareDev/status/1524069279787847680"></Tweet>
     <Tweet url="https://twitter.com/supabase/status/1524055594587795456"></Tweet>
@@ -17,7 +17,7 @@
   color: var(--text-primary);
   border: 1px solid var(--border);
   border-radius: 1rem;
-  background: white;
+  background: var(--bg-primary);
 }
 .tweet-header {
   display: flex;
@@ -42,16 +42,16 @@
 }
 .tweet-author-handler {
   line-height: 1.8rem;
-  color: var(--primary);
+  color: var(--text-secondary);
 }
 .tweet-logo {
-  color: var(--primary);
+  color: var(--text-secondary);
 }
 .tweet-content {
   margin-top: 1rem;
 }
 .tweet-content a {
-  color: var(--primary);
+  color: var(--text-secondary);
 }
 
 [data-style="supabase"] {
@@ -66,8 +66,8 @@
   position: absolute;
   top: -4px;
   left: -8px;
-  background: var(--primary);
-  color: white;
+  background: var(--text-secondary);
+  color: var(--bg-primary);
   border-radius: 9999px;
   padding: 0.2rem;
 }

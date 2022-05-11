@@ -13,5 +13,5 @@ export interface TweetOembed {
 }
 
 export interface TweetOptions {
-  style?: string
+  layout?: string
 }
