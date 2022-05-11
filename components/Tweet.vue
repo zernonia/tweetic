@@ -2,18 +2,22 @@
 const props = defineProps({
   url: String,
   layout: { type: String, default: "" },
+  showLink: { type: Boolean, default: true },
 })
 
-const { data } = await useAsyncData(props.url, () =>
+const { data, pending } = await useAsyncData(props.url + props.layout, () =>
   $fetch("/api/tweet", {
     params: {
       url: props.url,
       layout: props.layout,
+      showLink: props.showLink,
     },
   })
 )
+
+defineExpose({ data })
 </script>
 
 <template>
-  <div v-if="data?.html?.length" v-html="data.html"></div>
+  <div v-if="!pending" v-html="data.html"></div>
 </template>

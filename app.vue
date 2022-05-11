@@ -17,7 +17,7 @@
 
 <style>
 .tweet {
-  width: auto;
+  width: 500px;
   padding: 2rem;
   color: var(--text-primary);
   border: 1px solid var(--border);
@@ -60,7 +60,7 @@
 }
 
 [data-style="supabase"] {
-  width: auto;
+  width: 400px;
 }
 [data-style="supabase"] .tweet-author {
   position: relative;
