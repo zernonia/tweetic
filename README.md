@@ -13,7 +13,7 @@
     Free • Open Source • API ready
     <br />
     <br />
-    <a href="https://tweetic.dev/">View Demo</a>
+    <a href="https://tweetic.io/">View Demo</a>
     ·
     <a href="https://github.com/zernonia/tweetic/issues">Report Bug</a>
     ·
