@@ -26,12 +26,12 @@ const downloadAll = () => {
 
 <template>
   <div class="w-full">
-    <h2 class="text-4xl font-bold text-center">Create static tweets</h2>
+    <h2 class="text-3xl md:text-4xl font-bold text-center">Create static tweets</h2>
     <ClientOnly>
-      <div class="flex mt-8 justify-center">
+      <div class="flex flex-col md:flex-row mt-8 justify-center items-center">
         <div class="flex flex-col space-y-2">
           <h4 class="text-xl mb-2 font-medium">Tweets</h4>
-          <div class="w-128 flex items-center" v-for="(tweet, index) in tweetsInput">
+          <div class="md:w-128 flex items-center" v-for="(tweet, index) in tweetsInput">
             <input
               placeholder="https://twitter.com/<user_name>/status/<tweet_id>"
               class="w-full"
@@ -45,10 +45,10 @@ const downloadAll = () => {
               ✗
             </button>
           </div>
-          <button @click="tweetsInput.push('')" class="btn btn-pale w-120">+</button>
+          <button @click="tweetsInput.push('')" class="btn btn-pale md:w-120">+</button>
         </div>
 
-        <div class="ml-6 flex flex-col justify-between">
+        <div class="mt-12 md:mt-0 md:ml-6 flex flex-col justify-between">
           <div class="flex flex-col">
             <h4 class="text-xl mb-2 font-medium">Option</h4>
             <label for="layout">Layout</label>
@@ -67,7 +67,7 @@ const downloadAll = () => {
 
       <hr class="my-10" />
 
-      <h2 class="text-center text-4xl font-bold">Preview</h2>
+      <h2 class="text-center text-3xl md:text-4xl font-bold">Preview</h2>
 
       <div ref="contentRef" class="mt-8 flex flex-wrap justify-center" :key="tweetsOptions.layout">
         <template v-for="(tweet, index) in tweetsInput" :key="tweet">

@@ -99,7 +99,7 @@ import Logo from "~~/assets/logo.svg"
   padding: 0.2rem;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 500px) {
   .tweet {
     width: 100%;
     max-width: 500px;
