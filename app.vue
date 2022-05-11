@@ -6,10 +6,10 @@ import Logo from "~~/assets/logo.svg"
 <template>
   <div class="p-4 md:p-8 w-full max-w-screen-xl">
     <div class="flex items-center justify-between mb-6">
-      <NuxtLink to="/"><img :src="Logo" alt="static-tweet logo" class="h-12 md:h-16" /></NuxtLink>
+      <NuxtLink to="/"><img :src="Logo" alt="tweetic logo" class="h-12 md:h-16" /></NuxtLink>
 
       <div class="flex items-center space-x-2">
-        <NuxtLink class="btn btn-pale" target="_blank" to="https://github.com/zernonia/static-tweet">GitHub</NuxtLink>
+        <NuxtLink class="btn btn-pale" target="_blank" to="https://github.com/zernonia/tweetic">GitHub</NuxtLink>
         <NuxtLink class="btn btn-primary" to="/create">Create</NuxtLink>
       </div>
     </div>
@@ -23,7 +23,7 @@ import Logo from "~~/assets/logo.svg"
 
       <span class="hidden md:block">|</span>
 
-      <a target="_blank" href="https://github.com/zernonia/static-tweet">⭐️ GitHub</a>
+      <a target="_blank" href="https://github.com/zernonia/tweetic">⭐️ GitHub</a>
 
       <span class="hidden md:block">|</span>
 
