@@ -9,5 +9,7 @@
   "devDependencies": {
     "nuxt": "3.0.0-rc.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "node-html-parser": "^5.3.3"
+  }
 }
