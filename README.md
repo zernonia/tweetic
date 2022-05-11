@@ -1,42 +1,86 @@
-# Nuxt 3 Minimal Starter
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/zernonia/tweetic">
+    <img src="./assets/logo.png" alt="Logo" width="80">
+  </a>
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+  <h3 align="center">Tweetic</h3>
 
-## Setup
+  <p align="center">
+    Convert Tweets to Static HTML
+    <br />
+    Free • Open Source • API ready
+    <br />
+    <br />
+    <a href="https://tweetic.dev/">View Demo</a>
+    ·
+    <a href="https://github.com/zernonia/tweetic/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/zernonia/tweetic/issues">Request Feature</a>
+  </p>
+</p>
 
-Make sure to install the dependencies:
+![Supabase Schema](assets/og.png)
 
-```bash
-# yarn
-yarn install
+## 🚀 Features
 
-# npm
-npm install
+- 🤩 Free
+- 📖 Open-Source
+- 🚀 API ready
+- 📋 Copy/Download Static HTML
 
-# pnpm
-pnpm install --shamefully-hoist
-```
+### 🔨 Built With
 
-## Development Server
+- [Nuxt 3](https://v3.nuxtjs.org/)
+- [WindiCSS](https://windicss.org/)
 
-Start the development server on http://localhost:3000
+## 🌎 Local Development
 
-```bash
-npm run dev
-```
+### Prerequisites
 
-## Production
+Yarn
 
-Build the application for production:
+- ```sh
+  npm install --global yarn
+  ```
 
-```bash
-npm run build
-```
+### Development
 
-Locally preview production build:
+1. Clone the repo
+   ```sh
+   git clone https://github.com/zernonia/tweetic.git
+   ```
+2. Install NPM packages
+   ```sh
+   cd tweetic
+   yarn install
+   ```
+3. Run local development instance
+   ```sh
+   yarn dev
+   ```
 
-```bash
-npm run preview
-```
+## ➕ Contributing
 
-Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment) for more information.
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📜 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+# 📧 Contact
+
+Zernonia - [@zernonia](https://twitter.com/zernonia) - zernonia@gmail.com
+
+Also, if you like my work, please buy me a coffee ☕😳
+
+<a href="https://www.buymeacoffee.com/zernonia" target="_blank">
+    <img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Logo" >
+  </a>
