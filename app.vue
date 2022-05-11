@@ -18,6 +18,7 @@ onMounted(async () => {
     const data = await $fetch("/api/tweet", {
       params: {
         url: tweet,
+        style: "supabase",
       },
     })
     tweetsHtml.value.push(data.html)

@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
   const { url, style } = useQuery(event)
   const oembed = await $fetch<TweetOembed>(`https://publish.twitter.com/oembed?url=${url}`)
 
-  const options: TweetOptions = { style: style?.[0] }
+  const options: TweetOptions = { style: style?.toString() }
   const html = constructHtml(oembed, options)
 
   return {
