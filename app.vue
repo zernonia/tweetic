@@ -1,35 +1,20 @@
 <template>
-  <div class="p-8 min-h-screen min-w-screen bg-light-300">
-    <div v-for="tweet in tweetsHtml">
-      <div class="mb-6" v-if="tweet.length" v-html="tweet"></div>
-    </div>
+  <div class="p-8 min-h-screen min-w-screen bg-light-300 flex flex-col space-y-4">
+    <Tweet url="https://twitter.com/zernonia/status/1512621505527484419"></Tweet>
+    <Tweet url="https://twitter.com/supabase/status/1524055596395528194"></Tweet>
+    <Tweet url="https://twitter.com/CloudflareDev/status/1524069279787847680"></Tweet>
+    <Tweet url="https://twitter.com/supabase/status/1524055594587795456"></Tweet>
+    <Tweet url="https://twitter.com/OSSInsight/status/1524071559865937920"></Tweet>
   </div>
 </template>
 
-<script setup lang="ts">
-const tweets = [
-  "https://twitter.com/zernonia/status/1512621505527484419",
-  "https://twitter.com/supabase/status/1524055596395528194",
-  "https://twitter.com/CloudflareDev/status/1524069279787847680",
-]
-const tweetsHtml = ref<string[]>([])
-onMounted(async () => {
-  tweets.forEach(async (tweet) => {
-    const data = await $fetch("/api/tweet", {
-      params: {
-        url: tweet,
-        style: "supabase",
-      },
-    })
-    tweetsHtml.value.push(data.html)
-  })
-})
-</script>
+<script setup lang="ts"></script>
 
 <style>
 .tweet {
   width: 550px;
   padding: 2rem;
+  color: var(--text-primary);
   border: 1px solid var(--border);
   border-radius: 1rem;
   background: white;
@@ -69,6 +54,9 @@ onMounted(async () => {
   color: var(--primary);
 }
 
+[data-style="supabase"] {
+  width: 400px;
+}
 [data-style="supabase"] .tweet-author {
   position: relative;
 }
