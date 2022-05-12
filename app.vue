@@ -26,6 +26,14 @@ useHead({
       content: "Convert Tweets to Static HTML | Free • Open Source",
     },
   ],
+  script: [
+    {
+      src: "https://umami-zernonia.vercel.app/umami.js",
+      async: true,
+      defer: true,
+      dataset: { websiteId: "91452ea0-c879-4497-8bf0-0dd74ee96bb8" },
+    },
+  ],
 })
 </script>
 
