@@ -7,18 +7,26 @@ const tweets = ref([
   "https://twitter.com/ImnNazri/status/1524626328167010304",
 ])
 
+const isMounted = ref("false")
+onMounted(() => {
+  setTimeout(() => {
+    isMounted.value = "true"
+  }, 500)
+})
 useCustomHead("Thank you for your kind word! | Tweetic")
 </script>
 
 <template>
-  <div class="mb-32">
+  <div class="mb-32" :key="isMounted">
     <h2 class="text-4xl md:text-6xl text-center font-semibold my-8 md:my-20">Thank you everyone!!</h2>
 
-    <MasonryWall :items="tweets" :column-width="400" :gap="10">
-      <template #default="{ item, index }">
-        <Tweet class="flex justify-center" :url="item" layout="supabase"></Tweet>
-      </template>
-    </MasonryWall>
+    <ClientOnly>
+      <MasonryWall :items="tweets" :column-width="400" :gap="10">
+        <template #default="{ item, index }">
+          <Tweet class="flex justify-center" :url="item" layout="supabase"></Tweet>
+        </template>
+      </MasonryWall>
+    </ClientOnly>
 
     <p class="text-center mt-8 md:mt-20">...and everyone who likes and retweet!</p>
   </div>
