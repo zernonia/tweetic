@@ -31,7 +31,8 @@ useHead({
       src: "https://umami-zernonia.vercel.app/umami.js",
       async: true,
       defer: true,
-      dataset: { websiteId: "91452ea0-c879-4497-8bf0-0dd74ee96bb8", domains: "tweetic.io,www.tweetic.io" },
+      "data-website-id": "91452ea0-c879-4497-8bf0-0dd74ee96bb8",
+      "data-domains": "tweetic.io,www.tweetic.io",
     },
   ],
 })
