@@ -21,7 +21,7 @@
   </p>
 </p>
 
-![Supabase Schema](assets/og.png)
+![Supabase Schema](public/og.png)
 
 ## 🚀 Features
 
