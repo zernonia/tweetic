@@ -9,16 +9,24 @@ const tweetsOptions = useStorage("tweets-options", { layout: "" })
 const contentRef = ref()
 const tweetsRef = ref([])
 
+const getTweetsHTML = () => {
+  let tweets = document.querySelectorAll(".tweet-container")
+  let innerHTML = ""
+  tweets.forEach((i) => {
+    innerHTML += i.innerHTML
+  })
+  return innerHTML
+}
+
 const { text, copy, copied, isSupported } = useClipboard()
 const copyAll = () => {
-  copy(contentRef.value.innerHTML)
+  copy(getTweetsHTML())
 }
 
 const downloadAll = () => {
   const a = document.createElement("a")
   a.download = "download.html"
-  a.href =
-    "data:text/html;charset=UTF-8," + encodeURIComponent(contentRef.value.innerHTML) + obtainCss(tweetsOptions.value)
+  a.href = "data:text/html;charset=UTF-8," + encodeURIComponent(getTweetsHTML()) + obtainCss(tweetsOptions.value)
   a.click()
   a.remove()
 }
@@ -73,7 +81,13 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
 
       <div ref="contentRef" class="mt-8 flex flex-wrap justify-center" :key="tweetsOptions.layout">
         <template v-for="(tweet, index) in tweetsInput" :key="tweet">
-          <Tweet ref="tweetsRef" class="mr-4 mb-4" v-if="tweet" :url="tweet" :layout="tweetsOptions.layout"></Tweet>
+          <Tweet
+            ref="tweetsRef"
+            class="tweet-container mr-4 mb-4"
+            v-if="tweet"
+            :url="tweet"
+            :layout="tweetsOptions.layout"
+          ></Tweet>
         </template>
       </div>
     </ClientOnly>
