@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/zernonia/tweetic">
-    <img src="./assets/logo.png" alt="Logo" width="80">
+    <img src="assets/logo.svg" alt="Logo" width="80">
   </a>
 
   <h3 align="center">Tweetic</h3>
