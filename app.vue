@@ -1,6 +1,32 @@
 <script setup lang="ts">
 //@ts-ignore
 import Logo from "~~/assets/logo.svg"
+
+useHead({
+  title: "Tweetic | Convert Tweets to Static HTML ",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+  charset: "utf-8",
+  link: [{ rel: "icon", href: "/logo.png" }],
+  meta: [
+    { name: "description", content: "Convert Tweets to Static HTML | Free • Open Source" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@zernonia" },
+    { name: "twitter:title", content: "Tweetic | Convert Tweets to Static HTML" },
+    {
+      name: "twitter:description",
+      content: "Convert Tweets to Static HTML | Free • Open Source",
+    },
+    { name: "twitter:image", content: "https://tweetic.io/og.png" },
+    { property: "og:type", content: "website" },
+    { property: "og:title", content: "Tweetic | Convert Tweets to Static HTML" },
+    { property: "og:url", content: "https://tweetic.io" },
+    { property: "og:image", content: "https://tweetic.io/og.png" },
+    {
+      property: "og:description",
+      content: "Convert Tweets to Static HTML | Free • Open Source",
+    },
+  ],
+})
 </script>
 
 <template>

@@ -22,6 +22,8 @@ const downloadAll = () => {
   a.click()
   a.remove()
 }
+
+useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
 </script>
 
 <template>
