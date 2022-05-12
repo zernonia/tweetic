@@ -21,7 +21,20 @@
   </p>
 </p>
 
-![Supabase Schema](public/og.png)
+![Tweetic.io](public/og.png)
+
+## Inspiration
+
+Heavily inspired by Tweet embedded on [Supabase](https://supabase.com) landing page! Look around the internet, couldn't find any static tweet generator.
+
+Why use this instead of **Twitter oEmbed**?
+
+- You can customize the tweet design
+- You don't have to import Twitter's `widget.js`
+- You want to prevent UI shifting
+- You just wanted the simple text in tweets
+
+Thus created this tool!! 🎉 Enjoy!
 
 ## 🚀 Features
 
