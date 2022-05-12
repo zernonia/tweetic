@@ -11,7 +11,19 @@
       style it however you want!
     </h2>
 
-    <NuxtLink class="btn btn-primary md:text-xl mt-8" to="/create">Create now</NuxtLink>
+    <div class="md:text-xl mt-8 flex items-center flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2">
+      <NuxtLink class="btn btn-primary" to="/create">Create now</NuxtLink>
+      <a
+        href="https://www.producthunt.com/posts/tweetic-io?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-tweetic&#0045;io"
+        target="_blank"
+        ><img
+          src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=346188&theme=light"
+          alt="Tweetic&#0046;io - Convert&#0032;Tweets&#0032;to&#0032;Static&#0032;HTML | Product Hunt"
+          style="width: 240px; height: 48px"
+          width="250"
+          height="54"
+      /></a>
+    </div>
 
     <div class="flex flex-col items-center space-y-4 md:relative mt-8 md:mt-32 w-full md:h-224">
       <div class="md:absolute flex items-center -top-20 left-10 text-gray-400">
