@@ -49,10 +49,10 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
   <div class="w-full" :key="isMounted">
     <h2 class="text-3xl md:text-4xl font-bold text-center">Create static tweets</h2>
     <ClientOnly>
-      <div class="flex flex-col md:flex-row mt-8 justify-center items-center">
+      <div class="flex flex-col md:flex-row mt-8 justify-center items-center md:items-stretch">
         <div class="flex flex-col space-y-2">
           <h4 class="text-xl mb-2 font-medium">Tweets</h4>
-          <div class="md:w-128 flex items-center" v-for="(tweet, index) in tweetsInput">
+          <div class="md:w-128 flex items-center group" v-for="(tweet, index) in tweetsInput">
             <input
               placeholder="https://twitter.com/<user_name>/status/<tweet_id>"
               class="w-full"
@@ -60,7 +60,7 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
               v-model="tweetsInput[index]"
             />
             <button
-              class="px-3 h-full text-xs rounded-lg bg-light-300 transition hover:bg-light-500"
+              class="p-3 h-full text-xs rounded-lg bg-light-300 transition text-light-300 group-hover:text-dark-800 hover:bg-light-500"
               @click="tweetsInput.splice(index, 1)"
             >
               ✗
