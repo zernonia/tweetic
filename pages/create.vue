@@ -18,12 +18,16 @@ const getTweetsHTML = () => {
   return innerHTML
 }
 
-const { text, copy, copied, isSupported } = useClipboard()
+const { copy } = useClipboard()
 const copyAll = () => {
-  copy(getTweetsHTML())
+  let text = getTweetsHTML()
+  if (!text.length) return
+  copy(text)
 }
 
 const downloadAll = () => {
+  let innerHTML = getTweetsHTML()
+  if (!innerHTML.length) return
   const a = document.createElement("a")
   a.download = "download.html"
   a.href = "data:text/html;charset=UTF-8," + encodeURIComponent(getTweetsHTML()) + obtainCss(tweetsOptions.value)
