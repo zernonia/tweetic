@@ -21,7 +21,7 @@ const getTweetsHTML = () => {
 
 const { copy } = useClipboard()
 const copyAll = () => {
-  let text = getTweetsHTML()
+  let text = getTweetsHTML() + obtainCss(tweetsOptions.value)
   if (!text.length) return
   copy(text)
 }
