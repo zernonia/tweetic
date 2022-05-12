@@ -5,6 +5,7 @@ import { obtainCss } from "~~/function"
 
 const tweetsInput = useStorage("tweets", ["", "", "", "", ""])
 const tweetsOptions = useStorage("tweets-options", { layout: "" })
+const computedInput = computed(() => tweetsInput.value.filter((i) => i != ""))
 
 const contentRef = ref()
 const tweetsRef = ref([])
@@ -35,11 +36,17 @@ const downloadAll = () => {
   a.remove()
 }
 
+const isMounted = ref("false")
+onMounted(() => {
+  setTimeout(() => {
+    isMounted.value = "true"
+  }, 500)
+})
 useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
 </script>
 
 <template>
-  <div class="w-full">
+  <div class="w-full" :key="isMounted">
     <h2 class="text-3xl md:text-4xl font-bold text-center">Create static tweets</h2>
     <ClientOnly>
       <div class="flex flex-col md:flex-row mt-8 justify-center items-center">
@@ -99,7 +106,7 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
         ref="contentRef"
         class="mt-8 flex flex-wrap justify-center"
         :key="tweetsOptions.layout"
-        :items="tweetsInput"
+        :items="computedInput"
         :column-width="tweetsOptions.layout === 'supabase' ? 400 : 500"
         :gap="10"
       >
