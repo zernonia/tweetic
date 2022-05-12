@@ -8,13 +8,16 @@ useHead({
   charset: "utf-8",
   link: [{ rel: "icon", href: "/logo.png" }],
   meta: [
-    { name: "description", content: "Convert Tweets to Static HTML | Free • Open Source" },
+    {
+      name: "description",
+      content: "Create your testimonial wall statically and style it however you want! Free • Open Source",
+    },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:site", content: "@zernonia" },
     { name: "twitter:title", content: "Tweetic | Convert Tweets to Static HTML" },
     {
       name: "twitter:description",
-      content: "Convert Tweets to Static HTML | Free • Open Source",
+      content: "Create your testimonial wall statically and style it however you want! Free • Open Source",
     },
     { name: "twitter:image", content: "https://tweetic.io/og.png" },
     { property: "og:type", content: "website" },
@@ -23,7 +26,7 @@ useHead({
     { property: "og:image", content: "https://tweetic.io/og.png" },
     {
       property: "og:description",
-      content: "Convert Tweets to Static HTML | Free • Open Source",
+      content: "Create your testimonial wall statically and style it however you want! Free • Open Source",
     },
   ],
 })
