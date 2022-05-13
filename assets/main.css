@@ -20,6 +20,12 @@ body {
 .btn-pale {
   @apply bg-white hover:bg-light-50  text-blue-500;
 }
+.tag {
+  @apply w-min px-4 py-2 rounded-xl transition text-white text-xs font-bold;
+}
+.description {
+  @apply text-sm italic text-gray-400;
+}
 label {
   @apply mb-1;
 }
