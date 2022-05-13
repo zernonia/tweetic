@@ -15,16 +15,14 @@ const highlightResponse = computed(() =>
 
 <template>
   <div class="mt-20">
-    <div class="flex items-center justify-between p-2 bg-light-600 rounded-xl">
-      <div class="flex items-center">
-        <div class="tag bg-blue-500 mr-4">GET</div>
-        <div>https://tweetic.io/api/tweets</div>
-      </div>
-      <span class="justify-self-end text-sm text-gray-400">Obtain static tweets</span>
+    <div class="relative flex items-center p-2 bg-light-600 rounded-xl">
+      <div class="tag bg-blue-500 mr-4">GET</div>
+      <div>https://tweetic.io/api/tweets</div>
+      <span class="absolute text-sm text-gray-400 right-4 top-full md:top-auto">Obtain static tweets</span>
     </div>
 
-    <div class="flex mt-12 space-x-6">
-      <div class="w-1/2 flex flex-col">
+    <div class="flex flex-col md:flex-row mt-12 md:space-x-6">
+      <div class="md:w-1/2 flex flex-col">
         <div class="flex flex-col">
           <h4 class="text-xl font-semibold mb-4 text-gray-400">Query Params</h4>
           <label for="url">url</label>
@@ -47,7 +45,7 @@ const highlightResponse = computed(() =>
         </div>
       </div>
 
-      <div class="min-h-80 w-1/2 p-8 rounded-2xl bg-light-600">
+      <div class="min-h-80 md:w-1/2 p-4 md:p-8 mt-4 md:mt-0 rounded-2xl bg-light-600">
         <div class="flex justify-center">
           <Tweet ref="tweetRef" v-bind="params"></Tweet>
         </div>
