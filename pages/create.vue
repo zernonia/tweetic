@@ -90,18 +90,6 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
 
       <h2 class="text-center text-3xl md:text-4xl font-bold">Preview</h2>
 
-      <!-- <div ref="contentRef" class="mt-8 flex flex-wrap justify-center" :key="tweetsOptions.layout">
-        <template v-for="(tweet, index) in tweetsInput" :key="tweet">
-          <Tweet
-            ref="tweetsRef"
-            class="tweet-container mr-4 mb-4"
-            v-if="tweet"
-            :url="tweet"
-            :layout="tweetsOptions.layout"
-          ></Tweet>
-        </template>
-      </div> -->
-
       <MasonryWall
         ref="contentRef"
         class="mt-8 flex flex-wrap justify-center"
