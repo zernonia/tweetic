@@ -5,6 +5,7 @@ import { obtainCss } from "~~/function"
 
 const tweetsInput = useStorage("tweets", ["", "", "", "", ""])
 const tweetsOptions = useStorage("tweets-options", { layout: "" })
+const exportOptions = useStorage("export-options", { css: "" })
 const computedInput = computed(() => tweetsInput.value.filter((i) => i != ""))
 
 const contentRef = ref()
@@ -21,7 +22,7 @@ const getTweetsHTML = () => {
 
 const { copy } = useClipboard()
 const copyAll = () => {
-  let text = getTweetsHTML() + obtainCss(tweetsOptions.value)
+  let text = getTweetsHTML() + obtainCss(tweetsOptions.value, exportOptions.value)
   if (!text.length) return
   copy(text)
 }
@@ -31,7 +32,10 @@ const downloadAll = () => {
   if (!innerHTML.length) return
   const a = document.createElement("a")
   a.download = "download.html"
-  a.href = "data:text/html;charset=UTF-8," + encodeURIComponent(getTweetsHTML()) + obtainCss(tweetsOptions.value)
+  a.href =
+    "data:text/html;charset=UTF-8," +
+    encodeURIComponent(getTweetsHTML()) +
+    obtainCss(tweetsOptions.value, exportOptions.value)
   a.click()
   a.remove()
 }
@@ -79,9 +83,17 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
             </select>
           </div>
 
-          <div class="mt-20 flex space-x-2">
-            <button @click="copyAll" class="btn btn-primary">Copy</button>
-            <button @click="downloadAll" class="btn btn-primary">Download</button>
+          <div class="mt-20 flex flex-col">
+            <h4 class="text-xl mb-2 font-medium">Export</h4>
+            <label for="css">Stylesheet</label>
+            <select class="w-48" v-model="exportOptions.css" name="css" id="css">
+              <option value="">Default CSS</option>
+              <option value="tailwind">TailwindCSS</option>
+            </select>
+            <div class="mt-2 flex space-x-2">
+              <button @click="copyAll" class="btn btn-primary">Copy</button>
+              <button @click="downloadAll" class="btn btn-primary">Download</button>
+            </div>
           </div>
         </div>
       </div>
@@ -105,9 +117,3 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
     </ClientOnly>
   </div>
 </template>
-
-<style lang="postcss">
-.masonry-item {
-  @apply flex justify-center;
-}
-</style>

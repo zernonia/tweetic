@@ -66,7 +66,7 @@ useHead({
   </div>
 </template>
 
-<style>
+<style lang="postcss">
 .tweet {
   width: 500px;
   padding: 2rem;
@@ -137,5 +137,9 @@ useHead({
     width: 100%;
     max-width: 400px;
   }
+}
+
+.masonry-item {
+  @apply flex justify-center;
 }
 </style>

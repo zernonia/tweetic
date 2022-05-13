@@ -1,7 +1,75 @@
-import { TweetOptions } from "./interface"
+import { TweetOptions, ExportOptions } from "./interface"
 
-export const obtainCss = (options: TweetOptions) => {
-  let style = `<style> :root {
+export const obtainCss = (tweetOptions: TweetOptions, exportOptions: ExportOptions) => {
+  if (exportOptions.css == "tailwind") {
+    let style = "<style>"
+    if (tweetOptions.layout == "supabase") {
+      style += `.tweet {
+        @apply w-[400px] p-8 text-black border border-gray-200 bg-white rounded-2xl
+      }
+      .tweet-header { 
+        @apply flex items-center justify-between
+      }
+      .tweet-author { 
+        @apply relative flex items-center
+      }
+      .tweet-author-image {
+        @apply w-12 h-12 rounded-full
+      }
+      .tweet-author-info {
+        @apply ml-4
+      }
+      .tweet-author-name {
+        @apply font-medium
+      }
+      .tweet-author-handler {
+        @apply text-blue-400 
+      }
+      .tweet-logo {  
+        @apply bg-blue-400 text-white w-5 h-5 absolute -top-1 -left-2 rounded-full p-[0.2rem]
+      }
+      .tweet-content {
+        @apply mt-4
+      }
+      .tweet-content a {
+        @apply text-blue-400
+      }`
+    } else {
+      style += `.tweet { 
+        @apply w-[500px] p-8 text-black border border-gray-200 bg-white rounded-2xl
+      }
+      .tweet-header { 
+        @apply flex items-center justify-between
+      }
+      .tweet-author { 
+        @apply relative flex items-center
+      }
+      .tweet-author-image {
+        @apply w-12 h-12 rounded-full
+      }
+      .tweet-author-info {
+        @apply ml-4
+      }
+      .tweet-author-name {
+        @apply font-medium
+      }
+      .tweet-author-handler {
+        @apply text-blue-400 
+      }
+      .tweet-logo { 
+        @apply text-blue-400
+      }
+      .tweet-content {
+        @apply mt-4
+      }
+      .tweet-content a {
+        @apply text-blue-400
+      }`
+    }
+
+    return style + "</style>"
+  } else {
+    let style = `<style> :root {
     --border: rgb(234, 234, 234);
     --bg-primary: white;
     --text-primary: rgb(35 35 35);
@@ -12,8 +80,8 @@ export const obtainCss = (options: TweetOptions) => {
   a{ color: inherit; text-decoration: inherit;}
   `
 
-  if (options.layout == "supabase") {
-    style += `
+    if (tweetOptions.layout == "supabase") {
+      style += `
     .tweet {
       width: 400px;
       padding: 2rem;
@@ -66,8 +134,8 @@ export const obtainCss = (options: TweetOptions) => {
     .tweet-content a {
       color: var(--text-secondary);
     }`
-  } else {
-    style += `
+    } else {
+      style += `
     .tweet {
       width: 500px;
       padding: 2rem;
@@ -111,7 +179,8 @@ export const obtainCss = (options: TweetOptions) => {
       color: var(--text-secondary);
     }
     `
-  }
+    }
 
-  return style + "</style>"
+    return style + "</style>"
+  }
 }
