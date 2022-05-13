@@ -117,9 +117,3 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
     </ClientOnly>
   </div>
 </template>
-
-<style lang="postcss">
-.masonry-item {
-  @apply flex justify-center;
-}
-</style>
