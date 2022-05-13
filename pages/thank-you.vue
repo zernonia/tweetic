@@ -5,6 +5,7 @@ const tweets = ref([
   "https://twitter.com/kecrily/status/1524665293540589569",
   "https://twitter.com/pramit_armpit/status/1524637652565524481",
   "https://twitter.com/ImnNazri/status/1524626328167010304",
+  "https://twitter.com/frouo/status/1524840028123320326",
 ])
 
 const isMounted = ref("false")
