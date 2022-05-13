@@ -1,0 +1,58 @@
+<script setup lang="ts">
+import formatHighlight from "json-format-highlight"
+
+const apiEndpoint = computed(() => "https://tweetic.io/api/tweets?" + new URLSearchParams(params.value))
+const params = ref({
+  url: "https://twitter.com/zernonia/status/1524620865987506176",
+  layout: "supabase",
+})
+
+const tweetRef = ref()
+const highlightResponse = computed(() =>
+  tweetRef.value?.data ? formatHighlight(tweetRef.value.data).replaceAll("white-space:pre-wrap;", "") : ""
+)
+</script>
+
+<template>
+  <div class="mt-20">
+    <div class="flex items-center justify-between p-2 bg-light-600 rounded-xl">
+      <div class="flex items-center">
+        <div class="tag bg-blue-500 mr-4">GET</div>
+        <div>https://tweetic.io/api/tweets</div>
+      </div>
+      <span class="justify-self-end text-sm text-gray-400">Obtain static tweets</span>
+    </div>
+
+    <div class="flex mt-12 space-x-6">
+      <div class="w-1/2 flex flex-col">
+        <div class="flex flex-col">
+          <h4 class="text-xl font-semibold mb-4 text-gray-400">Query Params</h4>
+          <label for="url">url</label>
+          <input type="text" name="url" id="url" v-model="params.url" />
+          <label class="mt-2" for="layout">layout <span class="description"> ("" | "supabase")</span></label>
+          <select v-model="params.layout" name="layout" id="layout">
+            <option value="">Default</option>
+            <option value="supabase">Supabase</option>
+          </select>
+        </div>
+
+        <div class="flex flex-col">
+          <h4 class="mt-20 text-xl font-semibold mb-4 text-gray-400">Results</h4>
+          <div class="tag bg-green-500">200</div>
+
+          <div class="mt-4">
+            <p>html - <span class="description">HTML that are ready to render</span></p>
+            <p>oembed - <span class="description">Oembed information from Twitter</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="min-h-80 w-1/2 p-8 rounded-2xl bg-light-600">
+        <div class="flex justify-center">
+          <Tweet ref="tweetRef" v-bind="params"></Tweet>
+        </div>
+        <pre class="overflow-x-scroll text-gray-400 mt-4 text-sm" v-html="highlightResponse"></pre>
+      </div>
+    </div>
+  </div>
+</template>

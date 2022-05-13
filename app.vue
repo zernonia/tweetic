@@ -38,7 +38,7 @@ useHead({
       <NuxtLink to="/"><img :src="Logo" alt="tweetic logo" class="h-12 md:h-16" /></NuxtLink>
 
       <div class="flex items-center space-x-2">
-        <NuxtLink class="btn btn-pale" target="_blank" to="https://github.com/zernonia/tweetic">GitHub</NuxtLink>
+        <NuxtLink class="btn btn-pale w-20 text-center relative" to="/docs">API</NuxtLink>
         <NuxtLink class="btn btn-primary" to="/create">Create</NuxtLink>
       </div>
     </div>
