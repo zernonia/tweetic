@@ -5,14 +5,19 @@ const props = defineProps({
   showLink: { type: Boolean, default: true },
 })
 
-const { data, pending } = await useAsyncData(props.url + props.layout, () =>
-  $fetch("/api/tweet", {
-    params: {
-      url: props.url,
-      layout: props.layout,
-      showLink: props.showLink,
-    },
-  })
+const { data, pending } = await useAsyncData(
+  JSON.stringify(props),
+  () =>
+    $fetch("/api/tweet", {
+      params: {
+        url: props.url,
+        layout: props.layout,
+        showLink: props.showLink,
+      },
+    }),
+  {
+    watch: [props],
+  }
 )
 
 defineExpose({ data })
