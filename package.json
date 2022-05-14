@@ -13,6 +13,7 @@
   "dependencies": {
     "@vueuse/core": "^8.4.2",
     "@yeger/vue-masonry-wall": "^3.0.30",
+    "highlight.js": "^11.5.1",
     "json-format-highlight": "^1.0.4",
     "node-html-parser": "^5.3.3"
   }
