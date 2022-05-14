@@ -1,7 +1,7 @@
 import { TweetOptions, ExportOptions } from "./interface"
 
 export const obtainCss = (tweetOptions: TweetOptions) => {
-  if (tweetOptions.css == "tailwind") return
+  if (tweetOptions.css == "tailwind") return ""
   let style = `<style> :root {
     --border: rgb(234, 234, 234);
     --bg-primary: white;
