@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import formatHighlight from "json-format-highlight"
 
-const apiEndpoint = computed(() => "https://tweetic.io/api/tweets?" + new URLSearchParams(params.value))
 const params = ref({
   url: "https://twitter.com/zernonia/status/1524620865987506176",
   layout: "supabase",
+  css: "tailwind",
 })
 
 const tweetRef = ref()
@@ -31,6 +31,11 @@ const highlightResponse = computed(() =>
           <select v-model="params.layout" name="layout" id="layout">
             <option value="">Default</option>
             <option value="supabase">Supabase</option>
+          </select>
+          <label class="mt-2" for="css">css <span class="description"> ("" | "tailwind")</span></label>
+          <select v-model="params.css" name="css" id="css">
+            <option value="">Default CSS</option>
+            <option value="tailwind">Tailwind</option>
           </select>
         </div>
 
