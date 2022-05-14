@@ -8,17 +8,11 @@ const tweets = ref([
   "https://twitter.com/frouo/status/1524840028123320326",
 ])
 
-const isMounted = ref("false")
-onMounted(() => {
-  setTimeout(() => {
-    isMounted.value = "true"
-  }, 500)
-})
 useCustomHead("Thank you for your kind word! | Tweetic")
 </script>
 
 <template>
-  <div class="mb-32" :key="isMounted">
+  <div class="mb-32">
     <h2 class="text-4xl md:text-6xl text-center font-semibold my-8 md:my-20">Thank you everyone!!</h2>
 
     <ClientOnly>

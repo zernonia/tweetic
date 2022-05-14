@@ -7,6 +7,7 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
+    "@types/lodash-es": "^4.17.6",
     "nuxt": "3.0.0-rc.3",
     "nuxt-windicss": "^2.3.1"
   },
@@ -14,6 +15,7 @@
     "@vueuse/core": "^8.4.2",
     "@yeger/vue-masonry-wall": "^3.0.30",
     "highlight.js": "^11.5.1",
+    "lodash-es": "^4.17.21",
     "node-html-parser": "^5.3.3",
     "vue-toastification": "^2.0.0-rc.5"
   }
