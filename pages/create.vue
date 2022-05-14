@@ -2,7 +2,9 @@
 import { useStorage } from "@vueuse/core"
 import { useClipboard } from "@vueuse/core"
 import { obtainCss } from "~~/function"
+import { useToast } from "vue-toastification"
 
+const toast = useToast()
 const tweetsInput = useStorage("tweets", ["", "", "", "", ""])
 const tweetsOptions = useStorage("tweets-options", { layout: "", css: "" })
 const exportOptions = useStorage("export-options", {})
@@ -22,10 +24,25 @@ const getTweetsHTML = () => {
 }
 
 const { copy, copied } = useClipboard()
-const copyAll = () => {
+const copyTweet = async (index: number) => {
+  let tweets = document.querySelectorAll(".tweet-container")
+  let text = tweets[index]?.innerHTML
+  try {
+    await copy(text)
+    toast.success("Copied Static Tweet")
+  } catch (err) {
+    toast.error("Something wrong...")
+  }
+}
+const copyAll = async () => {
   let text = getTweetsHTML() + obtainCss(tweetsOptions.value)
   if (!text.length) return
-  copy(text)
+  try {
+    await copy(text)
+    toast.success("Copied All Static Tweets")
+  } catch (err) {
+    toast.error("Something wrong...")
+  }
 }
 
 const downloadAll = () => {
@@ -114,13 +131,18 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
         :gap="10"
       >
         <template #default="{ item, index }">
-          <Tweet ref="tweetsRef" class="tweet-container" :url="item" v-bind="tweetsOptions"></Tweet>
+          <div
+            @click="copyTweet(index)"
+            class="ring-0 hover:ring-2 ring-light-700 transition rounded-2xl cursor-pointer"
+          >
+            <Tweet ref="tweetsRef" class="tweet-container" :url="item" v-bind="tweetsOptions"></Tweet>
+          </div>
         </template>
       </MasonryWall>
 
       <Modal :open="isModalOpen" @close="isModalOpen = $event">
         <div class="p-4 md:p-8 !pb-0 flex items-center justify-between">
-          <h2 class="text-4xl font-bold text-gray-300">Export</h2>
+          <h2 class="text-2xl md:text-4xl font-bold text-gray-300">Export</h2>
           <button @click="copyAll" class="btn btn-primary">{{ copied ? "Copied" : "Copy All" }}</button>
         </div>
         <div class="p-4 md:p-8 !pt-4 w-full h-full">
