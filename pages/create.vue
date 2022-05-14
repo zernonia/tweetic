@@ -124,9 +124,6 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
         :options="tweetsOptions"
         :column-width="tweetsOptions.layout === 'supabase' ? 400 : 500"
       >
-        <template v-slot="{ url }">
-          <Tweet class="tweet-container" :url="url" v-bind="tweetsOptions"></Tweet>
-        </template>
       </Masonry>
 
       <Modal :open="isModalOpen" @close="isModalOpen = $event">
