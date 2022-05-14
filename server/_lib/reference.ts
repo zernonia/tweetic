@@ -30,3 +30,16 @@ export const mapClass = (key: string, options: TweetOptions) => {
     return options.layout == "supabase" ? tailwindClassSupabaseReference[key] : tailwindClassDefaultReference[key]
   } else return key
 }
+
+if (import.meta.vitest) {
+  it("mapClass ", () => {
+    expect(mapClass("tweet", { layout: "", css: "" })).toBe("tweet")
+    expect(mapClass("tweet", { layout: "supabase", css: "" })).toBe("tweet")
+    expect(mapClass("tweet", { layout: "", css: "tailwind" })).toBe(
+      "w-[500px] p-8 text-black border border-gray-200 bg-white rounded-2xl"
+    )
+    expect(mapClass("tweet", { layout: "supabase", css: "tailwind" })).toBe(
+      "w-[400px] p-8 text-black border border-gray-200 bg-white rounded-2xl"
+    )
+  })
+}
