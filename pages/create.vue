@@ -4,8 +4,8 @@ import { useClipboard } from "@vueuse/core"
 import { obtainCss } from "~~/function"
 
 const tweetsInput = useStorage("tweets", ["", "", "", "", ""])
-const tweetsOptions = useStorage("tweets-options", { layout: "" })
-const exportOptions = useStorage("export-options", { css: "" })
+const tweetsOptions = useStorage("tweets-options", { layout: "", css: "" })
+const exportOptions = useStorage("export-options", {})
 const computedInput = computed(() => tweetsInput.value.filter((i) => i != ""))
 
 const contentRef = ref()
@@ -22,7 +22,7 @@ const getTweetsHTML = () => {
 
 const { copy } = useClipboard()
 const copyAll = () => {
-  let text = getTweetsHTML() + obtainCss(tweetsOptions.value, exportOptions.value)
+  let text = getTweetsHTML() + obtainCss(tweetsOptions.value)
   if (!text.length) return
   copy(text)
 }
@@ -32,10 +32,7 @@ const downloadAll = () => {
   if (!innerHTML.length) return
   const a = document.createElement("a")
   a.download = "download.html"
-  a.href =
-    "data:text/html;charset=UTF-8," +
-    encodeURIComponent(getTweetsHTML()) +
-    obtainCss(tweetsOptions.value, exportOptions.value)
+  a.href = "data:text/html;charset=UTF-8," + encodeURIComponent(getTweetsHTML()) + obtainCss(tweetsOptions.value)
   a.click()
   a.remove()
 }
@@ -81,15 +78,15 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
               <option value="">Default</option>
               <option value="supabase">Supabase</option>
             </select>
-          </div>
 
-          <div class="mt-20 flex flex-col">
-            <h4 class="text-xl mb-2 font-medium">Export</h4>
-            <label for="css">Stylesheet</label>
-            <select class="w-48" v-model="exportOptions.css" name="css" id="css">
+            <label class="mt-2" for="css">CSS</label>
+            <select class="w-48" v-model="tweetsOptions.css" name="css" id="css">
               <option value="">Default CSS</option>
               <option value="tailwind">TailwindCSS</option>
             </select>
+          </div>
+
+          <div class="mt-20 flex flex-col">
             <div class="mt-2 flex space-x-2">
               <button @click="copyAll" class="btn btn-primary">Copy</button>
               <button @click="downloadAll" class="btn btn-primary">Download</button>
@@ -105,13 +102,13 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
       <MasonryWall
         ref="contentRef"
         class="mt-8 flex flex-wrap justify-center"
-        :key="tweetsOptions.layout"
+        :key="JSON.stringify(tweetsOptions)"
         :items="computedInput"
         :column-width="tweetsOptions.layout === 'supabase' ? 400 : 500"
         :gap="10"
       >
         <template #default="{ item, index }">
-          <Tweet ref="tweetsRef" class="tweet-container" :url="item" :layout="tweetsOptions.layout"></Tweet>
+          <Tweet ref="tweetsRef" class="tweet-container" :url="item" v-bind="tweetsOptions"></Tweet>
         </template>
       </MasonryWall>
     </ClientOnly>
