@@ -2,7 +2,9 @@
 import { useStorage } from "@vueuse/core"
 import { useClipboard } from "@vueuse/core"
 import { obtainCss } from "~~/function"
+import { useToast } from "vue-toastification"
 
+const toast = useToast()
 const tweetsInput = useStorage("tweets", ["", "", "", "", ""])
 const tweetsOptions = useStorage("tweets-options", { layout: "", css: "" })
 const exportOptions = useStorage("export-options", {})
@@ -11,20 +13,36 @@ const computedInput = computed(() => tweetsInput.value.filter((i) => i != ""))
 const contentRef = ref()
 const tweetsRef = ref([])
 
+const tweetsCode = ref()
 const getTweetsHTML = () => {
   let tweets = document.querySelectorAll(".tweet-container")
-  let innerHTML = ""
+  let innerHTMLs = ""
   tweets.forEach((i) => {
-    innerHTML += i.innerHTML
+    innerHTMLs += i.innerHTML
   })
-  return innerHTML
+  return innerHTMLs
 }
 
-const { copy } = useClipboard()
-const copyAll = () => {
+const { copy, copied } = useClipboard()
+const copyTweet = async (index: number) => {
+  let tweets = document.querySelectorAll(".tweet-container")
+  let text = tweets[index]?.innerHTML
+  try {
+    await copy(text)
+    toast.success("Copied Static Tweet")
+  } catch (err) {
+    toast.error("Something wrong...")
+  }
+}
+const copyAll = async () => {
   let text = getTweetsHTML() + obtainCss(tweetsOptions.value)
   if (!text.length) return
-  copy(text)
+  try {
+    await copy(text)
+    toast.success("Copied All Static Tweets")
+  } catch (err) {
+    toast.error("Something wrong...")
+  }
 }
 
 const downloadAll = () => {
@@ -43,6 +61,12 @@ onMounted(() => {
     isMounted.value = "true"
   }, 500)
 })
+
+const isModalOpen = ref(false)
+const openModal = () => {
+  isModalOpen.value = true
+  tweetsCode.value = getTweetsHTML()
+}
 useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
 </script>
 
@@ -88,8 +112,7 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
 
           <div class="mt-20 flex flex-col">
             <div class="mt-2 flex space-x-2">
-              <button @click="copyAll" class="btn btn-primary">Copy</button>
-              <button @click="downloadAll" class="btn btn-primary">Download</button>
+              <button @click="openModal" class="btn btn-primary">Preview Code</button>
             </div>
           </div>
         </div>
@@ -108,9 +131,27 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
         :gap="10"
       >
         <template #default="{ item, index }">
-          <Tweet ref="tweetsRef" class="tweet-container" :url="item" v-bind="tweetsOptions"></Tweet>
+          <div
+            @click="copyTweet(index)"
+            class="ring-0 hover:ring-2 ring-light-700 transition rounded-2xl cursor-pointer"
+          >
+            <Tweet ref="tweetsRef" class="tweet-container" :url="item" v-bind="tweetsOptions"></Tweet>
+          </div>
         </template>
       </MasonryWall>
+
+      <Modal :open="isModalOpen" @close="isModalOpen = $event">
+        <div class="p-4 md:p-8 !pb-0 flex items-center justify-between">
+          <h2 class="text-2xl md:text-4xl font-bold text-gray-300">Export</h2>
+          <button @click="copyAll" class="btn btn-primary">{{ copied ? "Copied" : "Copy All" }}</button>
+        </div>
+        <div class="p-4 md:p-8 !pt-4 w-full h-full">
+          <pre
+            class="overflow-x-auto text-sm p-2 rounded-xl bg-light-400"
+            v-html="$hljs.highlight(tweetsCode, { language: 'html' }).value"
+          ></pre>
+        </div>
+      </Modal>
     </ClientOnly>
   </div>
 </template>

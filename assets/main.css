@@ -33,3 +33,20 @@ input,
 select {
   @apply px-4 py-2 rounded-lg border placeholder-gray-300 transition focus:outline-blue-500;
 }
+
+.hljs-tag,
+.hljs-name,
+.hljs-punctuation,
+.hljs-attr {
+  @apply !text-gray-400;
+}
+
+.Vue-Toastification__container {
+  @apply !mt-4 md:!mt-0 !px-4;
+}
+.Vue-Toastification__toast {
+  @apply !rounded-xl;
+}
+.Vue-Toastification__toast--success {
+  @apply !bg-blue-500;
+}
