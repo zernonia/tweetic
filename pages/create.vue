@@ -11,16 +11,17 @@ const computedInput = computed(() => tweetsInput.value.filter((i) => i != ""))
 const contentRef = ref()
 const tweetsRef = ref([])
 
+const tweetsCode = ref()
 const getTweetsHTML = () => {
   let tweets = document.querySelectorAll(".tweet-container")
-  let innerHTML = ""
+  let innerHTMLs = ""
   tweets.forEach((i) => {
-    innerHTML += i.innerHTML
+    innerHTMLs += i.innerHTML
   })
-  return innerHTML
+  return innerHTMLs
 }
 
-const { copy } = useClipboard()
+const { copy, copied } = useClipboard()
 const copyAll = () => {
   let text = getTweetsHTML() + obtainCss(tweetsOptions.value)
   if (!text.length) return
@@ -43,6 +44,12 @@ onMounted(() => {
     isMounted.value = "true"
   }, 500)
 })
+
+const isModalOpen = ref(false)
+const openModal = () => {
+  isModalOpen.value = true
+  tweetsCode.value = getTweetsHTML()
+}
 useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
 </script>
 
@@ -88,8 +95,7 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
 
           <div class="mt-20 flex flex-col">
             <div class="mt-2 flex space-x-2">
-              <button @click="copyAll" class="btn btn-primary">Copy</button>
-              <button @click="downloadAll" class="btn btn-primary">Download</button>
+              <button @click="openModal" class="btn btn-primary">Preview Code</button>
             </div>
           </div>
         </div>
@@ -111,6 +117,19 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
           <Tweet ref="tweetsRef" class="tweet-container" :url="item" v-bind="tweetsOptions"></Tweet>
         </template>
       </MasonryWall>
+
+      <Modal :open="isModalOpen" @close="isModalOpen = $event">
+        <div class="p-4 md:p-8 !pb-0 flex items-center justify-between">
+          <h2 class="text-4xl font-bold text-gray-300">Export</h2>
+          <button @click="copyAll" class="btn btn-primary">{{ copied ? "Copied" : "Copy All" }}</button>
+        </div>
+        <div class="p-4 md:p-8 !pt-4 w-full h-full">
+          <pre
+            class="overflow-x-auto text-sm p-2 rounded-xl bg-light-400"
+            v-html="$hljs.highlight(tweetsCode, { language: 'html' }).value"
+          ></pre>
+        </div>
+      </Modal>
     </ClientOnly>
   </div>
 </template>
