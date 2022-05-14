@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import formatHighlight from "json-format-highlight"
-
 const params = ref({
   url: "https://twitter.com/zernonia/status/1524620865987506176",
   layout: "supabase",
   css: "tailwind",
 })
 
+const { $hljs } = useNuxtApp()
 const tweetRef = ref()
 const highlightResponse = computed(() =>
-  tweetRef.value?.data ? formatHighlight(tweetRef.value.data).replaceAll("white-space:pre-wrap;", "") : ""
+  tweetRef.value?.data
+    ? $hljs.highlight(JSON.stringify(tweetRef.value.data, null, "  "), { language: "json", ignoreIllegals: false })
+        .value
+    : ""
 )
 </script>
 

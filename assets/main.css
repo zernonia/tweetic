@@ -35,9 +35,12 @@ select {
 }
 
 .hljs-tag,
-.hljs-name {
+.hljs-name,
+.hljs-punctuation,
+.hljs-attr {
   @apply !text-gray-400;
 }
+
 .Vue-Toastification__container {
   @apply !mt-4 md:!mt-0 !px-4;
 }
