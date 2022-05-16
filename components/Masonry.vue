@@ -24,10 +24,14 @@ const props = defineProps({
 const columnWidth = ref(1200)
 const colGroup = ref<string[][]>([])
 
+const { $device } = useNuxtApp()
 const redraw = () => {
   columnWidth.value = el.value?.getBoundingClientRect().width ?? 1200
+  let ssrChunk = $device?.isMobile ? 1 : $device?.isTablet ? 2 : $device?.isDesktop ? 2 : 2
 
-  let chunks = process.server ? 2 : Math.ceil(props.urls.length / Math.floor(columnWidth.value / props.columnWidth))
+  let chunks = process.server
+    ? ssrChunk
+    : Math.ceil(props.urls.length / Math.floor(columnWidth.value / props.columnWidth))
   if (Number.isFinite(chunks)) {
     colGroup.value = chunk(props.urls, chunks)
   }
@@ -35,7 +39,6 @@ const redraw = () => {
 watch(width, (n) => {
   redraw()
 })
-
 redraw()
 </script>
 
