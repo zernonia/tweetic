@@ -22,24 +22,25 @@ const props = defineProps({
 })
 
 const columnWidth = ref(1200)
-const colGroup = computed(() => {
+const colGroup = ref<string[][]>()
+
+const redraw = () => {
+  columnWidth.value = el.value?.getBoundingClientRect().width ?? 1200
+
   let chunks = process.server ? 1 : Math.ceil(props.urls.length / Math.floor(columnWidth.value / props.columnWidth))
-  return chunk(props.urls, chunks)
+  colGroup.value = chunk(props.urls, chunks)
+}
+watch(width, () => {
+  redraw()
 })
 
-watch(
-  width,
-  () => {
-    columnWidth.value = el.value?.getBoundingClientRect().width
-  },
-  { immediate: true }
-)
+redraw()
 </script>
 
 <template>
   <div class="flex mt-4 gap-4 w-full justify-center">
     <div v-for="group in colGroup" class="flex flex-col gap-4">
-      <div v-for="url in group">
+      <div v-for="url in group" :key="url.toString()">
         <Tweet class="flex justify-center" :url="url" v-bind="options"></Tweet>
       </div>
     </div>
