@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { PropType } from "vue"
 import { chunk } from "lodash-es"
-import { useCurrentElement } from "@vueuse/core"
-import { useWindowSize } from "@vueuse/core"
+import { useElementBounding } from "@vueuse/core"
 import { TweetOptions } from "~~/interface"
 
-const { width, height } = useWindowSize()
-const el = useCurrentElement()
+const el = ref()
+const { width } = useElementBounding(el)
+
 const props = defineProps({
   urls: {
     type: Object as PropType<string[]>,
@@ -22,15 +22,17 @@ const props = defineProps({
 })
 
 const columnWidth = ref(1200)
-const colGroup = ref<string[][]>()
+const colGroup = ref<string[][]>([])
 
 const redraw = () => {
   columnWidth.value = el.value?.getBoundingClientRect().width ?? 1200
 
-  let chunks = process.server ? 1 : Math.ceil(props.urls.length / Math.floor(columnWidth.value / props.columnWidth))
-  colGroup.value = chunk(props.urls, chunks)
+  let chunks = process.server ? 2 : Math.ceil(props.urls.length / Math.floor(columnWidth.value / props.columnWidth))
+  if (Number.isFinite(chunks)) {
+    colGroup.value = chunk(props.urls, chunks)
+  }
 }
-watch(width, () => {
+watch(width, (n) => {
   redraw()
 })
 
@@ -38,7 +40,7 @@ redraw()
 </script>
 
 <template>
-  <div class="flex mt-4 gap-4 w-full justify-center">
+  <div ref="el" class="masonry flex mt-4 gap-4 w-full justify-center">
     <div v-for="group in colGroup" class="flex flex-col gap-4">
       <div v-for="url in group" :key="url.toString()">
         <Tweet class="flex justify-center" :url="url" v-bind="options"></Tweet>
