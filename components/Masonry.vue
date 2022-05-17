@@ -64,7 +64,7 @@ watch([width, urls, columnWidth, options], (n) => {
 <template>
   <div ref="el" class="masonry flex mt-4 gap-4 w-full justify-center">
     <div v-for="(group, groupIndex) in colGroup" :data-index="groupIndex" class="flex flex-col gap-4 h-min">
-      <div v-for="url in group" :key="url.toString()">
+      <div v-for="(url, index) in group" :key="url.toString() + index">
         <Tweet class="tweet-container flex justify-center" :url="url" v-bind="options"></Tweet>
       </div>
     </div>
