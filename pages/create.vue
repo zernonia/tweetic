@@ -125,13 +125,14 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
         :column-width="tweetsOptions.layout === 'supabase' ? 400 : 500"
       >
         <template v-slot="{ url, options }">
-          <div
+          <Tweet
             :id="url.split('/status/')[1]"
             @click="copyTweet(url)"
-            class="ring-0 hover:ring-2 ring-light-700 transition rounded-2xl cursor-pointer"
-          >
-            <Tweet class="tweet-container flex justify-center" :url="url" v-bind="options"></Tweet>
-          </div>
+            class="tweet-container flex justify-center"
+            :url="url"
+            :redirect="false"
+            v-bind="options"
+          ></Tweet>
         </template>
       </Masonry>
 
