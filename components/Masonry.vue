@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { PropType } from "vue"
-import { chunk } from "lodash-es"
 import { useElementBounding } from "@vueuse/core"
 import { TweetOptions } from "~~/interface"
 const el = ref()
@@ -66,7 +65,7 @@ watch([width, urls, columnWidth, options], (n) => {
   <div ref="el" class="masonry flex mt-4 gap-4 w-full justify-center">
     <div v-for="(group, groupIndex) in colGroup" :data-index="groupIndex" class="flex flex-col gap-4 h-min">
       <div v-for="url in group" :key="url.toString()">
-        <Tweet class="flex justify-center" :url="url" v-bind="options"></Tweet>
+        <Tweet class="tweet-container flex justify-center" :url="url" v-bind="options"></Tweet>
       </div>
     </div>
   </div>
