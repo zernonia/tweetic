@@ -21,9 +21,9 @@ const getTweetsHTML = () => {
 }
 
 const { copy, copied } = useClipboard()
-const copyTweet = async (index: number) => {
-  let tweets = document.querySelectorAll(".tweet-container")
-  let text = tweets[index]?.innerHTML
+const copyTweet = async (url: string) => {
+  let tweet = document.getElementById(`${url.split("/status/")[1]}`)
+  let text = tweet.innerHTML
   try {
     await copy(text)
     toast.success("Copied Static Tweet")
@@ -124,6 +124,15 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
         :options="tweetsOptions"
         :column-width="tweetsOptions.layout === 'supabase' ? 400 : 500"
       >
+        <template v-slot="{ url, options }">
+          <div
+            :id="url.split('/status/')[1]"
+            @click="copyTweet(url)"
+            class="ring-0 hover:ring-2 ring-light-700 transition rounded-2xl cursor-pointer"
+          >
+            <Tweet class="tweet-container flex justify-center" :url="url" v-bind="options"></Tweet>
+          </div>
+        </template>
       </Masonry>
 
       <Modal :open="isModalOpen" @close="isModalOpen = $event">
