@@ -3,7 +3,6 @@ import { PropType } from "vue"
 import { chunk } from "lodash-es"
 import { useElementBounding } from "@vueuse/core"
 import { TweetOptions } from "~~/interface"
-
 const el = ref()
 const { width } = useElementBounding(el)
 
@@ -20,31 +19,52 @@ const props = defineProps({
     type: Object as PropType<TweetOptions>,
   },
 })
-
-const columnWidth = ref(1200)
+const { urls, columnWidth, options } = toRefs(props)
 const colGroup = ref<string[][]>([])
 
 const { $device } = useNuxtApp()
-const redraw = () => {
-  columnWidth.value = el.value?.getBoundingClientRect().width ?? 1200
-  let ssrChunk = $device?.isMobile ? 1 : $device?.isTablet ? 2 : $device?.isDesktop ? 2 : 2
 
-  let chunks = process.server
-    ? ssrChunk
-    : Math.ceil(props.urls.length / Math.floor(columnWidth.value / props.columnWidth))
-  if (Number.isFinite(chunks)) {
-    colGroup.value = chunk(props.urls, chunks)
-  }
+function columnCount(): number {
+  const count = Math.floor((el.value?.getBoundingClientRect().width + 16) / (columnWidth.value + 16))
+  return count > 0 ? count : 1
 }
-watch(width, (n) => {
+
+function createColumns(count: number): string[][] {
+  return [...new Array(count)].map(() => [])
+}
+let ssrColumns = $device?.isMobile ? 1 : $device?.isTablet ? 2 : $device?.isDesktop ? 3 : 3
+const newColumns = createColumns(ssrColumns)
+urls.value.forEach((_: string, i: number) => newColumns[i % ssrColumns].push(_))
+colGroup.value = newColumns
+
+async function fillColumns(itemIndex: number) {
+  if (itemIndex >= urls.value.length) {
+    return
+  }
+  await nextTick()
+  const columnDivs = [...el.value.children] as HTMLDivElement[]
+  const target = columnDivs.reduce((prev, curr) =>
+    curr.getBoundingClientRect().height < prev.getBoundingClientRect().height ? curr : prev
+  )
+  colGroup.value[+target.dataset.index!].push(urls.value[itemIndex])
+  await fillColumns(itemIndex + 1)
+}
+
+const redraw = async () => {
+  colGroup.value = createColumns(columnCount())
+  const scrollY = window.scrollY
+  await fillColumns(0)
+  window.scrollTo({ top: scrollY })
+}
+
+watch([width, urls, columnWidth, options], (n) => {
   redraw()
 })
-redraw()
 </script>
 
 <template>
   <div ref="el" class="masonry flex mt-4 gap-4 w-full justify-center">
-    <div v-for="group in colGroup" class="flex flex-col gap-4">
+    <div v-for="(group, groupIndex) in colGroup" :data-index="groupIndex" class="flex flex-col gap-4 h-min">
       <div v-for="url in group" :key="url.toString()">
         <Tweet class="flex justify-center" :url="url" v-bind="options"></Tweet>
       </div>
