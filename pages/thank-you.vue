@@ -8,26 +8,14 @@ const tweets = ref([
   "https://twitter.com/frouo/status/1524840028123320326",
 ])
 
-const isMounted = ref("false")
-onMounted(() => {
-  setTimeout(() => {
-    isMounted.value = "true"
-  }, 500)
-})
 useCustomHead("Thank you for your kind word! | Tweetic")
 </script>
 
 <template>
-  <div class="mb-32" :key="isMounted">
+  <div class="mb-32">
     <h2 class="text-4xl md:text-6xl text-center font-semibold my-8 md:my-20">Thank you everyone!!</h2>
 
-    <ClientOnly>
-      <MasonryWall :items="tweets" :column-width="400" :gap="10">
-        <template #default="{ item, index }">
-          <Tweet class="flex justify-center" :url="item" layout="supabase"></Tweet>
-        </template>
-      </MasonryWall>
-    </ClientOnly>
+    <Masonry :urls="tweets" :column-width="400" :options="{ layout: 'supabase' }"></Masonry>
 
     <p class="text-center mt-8 md:mt-20">...and everyone who likes and retweet!</p>
   </div>
