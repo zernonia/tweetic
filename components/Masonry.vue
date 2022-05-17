@@ -21,8 +21,6 @@ const props = defineProps({
 const { urls, columnWidth, options } = toRefs(props)
 const colGroup = ref<string[][]>([])
 
-const { $device } = useNuxtApp()
-
 function columnCount(): number {
   const count = Math.floor((el.value?.getBoundingClientRect().width + 16) / (columnWidth.value + 16))
   return count > 0 ? count : 1
@@ -31,7 +29,7 @@ function columnCount(): number {
 function createColumns(count: number): string[][] {
   return [...new Array(count)].map(() => [])
 }
-let ssrColumns = $device?.isMobile ? 1 : $device?.isTablet ? 2 : $device?.isDesktop ? 3 : 3
+let ssrColumns = 3
 const newColumns = createColumns(ssrColumns)
 urls.value.forEach((_: string, i: number) => newColumns[i % ssrColumns].push(_))
 colGroup.value = newColumns
