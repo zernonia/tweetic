@@ -12,6 +12,7 @@
     "nuxt-windicss": "^2.3.1"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^1.35.3",
     "@vueuse/core": "^8.4.2",
     "@yeger/vue-masonry-wall": "^3.0.30",
     "highlight.js": "^11.5.1",

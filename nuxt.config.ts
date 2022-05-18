@@ -6,5 +6,7 @@ export default defineNuxtConfig({
   css: ["~~/assets/main.css"],
   runtimeConfig: {
     TWITTER_BEARER_TOKEN: process.env.TWITTER_BEARER_TOKEN,
+    SUPABASE_URL: process.env.SUPABASE_URL,
+    SUPABASE_KEY: process.env.SUPABASE_KEY,
   },
 })
