@@ -4,4 +4,7 @@ import { defineNuxtConfig } from "nuxt"
 export default defineNuxtConfig({
   modules: ["nuxt-windicss"],
   css: ["~~/assets/main.css"],
+  runtimeConfig: {
+    TWITTER_BEARER_TOKEN: process.env.TWITTER_BEARER_TOKEN,
+  },
 })
