@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   modules: ["nuxt-windicss"],
   css: ["~~/assets/main.css"],
   build: {
-    transpile: ["node-fetch"],
+    transpile: ["twitter-api-v2"],
   },
   runtimeConfig: {
     TWITTER_BEARER_TOKEN: process.env.TWITTER_BEARER_TOKEN,
