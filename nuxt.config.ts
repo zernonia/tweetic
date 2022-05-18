@@ -4,6 +4,9 @@ import { defineNuxtConfig } from "nuxt"
 export default defineNuxtConfig({
   modules: ["nuxt-windicss"],
   css: ["~~/assets/main.css"],
+  build: {
+    transpile: ["node-fetch"],
+  },
   runtimeConfig: {
     TWITTER_BEARER_TOKEN: process.env.TWITTER_BEARER_TOKEN,
     SUPABASE_URL: process.env.SUPABASE_URL,
