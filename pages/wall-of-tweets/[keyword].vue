@@ -1,0 +1,28 @@
+<script setup lang="ts">
+import { capitalizeFirstLetter } from "~~/function"
+const route = useRoute()
+const keyword = route.params.keyword?.toString()
+
+const { data, pending } = await useAsyncData(keyword, () =>
+  $fetch("/api/wall-of-tweets", {
+    params: { keyword },
+  })
+)
+
+useCustomHead(`${capitalizeFirstLetter(keyword.toString())}'s Wall of Tweets! | Tweetic`)
+</script>
+
+<template>
+  <div>
+    <div class="flex flex-col items-center justify-center my-16 space-y-2">
+      <h2 class="font-bold text-6xl capitalize">{{ keyword }}'s</h2>
+      <h3 class="font-semibold text-4xl text-gray-300">Wall of Tweets</h3>
+    </div>
+
+    <Masonry :urls="data" :column-width="400" :options="{ layout: 'supabase' }">
+      <template v-slot="{ url, options }">
+        <Tweet class="flex justify-center" :url="url" v-bind="options"></Tweet>
+      </template>
+    </Masonry>
+  </div>
+</template>

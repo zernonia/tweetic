@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
   const results = await roClient.v2.search(
     `${
       keyword ?? "supabase"
-    } -is:retweet -is:reply (happy OR exciting OR excited OR favorite OR fav OR amazing OR incredible OR best OR good OR love) -paid -course -hour -join`,
+    } -is:retweet -is:reply -is:quote (happy OR exciting OR excited OR favorite OR fav OR amazing OR incredible OR best OR good OR love) -paid -course -hour -join`,
     {
       expansions: "author_id",
       max_results: 100,
@@ -25,6 +25,7 @@ export default defineEventHandler(async (event) => {
 
     return {
       id: i.id,
+      text: i.text,
       url: `${author_name}/status/${i.id}`,
       keyword,
     }
