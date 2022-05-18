@@ -1,12 +1,12 @@
 import { TwitterApi } from "twitter-api-v2"
 import { verify } from "../_lib/verify"
+import { supabase } from "../_lib/supabase"
 
 export default defineEventHandler(async (event) => {
   const authorized = verify(event)
   if (!authorized) return "Unauthorized"
 
   const { keyword } = useQuery(event)
-
   const twitterClient = new TwitterApi(useRuntimeConfig()["TWITTER_BEARER_TOKEN"])
   const roClient = twitterClient.readOnly
 
@@ -24,14 +24,16 @@ export default defineEventHandler(async (event) => {
     let author_name = results.data.includes.users.find((j) => j.id === i.author_id)?.username
 
     return {
-      author_name,
       id: i.id,
-      text: i.text,
       url: `${author_name}/status/${i.id}`,
+      keyword,
     }
   })
 
+  const { data, error } = await supabase.from("wall_of_tweets").upsert(tweets)
+
   return {
-    tweets,
+    data,
+    error,
   }
 })
