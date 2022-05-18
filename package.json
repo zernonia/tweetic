@@ -8,10 +8,11 @@
     "test": "vitest"
   },
   "devDependencies": {
-    "@vue/test-utils": "^2.0.0-rc.21",
+    "@nuxt/test-utils-edge": "^3.0.0-rc.3-27545866.cd37a21",
     "jsdom": "^19.0.0",
     "nuxt": "3.0.0-rc.3",
     "nuxt-windicss": "^2.3.1",
+    "playwright": "^1.22.1",
     "vi-fetch": "^0.7.0",
     "vitest": "^0.12.6"
   },
