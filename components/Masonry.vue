@@ -29,7 +29,10 @@ function columnCount(): number {
 function createColumns(count: number): string[][] {
   return [...new Array(count)].map(() => [])
 }
-let ssrColumns = 3
+
+const { $device } = useNuxtApp()
+
+let ssrColumns = $device?.isMobile ? 1 : $device?.isTablet ? 2 : 3
 const newColumns = createColumns(ssrColumns)
 urls.value.forEach((_: string, i: number) => newColumns[i % ssrColumns].push(_))
 colGroup.value = newColumns
