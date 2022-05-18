@@ -10,9 +10,6 @@ const tweetsOptions = useStorage("tweets-options", { layout: "", css: "" })
 const exportOptions = useStorage("export-options", {})
 const computedInput = computed(() => tweetsInput.value.filter((i) => i != ""))
 
-const contentRef = ref()
-const tweetsRef = ref([])
-
 const tweetsCode = ref()
 const getTweetsHTML = () => {
   let tweets = document.querySelectorAll(".tweet-container")
@@ -24,9 +21,9 @@ const getTweetsHTML = () => {
 }
 
 const { copy, copied } = useClipboard()
-const copyTweet = async (index: number) => {
-  let tweets = document.querySelectorAll(".tweet-container")
-  let text = tweets[index]?.innerHTML
+const copyTweet = async (url: string) => {
+  let tweet = document.getElementById(`${url.split("/status/")[1]}`)
+  let text = tweet.innerHTML
   try {
     await copy(text)
     toast.success("Copied Static Tweet")
@@ -122,23 +119,22 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
 
       <h2 class="text-center text-3xl md:text-4xl font-bold">Preview</h2>
 
-      <MasonryWall
-        ref="contentRef"
-        class="mt-8 flex flex-wrap justify-center"
-        :key="JSON.stringify(tweetsOptions)"
-        :items="computedInput"
+      <Masonry
+        :urls="computedInput"
+        :options="tweetsOptions"
         :column-width="tweetsOptions.layout === 'supabase' ? 400 : 500"
-        :gap="10"
       >
-        <template #default="{ item, index }">
-          <div
-            @click="copyTweet(index)"
-            class="ring-0 hover:ring-2 ring-light-700 transition rounded-2xl cursor-pointer"
-          >
-            <Tweet ref="tweetsRef" class="tweet-container" :url="item" v-bind="tweetsOptions"></Tweet>
-          </div>
+        <template v-slot="{ url, options }">
+          <Tweet
+            :id="url.split('/status/')[1]"
+            @click="copyTweet(url)"
+            class="tweet-container flex justify-center"
+            :url="url"
+            :redirect="false"
+            v-bind="options"
+          ></Tweet>
         </template>
-      </MasonryWall>
+      </Masonry>
 
       <Modal :open="isModalOpen" @close="isModalOpen = $event">
         <div class="p-4 md:p-8 !pb-0 flex items-center justify-between">
