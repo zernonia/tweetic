@@ -42,7 +42,7 @@ async function fillColumns(itemIndex: number) {
     return
   }
   await nextTick()
-  const columnDivs = [...el.value.children] as HTMLDivElement[]
+  const columnDivs = [...el.value?.children] as HTMLDivElement[]
   const target = columnDivs.reduce((prev, curr) =>
     curr.getBoundingClientRect().height < prev.getBoundingClientRect().height ? curr : prev
   )
@@ -59,6 +59,12 @@ const redraw = async () => {
 
 watch([width, urls, columnWidth, options], (n) => {
   redraw()
+})
+
+onMounted(() => {
+  setTimeout(() => {
+    redraw()
+  }, 1000)
 })
 </script>
 
