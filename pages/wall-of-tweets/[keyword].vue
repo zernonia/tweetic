@@ -26,6 +26,6 @@ useCustomHead(`${capitalizeFirstLetter(keyword.toString())}'s Wall of Tweets! | 
         </template>
       </Masonry>
     </template>
-    <p class="text-center my-40 text-gray-300 font-semibold">No tweets crawled...</p>
+    <p v-else class="text-center my-40 text-gray-300 font-semibold">No tweets crawled...</p>
   </div>
 </template>
