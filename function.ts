@@ -116,3 +116,7 @@ export const obtainCss = (tweetOptions: TweetOptions) => {
 
   return style + "</style>"
 }
+
+export const capitalizeFirstLetter = (string: string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1)
+}
