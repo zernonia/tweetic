@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   if (!authorized) return "Unauthorized"
 
   const { keyword } = useQuery(event)
-  const twitterClient = new TwitterApi(useRuntimeConfig()["TWITTER_BEARER_TOKEN"])
+  const twitterClient = new TwitterApi(useRuntimeConfig().TWITTER_BEARER_TOKEN)
   const roClient = twitterClient.readOnly
 
   const results = await roClient.v2.search(
