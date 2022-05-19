@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     const oembed = await $fetch<TweetOembed>(`https://publish.twitter.com/oembed?url=${url}`)
 
     const options: TweetOptions = { layout: layout?.toString(), css: css?.toString() }
-    const html = constructHtml(oembed, options)
+    const html = await constructHtml(oembed, options)
 
     return {
       html,
