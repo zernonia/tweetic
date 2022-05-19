@@ -10,7 +10,6 @@ const tweetsOptions = useStorage("tweets-options", { layout: "", css: "" })
 const exportOptions = useStorage("export-options", {})
 const computedInput = computed(() => tweetsInput.value.filter((i) => i != ""))
 
-const tweetsCode = ref()
 const getTweetsHTML = () => {
   let tweets = document.querySelectorAll(".tweet-container")
   let innerHTMLs = ""
@@ -60,9 +59,13 @@ onMounted(() => {
 })
 
 const isModalOpen = ref(false)
+const isPreviewingCSS = ref(false)
 const openModal = () => {
   isModalOpen.value = true
-  tweetsCode.value = getTweetsHTML()
+}
+const closeModal = (ev: boolean) => {
+  isModalOpen.value = ev
+  isPreviewingCSS.value = false
 }
 useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
 </script>
@@ -136,15 +139,28 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
         </template>
       </Masonry>
 
-      <Modal :open="isModalOpen" @close="isModalOpen = $event">
+      <Modal :open="isModalOpen" @close="closeModal">
         <div class="p-4 md:p-8 !pb-0 flex items-center justify-between">
           <h2 class="text-2xl md:text-4xl font-bold text-gray-300">Export</h2>
-          <button @click="copyAll" class="btn btn-primary">{{ copied ? "Copied" : "Copy All" }}</button>
+          <div class="flex items-center">
+            <button
+              v-if="tweetsOptions.css != 'tailwind'"
+              @click="isPreviewingCSS = !isPreviewingCSS"
+              class="btn btn-pale mr-2"
+            >
+              Switch to {{ isPreviewingCSS ? "HTML" : "CSS" }}
+            </button>
+            <button @click="copyAll" class="btn btn-primary">{{ copied ? "Copied" : "Copy All" }}</button>
+          </div>
         </div>
         <div class="p-4 md:p-8 !pt-4 w-full h-full">
           <pre
             class="overflow-x-auto text-sm p-2 rounded-xl bg-light-400"
-            v-html="$hljs.highlight(tweetsCode, { language: 'html' }).value"
+            v-html="
+              isPreviewingCSS
+                ? $hljs.highlight(obtainCss(tweetsOptions), { language: 'css' }).value
+                : $hljs.highlight(getTweetsHTML(), { language: 'html' }).value
+            "
           ></pre>
         </div>
       </Modal>

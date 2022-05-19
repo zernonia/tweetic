@@ -37,8 +37,19 @@ select {
 .hljs-tag,
 .hljs-name,
 .hljs-punctuation,
-.hljs-attr {
+.hljs-attr,
+.hljs-attribute,
+.hljs-function .hljs-title,
+.hljs-section,
+.hljs-title.function_,
+.ruby .hljs-property,
+.hljs-selector-pseudo,
+.hljs-selector-tag {
   @apply !text-gray-400;
+}
+
+.hljs-selector-class {
+  color: #183691;
 }
 
 .Vue-Toastification__container {
