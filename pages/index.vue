@@ -25,10 +25,20 @@
       /></a>
     </div>
 
-    <NuxtLink to="/thank-you" class="flex flex-col items-center mt-8 text-gray-400">
-      <span>thank you everyone...</span>
-      <Underline class="w-16 -mt-2"></Underline>
-    </NuxtLink>
+    <div class="flex flex-wrap">
+      <NuxtLink to="/wall-of-tweets/supabase" class="flex flex-col m-4 items-center mt-8 text-gray-400">
+        <span>Supabase</span>
+        <Underline class="w-16 -mt-2"></Underline>
+      </NuxtLink>
+      <NuxtLink to="/wall-of-tweets/nuxt" class="flex flex-col m-4 items-center mt-8 text-gray-400">
+        <span>Nuxt</span>
+        <Underline class="w-16 -mt-2"></Underline>
+      </NuxtLink>
+      <NuxtLink to="/thank-you" class="flex flex-col m-4 items-center mt-8 text-gray-400">
+        <span>Appreciation</span>
+        <Underline class="w-16 -mt-2"></Underline>
+      </NuxtLink>
+    </div>
 
     <div class="flex flex-col items-center space-y-4 md:relative mt-8 md:mt-32 w-full md:h-224">
       <div class="md:absolute flex items-center -top-20 left-10 text-gray-400">
