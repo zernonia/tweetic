@@ -7,7 +7,7 @@ const props = defineProps({
   redirect: { type: Boolean, default: true },
 })
 
-const { data, pending } = await useAsyncData(
+const { data, pending } = await useLazyAsyncData(
   JSON.stringify(props),
   () =>
     $fetch("/api/tweet", {
@@ -27,10 +27,31 @@ defineExpose({ data })
 </script>
 
 <template>
+  <div v-if="pending">
+    <div class="tweet" :data-style="props.layout">
+      <div class="flex items-center animate-pulse">
+        <div class="flex items-center">
+          <div class="w-12 h-12 rounded-full bg-light-600"></div>
+          <div class="ml-4">
+            <p class="w-16 h-4 bg-light-600"></p>
+            <p class="w-16 h-4 mt-1 bg-light-600"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 flex flex-col space-y-2 animate-pulse">
+        <div class="w-full h-4 bg-light-600"></div>
+        <div class="w-full h-4 bg-light-600"></div>
+        <div class="w-full h-4 bg-light-600"></div>
+        <div class="w-full h-4 bg-light-600"></div>
+      </div>
+    </div>
+  </div>
+
   <div
     class="ring-0 hover:ring-2 ring-light-700 transition rounded-2xl cursor-pointer"
     @click="onClick"
-    v-if="data?.html?.length"
+    v-else-if="data?.html?.length"
     v-html="data.html"
   ></div>
 </template>
