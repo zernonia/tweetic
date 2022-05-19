@@ -7,7 +7,7 @@ const props = defineProps({
   redirect: { type: Boolean, default: true },
 })
 
-const { data, pending } = await useLazyAsyncData(
+const { data, pending } = await useAsyncData(
   JSON.stringify(props),
   () =>
     $fetch("/api/tweet", {
