@@ -1,8 +1,7 @@
 import loadTf from "tensorflow-lambda"
 import { supabase } from "../_lib/supabase"
-import tfMetaData from "../_lib/tfjs/metadata.json"
 
-let tfModel
+let tfModel, tfMetaData
 let tf
 
 export default defineEventHandler(async (event) => {
@@ -12,6 +11,9 @@ export default defineEventHandler(async (event) => {
     tf = await loadTf()
     if (tfModel == undefined) {
       tfModel = await tf.loadLayersModel("https://storage.googleapis.com/tfjs-models/tfjs/sentiment_cnn_v1/model.json")
+    }
+    if (tfMetaData == undefined) {
+      tfMetaData = await $fetch("https://storage.googleapis.com/tfjs-models/tfjs/sentiment_cnn_v1/metadata.json")
     }
 
     const score = getSentimentScore(text.toString())
