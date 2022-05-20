@@ -7,18 +7,19 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
+    "@tensorflow/tfjs-node": "^3.17.0",
     "@types/lodash-es": "^4.17.6",
     "nuxt": "3.0.0-rc.3",
     "nuxt-windicss": "^2.3.1"
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.35.3",
-    "@tensorflow/tfjs-node": "^3.17.0",
     "@vueuse/core": "^8.4.2",
     "@yeger/vue-masonry-wall": "^3.0.30",
     "highlight.js": "^11.5.1",
     "lodash-es": "^4.17.21",
     "node-html-parser": "^5.3.3",
+    "tensorflow-lambda": "^1.0.2",
     "twitter-api-v2": "^1.12.0",
     "vue-toastification": "^2.0.0-rc.5"
   }

@@ -1,16 +1,17 @@
-import { tensor2d, Tensor, loadLayersModel, LayersModel } from "@tensorflow/tfjs-node"
+import loadTf from "tensorflow-lambda"
 import { supabase } from "../_lib/supabase"
 import tfMetaData from "../_lib/tfjs/metadata.json"
 
-let tfModel: LayersModel
+let tfModel
+let tf
 
 export default defineEventHandler(async (event) => {
   const { id, text } = useQuery(event)
   try {
     // const { data } = await supabase.from("tweets").select("*").eq("id", id)
-
+    tf = await loadTf()
     if (tfModel == undefined) {
-      tfModel = await loadLayersModel("https://storage.googleapis.com/tfjs-models/tfjs/sentiment_cnn_v1/model.json")
+      tfModel = await tf.loadLayersModel("https://storage.googleapis.com/tfjs-models/tfjs/sentiment_cnn_v1/model.json")
     }
 
     const score = getSentimentScore(text.toString())
@@ -65,9 +66,9 @@ function getSentimentScore(text: string) {
   })
   // Perform truncation and padding.
   const paddedSequence = padSequences([sequence], tfMetaData.max_len)
-  const input = tensor2d(paddedSequence, [1, tfMetaData.max_len])
+  const input = tf.tensor2d(paddedSequence, [1, tfMetaData.max_len])
 
-  const predictOut = tfModel.predict(input) as Tensor
+  const predictOut = tfModel.predict(input)
   const score = predictOut.dataSync()[0]
   predictOut.dispose()
 
