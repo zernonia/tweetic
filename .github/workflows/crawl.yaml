@@ -1,8 +1,8 @@
-name: crawl-weekly
+name: crawl-daily
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * 0"
+    - cron: "0 0 * * *"
 jobs:
   cron:
     runs-on: ubuntu-latest
