@@ -33,7 +33,7 @@ export const extractRedirectUrl = async (data: string): Promise<string> => {
   return new Promise((resolve, reject) => {
     $fetch(data, {
       async onResponse({ response }) {
-        let url = response.url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
+        let url = response.url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").replace(/\/$/, "")
         resolve(url.length > 25 ? url.slice(0, 24) + "..." : url)
       },
     })
