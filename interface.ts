@@ -15,6 +15,7 @@ export interface TweetOembed {
 export interface TweetOptions {
   layout?: string
   css?: string
+  show_original_link?: boolean
 }
 
 export interface ExportOptions {
