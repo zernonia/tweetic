@@ -9,8 +9,9 @@ export default defineEventHandler(async (event) => {
     const options: TweetOptions = {
       layout: layout?.toString(),
       css: css?.toString(),
-      show_original_link: !!show_original_link,
+      show_original_link: JSON.parse(show_original_link.toString()),
     }
+
     const html = await constructHtml(oembed, options)
 
     return {
