@@ -14,7 +14,7 @@ const onClick = (ev: InputEvent) => {
 <template>
   <label :for="name" class="inline-flex flex-col">
     <slot></slot>
-    <div class="relative mt-1">
+    <div class="relative mt-1 cursor-pointer">
       <input type="checkbox" :id="name" class="sr-only" :value="modelValue" @change="onClick" />
       <div class="toggle-bg bg-gray-200 border-2 border-gray-200 h-6 w-11 rounded-full transition"></div>
     </div>
