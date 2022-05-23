@@ -3,6 +3,7 @@ const params = ref({
   url: "https://twitter.com/zernonia/status/1524620865987506176",
   layout: "supabase",
   css: "tailwind",
+  show_original_link: false,
 })
 
 const { $hljs } = useNuxtApp()
@@ -39,6 +40,10 @@ const highlightResponse = computed(() =>
             <option value="">Default CSS</option>
             <option value="tailwind">Tailwind</option>
           </select>
+
+          <Toggle class="mt-2" name="show_original_link" v-model="params.show_original_link">
+            show_original_link
+          </Toggle>
         </div>
 
         <div class="flex flex-col">

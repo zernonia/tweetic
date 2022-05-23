@@ -110,13 +110,9 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
               <option value="tailwind">TailwindCSS</option>
             </select>
 
-            <label class="mt-2" for="show_original_link">Show Original Link</label>
-            <input
-              type="checkbox"
-              name="show_original_link"
-              id="show_original_link"
-              v-model="tweetsOptions.show_original_link"
-            />
+            <Toggle class="mt-2" name="show_original_link" v-model="tweetsOptions.show_original_link">
+              Show Original Link
+            </Toggle>
           </div>
 
           <div class="mt-20 flex flex-col">
