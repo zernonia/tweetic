@@ -3,25 +3,31 @@ import { TweetOembed, TweetOptions } from "~~/interface"
 import { mapClass } from "./reference"
 
 export const extractHtml = async (data: string, options: TweetOptions) => {
-  const root = parse(data)
-  const content = root.getElementsByTagName("p")?.[0]
-  const aTags = content.getElementsByTagName("a")
-  aTags.map((i) => {
-    i.setAttribute("target", "_blank")
-    i.setAttribute("class", options.css == "tailwind" ? "text-blue-400" : "tweet-content-link")
-    return i
-  })
+  try {
+    const root = parse(data)
+    const content = root.getElementsByTagName("p")?.[0]
+    const aTags = content.getElementsByTagName("a")
+    aTags.map((i) => {
+      i.setAttribute("target", "_blank")
+      i.setAttribute("class", options.css == "tailwind" ? "text-blue-400" : "tweet-content-link")
+      return i
+    })
 
-  for (let i = 0; i < aTags.length; i++) {
-    let a = aTags[i]
-    if (a.innerText.includes("//t.co/") && a.rawAttributes.href.includes("//t.co/")) {
-      let url = await extractRedirectUrl(a.rawAttributes.href)
-      a.textContent = url
+    if (options.show_original_link) {
+      for (let i = 0; i < aTags.length; i++) {
+        let a = aTags[i]
+        if (a.innerText.includes("//t.co/") && a.rawAttributes.href.includes("//t.co/")) {
+          let url = await extractRedirectUrl(a.rawAttributes.href)
+          a.textContent = url
+        }
+      }
     }
-  }
 
-  const html = content?.innerHTML
-  return html
+    const html = content?.innerHTML
+    return html
+  } catch (err) {
+    return ""
+  }
 }
 export const extractDate = (data: string) => {
   const root = parse(data)
@@ -35,6 +41,9 @@ export const extractRedirectUrl = async (data: string): Promise<string> => {
       async onResponse({ response }) {
         let url = response.url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").replace(/\/$/, "")
         resolve(url.length > 25 ? url.slice(0, 24) + "..." : url)
+      },
+      async onResponseError(ctx) {
+        reject(ctx.response.statusText)
       },
     })
   })
