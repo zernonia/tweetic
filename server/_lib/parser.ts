@@ -1,17 +1,44 @@
 import { parse } from "node-html-parser"
 import { TweetOembed, TweetOptions } from "~~/interface"
 import { mapClass } from "./reference"
+import Twemoji from "twemoji"
 
-export const extractHtml = (data: string, options: TweetOptions) => {
-  const root = parse(data)
-  const content = root.getElementsByTagName("p")?.[0]
-  content.getElementsByTagName("a").map((i) => {
-    i.setAttribute("target", "_blank")
-    i.setAttribute("class", options.css == "tailwind" ? "text-blue-400" : "tweet-content-link")
-    return i
-  })
-  const html = content?.innerHTML
-  return html
+export const extractHtml = async (data: string, options: TweetOptions) => {
+  try {
+    const root = parse(data)
+    const content = root.getElementsByTagName("p")?.[0]
+    const aTags = content.getElementsByTagName("a")
+    aTags.map((i) => {
+      i.setAttribute("target", "_blank")
+      i.setAttribute("class", options.css == "tailwind" ? "text-blue-400" : "tweet-content-link")
+      return i
+    })
+
+    if (options.show_original_link) {
+      for (let i = 0; i < aTags.length; i++) {
+        let a = aTags[i]
+        if (a.innerText.includes("//t.co/") && a.rawAttributes.href.includes("//t.co/")) {
+          let url = await extractRedirectUrl(a.rawAttributes.href)
+          a.textContent = url
+        }
+      }
+    }
+
+    let html = content.innerHTML
+    if (options.enable_twemoji) {
+      html = Twemoji.parse(content?.innerHTML, {
+        folder: "svg",
+        ext: ".svg",
+        className:
+          options.css === "tailwind"
+            ? "inline-block align-text-bottom w-[1.2em] h-[1.2em] mr-[0.05em] ml-[0.1em]"
+            : "emoji",
+      })
+    }
+    return html
+  } catch (err) {
+    return ""
+  }
 }
 export const extractDate = (data: string) => {
   const root = parse(data)
@@ -19,13 +46,27 @@ export const extractDate = (data: string) => {
   return html
 }
 
-export const constructHtml = (oembed: TweetOembed, options: TweetOptions) => {
+export const extractRedirectUrl = async (data: string): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    $fetch(data, {
+      async onResponse({ response }) {
+        let url = response.url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").replace(/\/$/, "")
+        resolve(url.length > 25 ? url.slice(0, 24) + "..." : url)
+      },
+      async onResponseError(ctx) {
+        reject(ctx.response.statusText)
+      },
+    })
+  })
+}
+
+export const constructHtml = async (oembed: TweetOembed, options: TweetOptions) => {
   const url = oembed.url
   const author_name = oembed.author_name
   const author_handler = `@${oembed.author_url.split("/")[3]}`
   const author_image = `https://unavatar.io/twitter/${author_handler}` // might change to user real image src
   const date = extractDate(oembed.html)
-  const content = extractHtml(oembed.html, options)
+  const content = await extractHtml(oembed.html, options)
   const mapClassOptions = (key: string) => mapClass(key, options)
 
   const html = ` 

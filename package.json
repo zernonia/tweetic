@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.6",
+    "@types/twemoji": "^13.1.2",
     "nuxt": "3.0.0-rc.3",
     "nuxt-windicss": "^2.3.1"
   },
@@ -18,6 +19,7 @@
     "highlight.js": "^11.5.1",
     "lodash-es": "^4.17.21",
     "node-html-parser": "^5.3.3",
+    "twemoji": "^14.0.2",
     "twitter-api-v2": "^1.12.0",
     "vue-toastification": "^2.0.0-rc.5"
   }

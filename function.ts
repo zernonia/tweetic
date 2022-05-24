@@ -67,6 +67,13 @@ export const obtainCss = (tweetOptions: TweetOptions) => {
   }
   .tweet-content a {
     color: var(--text-secondary);
+  }
+  .tweet-content .emoji {
+    display: inline-block;
+    height: 1.2em;
+    width: 1.2em;
+    margin: 0 0.05em 0 0.1em;
+    vertical-align: -0.1em;
   }`
   } else {
     style += `
@@ -112,7 +119,13 @@ export const obtainCss = (tweetOptions: TweetOptions) => {
   .tweet-content a {
     color: var(--text-secondary);
   }
-  `
+  .tweet-content .emoji {
+    display: inline-block;
+    height: 1.2em;
+    width: 1.2em;
+    margin: 0 0.05em 0 0.1em;
+    vertical-align: -0.1em;
+  }`
   }
 
   return style + "</style>"

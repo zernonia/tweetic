@@ -25,9 +25,9 @@ export default defineEventHandler(async (event) => {
 
     return {
       id: i.id,
-      text: i.text,
       url: `${author_name}/status/${i.id}`,
       keyword,
+      raw: i,
     }
   })
 

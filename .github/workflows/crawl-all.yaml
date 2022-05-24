@@ -1,8 +1,8 @@
-name: crawl-daily
+name: crawl-all-hourly
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 * * * *"
 jobs:
   cron:
     runs-on: ubuntu-latest
@@ -10,11 +10,11 @@ jobs:
       - name: Supabase
         run: |
           curl --request GET \
-          --url 'https://tweetic.io/api/crawl?keyword=supabase' \
+          --url 'https://tweetic.io/api/crawl-all?keyword=supabase' \
           --header 'Authorization: Bearer ${{ secrets.API_SECRET_KEY }}'
       - run: sleep 10
       - name: Nuxt
         run: |
           curl --request GET \
-          --url 'https://tweetic.io/api/crawl?keyword=nuxt' \
+          --url 'https://tweetic.io/api/crawl-all?keyword=nuxt' \
           --header 'Authorization: Bearer ${{ secrets.API_SECRET_KEY }}'

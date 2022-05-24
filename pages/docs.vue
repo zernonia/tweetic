@@ -3,6 +3,8 @@ const params = ref({
   url: "https://twitter.com/zernonia/status/1524620865987506176",
   layout: "supabase",
   css: "tailwind",
+  show_original_link: false,
+  enable_twemoji: true,
 })
 
 const { $hljs } = useNuxtApp()
@@ -39,6 +41,11 @@ const highlightResponse = computed(() =>
             <option value="">Default CSS</option>
             <option value="tailwind">Tailwind</option>
           </select>
+
+          <Toggle class="mt-2" name="show_original_link" v-model="params.show_original_link">
+            show_original_link
+          </Toggle>
+          <Toggle class="mt-2" name="enable_twemoji" v-model="params.enable_twemoji"> enable_twemoji </Toggle>
         </div>
 
         <div class="flex flex-col">

@@ -3,7 +3,9 @@ const props = defineProps({
   url: String,
   layout: { type: String, default: "" },
   css: { type: String, default: "" },
-  showLink: { type: Boolean, default: true },
+  show_original_link: { type: Boolean, default: false },
+  enable_twemoji: { type: Boolean, default: true },
+
   redirect: { type: Boolean, default: true },
 })
 
