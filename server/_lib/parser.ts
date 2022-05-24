@@ -24,10 +24,14 @@ export const extractHtml = async (data: string, options: TweetOptions) => {
       }
     }
 
-    const html = Twemoji.parse(content?.innerHTML, {
-      folder: "svg",
-      ext: ".svg",
-    })
+    let html = content.innerHTML
+    if (options.enable_twemoji) {
+      html = Twemoji.parse(content?.innerHTML, {
+        folder: "svg",
+        ext: ".svg",
+        className: options.css === "tailwind" ? "" : "emoji",
+      })
+    }
     return html
   } catch (err) {
     return ""
