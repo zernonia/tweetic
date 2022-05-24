@@ -29,7 +29,10 @@ export const extractHtml = async (data: string, options: TweetOptions) => {
       html = Twemoji.parse(content?.innerHTML, {
         folder: "svg",
         ext: ".svg",
-        className: options.css === "tailwind" ? "" : "emoji",
+        className:
+          options.css === "tailwind"
+            ? "inline-block align-text-bottom w-[1.2em] h-[1.2em] mr-[0.05em] ml-[0.1em]"
+            : "emoji",
       })
     }
     return html
