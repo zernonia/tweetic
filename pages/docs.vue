@@ -4,6 +4,7 @@ const params = ref({
   layout: "supabase",
   css: "tailwind",
   show_original_link: false,
+  enable_twemoji: true,
 })
 
 const { $hljs } = useNuxtApp()
@@ -44,6 +45,7 @@ const highlightResponse = computed(() =>
           <Toggle class="mt-2" name="show_original_link" v-model="params.show_original_link">
             show_original_link
           </Toggle>
+          <Toggle class="mt-2" name="enable_twemoji" v-model="params.enable_twemoji"> enable_twemoji </Toggle>
         </div>
 
         <div class="flex flex-col">
