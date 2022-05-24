@@ -12,7 +12,7 @@ const onClick = (ev: InputEvent) => {
 </script>
 
 <template>
-  <label :for="name" class="inline-flex flex-col">
+  <label :for="name" class="inline-flex flex-col w-min">
     <slot></slot>
     <div class="relative mt-1 cursor-pointer">
       <input type="checkbox" :id="name" class="sr-only" v-model="modelValue" @change="onClick" />
