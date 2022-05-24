@@ -1,6 +1,7 @@
 import { parse } from "node-html-parser"
 import { TweetOembed, TweetOptions } from "~~/interface"
 import { mapClass } from "./reference"
+import Twemoji from "twemoji"
 
 export const extractHtml = async (data: string, options: TweetOptions) => {
   try {
@@ -23,7 +24,10 @@ export const extractHtml = async (data: string, options: TweetOptions) => {
       }
     }
 
-    const html = content?.innerHTML
+    const html = Twemoji.parse(content?.innerHTML, {
+      folder: "svg",
+      ext: ".svg",
+    })
     return html
   } catch (err) {
     return ""
