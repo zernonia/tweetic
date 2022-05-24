@@ -7,7 +7,12 @@ import { useToast } from "vue-toastification"
 
 const toast = useToast()
 const tweetsInput = useStorage("tweets", ["", "", "", "", ""])
-const tweetsOptions = useStorage<TweetOptions>("tweets-options", { layout: "", css: "", show_original_link: false })
+const tweetsOptions = useStorage<TweetOptions>("tweets-options", {
+  layout: "",
+  css: "",
+  show_original_link: false,
+  enable_twemoji: true,
+})
 const exportOptions = useStorage("export-options", {})
 const computedInput = computed(() => tweetsInput.value.filter((i) => i != ""))
 
@@ -113,6 +118,7 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
             <Toggle class="mt-2" name="show_original_link" v-model="tweetsOptions.show_original_link">
               Show Original Link
             </Toggle>
+            <Toggle class="mt-2" name="enable_twemoji" v-model="tweetsOptions.enable_twemoji"> Enable Twemoji </Toggle>
           </div>
 
           <div class="mt-20 flex flex-col">
