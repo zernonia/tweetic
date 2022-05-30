@@ -7,33 +7,21 @@ export default defineEventHandler(async (event) => {
 
   if (html) {
     return `
-    <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="UTF-8">
-          <title>HTML inside SVG</title>
-          <style type="text/css"></style>
-
-        </head>
-        <body> 
-          <svg width="500" height="100%">
-            <g>
-              <foreignobject class="node" x="0" y="0" width="100%" height="100%" >
-                ${html}                                  
-              </foreignobject>
-            </g>
-          </svg> 
-        </body>
-
-        ${css}
-
-        <script>
-          const svg = document.querySelector('svg');
-          const tweetBox = document.querySelector('.tweet').getBoundingClientRect()
-          svg.setAttribute("height", tweetBox.height + "px");
-          svg.setAttribute("width", tweetBox.width + "px");
-        </script>
-      </html>
+      <svg width="500" height="100%">
+        <g>
+          <foreignobject class="node" x="0" y="0" width="100%" height="100%" >
+            ${html}                                  
+            ${css}
+    
+            <script>
+              const svg = document.querySelector('svg');
+              const tweetBox = document.querySelector('.tweet').getBoundingClientRect()
+              svg.setAttribute("height", tweetBox.height + "px");
+              svg.setAttribute("width", tweetBox.width + "px");
+            </script> 
+          </foreignobject>
+        </g>
+      </svg>
     `
   } else {
     return "no!"
