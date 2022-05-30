@@ -57,13 +57,6 @@ const downloadAll = () => {
   a.remove()
 }
 
-const isMounted = ref("false")
-onMounted(() => {
-  setTimeout(() => {
-    isMounted.value = "true"
-  }, 500)
-})
-
 const isModalOpen = ref(false)
 const isPreviewingCSS = ref(false)
 const openModal = () => {
@@ -77,7 +70,7 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
 </script>
 
 <template>
-  <div class="w-full" :key="isMounted">
+  <div class="w-full">
     <h2 class="text-3xl md:text-4xl font-bold text-center">Create static tweets</h2>
     <ClientOnly>
       <div class="flex flex-col md:flex-row mt-8 justify-center items-center md:items-stretch">
