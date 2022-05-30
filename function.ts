@@ -9,8 +9,12 @@ export const obtainCss = (tweetOptions: TweetOptions) => {
     --text-primary: rgb(35 35 35);
     --text-secondary: rgb(31, 155, 240);
   } 
+  *, :after, :before {
+    border: 0 solid #e5e7eb;
+    box-sizing: border-box;
+  }
   body { font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";}
-  h1, h2, h4, hr, p { margin: 0 }
+  h1, h2, h4, hr, p, body { margin: 0 }
   a { color: inherit; text-decoration: inherit; }
   `
 
