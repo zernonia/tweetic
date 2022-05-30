@@ -29,15 +29,15 @@ defineExpose({ data })
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative overflow-hidden">
     <div
       class="ring-0 hover:ring-2 ring-light-700 transition rounded-2xl cursor-pointer"
       @click="onClick"
       v-if="data?.html?.length"
       v-html="data.html"
     ></div>
-    <div v-if="pending" class="absolute top-0 left-0 h-full">
-      <div class="tweet h-full" :data-style="props.layout">
+    <div v-if="pending" class="absolute top-0 left-0 w-full h-full">
+      <div class="tweet !h-full !w-full" :data-style="props.layout">
         <div class="flex items-center animate-pulse">
           <div class="flex items-center">
             <div class="w-12 h-12 rounded-full bg-light-600"></div>
