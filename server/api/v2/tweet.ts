@@ -16,5 +16,5 @@ export default defineEventHandler(async (event) => {
 
   const tweetContent = getTweetContent(data, options)
   const html = constructHtmlv2(tweetContent, options)
-  return { html, meta: tweetContent.meta, media: tweetContent?.media_html, data }
+  return { html, meta: tweetContent.meta }
 })
