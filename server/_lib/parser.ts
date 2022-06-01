@@ -2,9 +2,12 @@ import { load } from "cheerio"
 import { TweetOptions, TweetContent } from "~~/interface"
 import { mapClass } from "./reference"
 
-export const constructHtml = (data: TweetContent, options: TweetOptions) => {
-  const { meta, html: content, media_html } = data
+export const constructHtml = async (data: TweetContent, options: TweetOptions, isQuotedTweet = false) => {
   const mapClassOptions = (key: string) => mapClass(key, options)
+
+  const { meta, html: content, media_html, quoted_tweet } = data
+  const quotedTweetHtml: string =
+    !isQuotedTweet && quoted_tweet?.id ? await getQuotedTweetHtml(quoted_tweet.id, options) : ""
 
   const html = ` 
   <div class="${mapClassOptions("tweet")}" data-style="${options.layout}">
@@ -42,14 +45,17 @@ export const constructHtml = (data: TweetContent, options: TweetOptions) => {
       ${content}
 
       ${options.show_media && media_html ? media_html : ""}
+      ${quotedTweetHtml ? `<div class="tweet-quoted">${quotedTweetHtml}</div>` : ""}
     </div>
   </div> 
   `
   return html
 }
 
-export const getTweetContent = (data: { [key: string]: string }, options: TweetOptions) => {
-  let d = Object.values(data)[0]
+export const getTweetContent = async (id: string, options: TweetOptions) => {
+  const htmlString = await $fetch<{ [key: string]: string }>(`https://syndication.twitter.com/tweets.json?ids=${id}`)
+
+  let d = Object.values(htmlString)[0]
   const $ = load(d, {
     decodeEntities: false,
     xmlMode: false,
@@ -227,13 +233,13 @@ export const getTweetContent = (data: { [key: string]: string }, options: TweetO
     }
 
     if (scribe === "element:url") {
-      // const quotedTweetId = props['data-tweet-id']
-
+      const quotedTweetId = props["data-tweet-id"]
       // Remove link to quoted tweet to leave the card only
-      // if (quotedTweetId && quotedTweetId === quotedTweet?.id) {
-      //   el.remove();
-      //   return;
-      // }
+      if (quotedTweetId && quotedTweetId === quotedTweet?.id) {
+        el.remove()
+        return
+      }
+
       asLink("url")
     }
   })
@@ -243,5 +249,10 @@ export const getTweetContent = (data: { [key: string]: string }, options: TweetO
   if (quotedTweet) content.quoted_tweet = quotedTweet
   if (mediaHtml) content.media_html = mediaHtml
 
-  return content
+  return { content, htmlString }
+}
+
+const getQuotedTweetHtml = async (id: string, options: TweetOptions) => {
+  const { content } = await getTweetContent(id, options)
+  return constructHtml(content, options, true)
 }

@@ -13,11 +13,9 @@ export default defineEventHandler(async (event) => {
       show_media: show_media ? JSON.parse(show_media.toString()) : false,
     }
 
-    const data = await $fetch<{ [key: string]: string }>(`https://syndication.twitter.com/tweets.json?ids=${id}`)
-
-    const tweetContent = getTweetContent(data, options)
-    const html = constructHtml(tweetContent, options)
-    return { html, meta: tweetContent.meta }
+    const { content: tweetContent, htmlString } = await getTweetContent(id, options)
+    const html = await constructHtml(tweetContent, options)
+    return { html, meta: tweetContent.meta, quoted_tweet: tweetContent.quoted_tweet, htmlString }
   } catch (err) {
     event.res.statusCode = 400
     return { err }
