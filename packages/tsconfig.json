@@ -1,0 +1,7 @@
+{
+  "extends": "../.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "include": ["./vue/**/*.ts", "./vue/**/*.vue"]
+}

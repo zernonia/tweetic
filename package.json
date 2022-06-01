@@ -4,13 +4,15 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "bundle": "cd packages && yarn build"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.6",
     "@types/twemoji": "^13.1.2",
     "nuxt": "3.0.0-rc.3",
-    "nuxt-windicss": "^2.3.1"
+    "nuxt-windicss": "^2.3.1",
+    "vite-plugin-dts": "^1.2.0"
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.35.3",

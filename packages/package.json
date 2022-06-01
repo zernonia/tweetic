@@ -1,0 +1,55 @@
+{
+  "name": "static-tweet",
+  "version": "0.0.1",
+  "description": "Static tweets generation without API",
+  "homepage": "https://www.tweetic.io/",
+  "repository": "github:zernonia/tweetic",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js"
+    },
+    "./nuxt": {
+      "require": "./nuxt/index.ts",
+      "import": "./nuxt/index.ts"
+    },
+    "./dist/style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
+    }
+  },
+  "files": [
+    "dist/**/*.ts",
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "dist/*.css",
+    "nuxt/*.ts"
+  ],
+  "keywords": [
+    "tweets",
+    "static-tweets",
+    "vue",
+    "nuxt"
+  ],
+  "scripts": {
+    "build": "vue-tsc --noEmit && vite build",
+    "version": " git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "devDependencies": {
+    "@types/twemoji": "^13.1.2",
+    "@vitejs/plugin-vue": "^2.0.0",
+    "vite": "^2.9.7",
+    "vite-plugin-dts": "^1.2.0",
+    "vue-tsc": "^0.34.11",
+    "vue": "^3.2.26"
+  },
+  "dependencies": {
+    "node-html-parser": "^5.3.3",
+    "twemoji": "^14.0.2"
+  }
+}
