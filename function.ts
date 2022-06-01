@@ -83,6 +83,10 @@ export const obtainCss = (tweetOptions: TweetOptions) => {
   }
   .tweet-image {
     width: 100%;
+  }
+  .tweet-quoted .tweet {
+    margin-top: 1rem;
+    width: 100%;
   }`
   } else {
     style += `
@@ -142,6 +146,10 @@ export const obtainCss = (tweetOptions: TweetOptions) => {
     overflow: hidden;
   }
   .tweet-image {
+    width: 100%;
+  }
+  .tweet-quoted .tweet {
+    margin-top: 1rem;
     width: 100%;
   }`
   }

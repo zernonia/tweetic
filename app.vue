@@ -125,6 +125,10 @@ useHead({
 .tweet-image {
   width: 100%;
 }
+.tweet-quoted .tweet {
+  margin-top: 1rem;
+  width: 100%;
+}
 
 [data-style="supabase"] {
   width: 400px;
