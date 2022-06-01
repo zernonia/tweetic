@@ -1,20 +1,64 @@
-import { CheerioAPI, load } from "cheerio"
+import { load } from "cheerio"
+import { TweetOptions, TweetContent } from "~~/interface"
+import { mapClass } from "./reference"
 
-export const extractTweetContent = (data: string, id: string) => {
-  const $ = load(data[id], {
+export const constructHtmlv2 = (data: TweetContent, options: TweetOptions) => {
+  const { meta, html: content } = data
+  const mapClassOptions = (key: string) => mapClass(key, options)
+
+  const html = ` 
+  <div class="${mapClassOptions("tweet")}" data-style="${options.layout}">
+    <div class="${mapClassOptions("tweet-header")}">
+      ${
+        options.layout == "supabase"
+          ? `<div class="${mapClassOptions("tweet-author")}">
+        <svg class="${mapClassOptions(
+          "tweet-logo"
+        )}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--mdi" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M22.46 6c-.77.35-1.6.58-2.46.69c.88-.53 1.56-1.37 1.88-2.38c-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29c0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15c0 1.49.75 2.81 1.91 3.56c-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07a4.28 4.28 0 0 0 4 2.98a8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21C16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56c.84-.6 1.56-1.36 2.14-2.23Z"></path></svg>
+        <img class="${mapClassOptions("tweet-author-image")}" src="${meta.avatar.normal}" >
+        <div class="${mapClassOptions("tweet-author-info")}">
+          <p class="${mapClassOptions("tweet-author-name")}"></p>
+          <a class="${mapClassOptions("tweet-author-handler")}" target="_blank" href="${meta.profile_url}">@${
+              meta.username
+            }</a>
+        </div>
+      </div>`
+          : `<div class="${mapClassOptions("tweet-author")}">
+        <img class="${mapClassOptions("tweet-author-image")}" src="${meta.avatar.normal}" >
+        <div class="${mapClassOptions("tweet-author-info")}">
+          <p class="${mapClassOptions("tweet-author-name")}">${meta.name}</p>
+          <a class="${mapClassOptions("tweet-author-handler")}" target="_blank" href="${meta.profile_url}">@${
+              meta.username
+            }</a>
+        </div>
+      </div>
+      <svg class="${mapClassOptions(
+        "tweet-logo"
+      )}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--mdi" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M22.46 6c-.77.35-1.6.58-2.46.69c.88-.53 1.56-1.37 1.88-2.38c-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29c0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15c0 1.49.75 2.81 1.91 3.56c-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07a4.28 4.28 0 0 0 4 2.98a8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21C16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56c.84-.6 1.56-1.36 2.14-2.23Z"></path></svg>`
+      }
+    </div>
+      
+    <div class="${mapClassOptions("tweet-content")}">
+      ${content}
+    </div>
+  </div> 
+  `
+  return html
+}
+
+export const getTweetContent = (data: { [key: string]: string }, options: TweetOptions) => {
+  let d = Object.values(data)[0]
+  const $ = load(d, {
     decodeEntities: false,
     xmlMode: false,
   })
-  return getTweetContent($)
-}
 
-export const getTweetContent = ($: CheerioAPI) => {
   const container = $(".EmbeddedTweet-tweetContainer")
 
   if (!container.length) return
 
-  const meta: any = {}
-  const content: any = { meta }
+  const meta: TweetContent["meta"] = {}
+  const content: TweetContent = { meta, html: "" }
 
   // This is the blockquote with the tweet
   const subject = container.find('[data-scribe="section:subject"]')
@@ -41,20 +85,21 @@ export const getTweetContent = ($: CheerioAPI) => {
 
   let quotedTweet: { id: string; url: string }
   let mediaHtml: string
-
   meta.id = subject.attr("data-tweet-id")
+  meta.url = subject.attr("cite")
   meta.avatar = {
     normal: avatar.attr("data-src-1x"),
   }
   meta.name = name.text()
   meta.username = screenName.text().substring(1) // Omit the initial @
-  meta.createdAt = new Date(fullTimestamp.attr("data-datetime")).getTime()
-  meta.heartCount = heartCount.text()
-  meta.ctaType = profileText.length ? "profile" : "conversation"
+  meta.profile_url = "https://twitter.com/" + meta.username
+  meta.created_at = new Date(fullTimestamp.attr("data-datetime")).getTime()
+  meta.heart_count = heartCount.text()
+  meta.cta_type = profileText.length ? "profile" : "conversation"
 
   if (conversationText.length) {
     // Get the formatted count and skip the rest
-    meta.ctaCount = conversationText.text().match(/^[^\s]+/)[0]
+    meta.cta_count = conversationText.text().match(/^[^\s]+/)[0]
   }
 
   // If some text ends without a trailing space, it's missing a <br>
@@ -131,10 +176,13 @@ export const getTweetContent = ($: CheerioAPI) => {
     // Handle emojis inside the text
     if (props.class?.includes("Emoji--forText")) {
       this.attribs = {
-        class: "emoji",
         "data-type": "emoji-for-text",
         src: props.src,
         alt: props.alt,
+        class:
+          options.css === "tailwind"
+            ? "inline-block align-text-bottom w-[1.2em] h-[1.2em] mr-[0.05em] ml-[0.1em]"
+            : "emoji",
       }
       return
     }
@@ -146,26 +194,31 @@ export const getTweetContent = ($: CheerioAPI) => {
     const props = this.attribs
     const scribe = props["data-scribe"]
     const el = $(this)
-    const asTwitterLink = (type) => {
+    const asLink = (type: string) => {
       this.attribs = {
         "data-type": type,
         href: props.href,
         target: "_blank",
+        class: options.css == "tailwind" ? "text-blue-400" : "tweet-content-link",
       }
-      // Replace custom tags inside the anchor with text
+      if (type === "url") {
+        el.children(".u-hiddenVisually").remove()
+        return
+      }
       el.text(el.text())
+      return
     }
 
     // @mention
     if (scribe === "element:mention") {
-      return asTwitterLink("mention")
+      asLink("mention")
     }
 
     // #hashtag
     if (scribe === "element:hashtag") {
       // A hashtag may be a $cashtag too
       const type = props["data-query-source"] === "cashtag_click" ? "cashtag" : "hashtag"
-      return asTwitterLink(type)
+      asLink(type)
     }
 
     if (scribe === "element:url") {
@@ -176,21 +229,14 @@ export const getTweetContent = ($: CheerioAPI) => {
       //   el.remove();
       //   return;
       // }
-
-      this.attribs = {
-        "data-type": "url",
-        href: props.href,
-        target: "_blank",
-      }
-      el.children(".u-hiddenVisually").remove()
-      return
+      asLink("url")
     }
   })
 
   content.html = tweetContent.html()
 
-  if (quotedTweet) content.quotedTweet = quotedTweet
-  if (mediaHtml) content.mediaHtml = mediaHtml
+  if (quotedTweet) content.quoted_tweet = quotedTweet
+  if (mediaHtml) content.media_html = mediaHtml
 
   return content
 }

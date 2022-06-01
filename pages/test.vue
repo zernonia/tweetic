@@ -1,7 +1,6 @@
 <script setup lang="ts">
-// import { fetchTweetAst } from "static-tweets"
 const { query } = useRoute()
-const { data } = useFetch("/api/test", { params: query })
+const { data } = useFetch("/api/v2/tweet", { params: query })
 </script>
 
 <template>
@@ -10,7 +9,6 @@ const { data } = useFetch("/api/test", { params: query })
     {{ data }}
   </pre
     >
-    <div class="tweet tweet-content" v-html="data?.html"></div>
-    <div class="tweet tweet-content" v-html="Object.values(data?.data)[0]"></div>
+    <div v-html="data?.html"></div>
   </div>
 </template>

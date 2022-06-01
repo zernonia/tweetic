@@ -22,3 +22,27 @@ export interface TweetOptions {
 export interface ExportOptions {
   css: string
 }
+
+export interface TweetContent {
+  meta: {
+    id?: string
+    url?: string
+    avatar?: {
+      [key: string]: string
+    }
+    name?: string
+    username?: string
+    profile_url?: string
+    created_at?: number
+    heart_count?: string
+    cta_type?: string
+    cta_count?: string
+    [key: string]: any
+  }
+  html: string
+  quoted_tweet?: {
+    id: string
+    url: string
+  }
+  media_html?: string
+}
