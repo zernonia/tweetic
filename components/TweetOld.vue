@@ -3,8 +3,8 @@ const props = defineProps({
   url: String,
   layout: { type: String, default: "" },
   css: { type: String, default: "" },
+  show_original_link: { type: Boolean, default: false },
   enable_twemoji: { type: Boolean, default: true },
-  show_media: { type: Boolean, default: false },
 
   redirect: { type: Boolean, default: true },
 })
@@ -12,7 +12,7 @@ const props = defineProps({
 const { data, pending } = await useAsyncData(
   JSON.stringify(props),
   () =>
-    $fetch("/api/v2/tweet", {
+    $fetch("/api/tweet", {
       params: { ...props },
     }),
   {
