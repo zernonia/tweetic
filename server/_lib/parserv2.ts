@@ -172,7 +172,10 @@ export const getTweetContent = (data: { [key: string]: string }, options: TweetO
 
   tweetContent.children("img").each(function () {
     const props = this.attribs
-
+    if (!options.enable_twemoji) {
+      const el = $(this)
+      el.replaceWith(props.alt)
+    }
     // Handle emojis inside the text
     if (props.class?.includes("Emoji--forText")) {
       this.attribs = {
