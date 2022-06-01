@@ -12,7 +12,7 @@ const props = defineProps({
 const { data, pending } = await useAsyncData(
   JSON.stringify(props),
   () =>
-    $fetch("/api/v2/tweet", {
+    $fetch("/api/tweet", {
       params: { ...props },
     }),
   {

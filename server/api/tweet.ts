@@ -1,23 +1,23 @@
-import { TweetOembed, TweetOptions } from "~~/interface"
-import { constructHtml } from "../_lib/parser"
+import { TweetOptions } from "~~/interface"
+import { constructHtml, getTweetContent } from "../_lib/parser"
 
 export default defineEventHandler(async (event) => {
-  const { url, layout, css, show_original_link, enable_twemoji } = useQuery(event)
-  try {
-    const oembed = await $fetch<TweetOembed>(`https://publish.twitter.com/oembed?url=${url}`)
+  const { url, layout, css, enable_twemoji, show_media } = useQuery(event)
+  const id = url.toString().split("/")[5]
 
+  try {
     const options: TweetOptions = {
       layout: layout?.toString(),
       css: css?.toString(),
-      show_original_link: show_original_link ? JSON.parse(show_original_link.toString()) : false,
       enable_twemoji: enable_twemoji ? JSON.parse(enable_twemoji.toString()) : false,
+      show_media: show_media ? JSON.parse(show_media.toString()) : false,
     }
-    const html = await constructHtml(oembed, options)
 
-    return {
-      html,
-      oembed,
-    }
+    const data = await $fetch<{ [key: string]: string }>(`https://syndication.twitter.com/tweets.json?ids=${id}`)
+
+    const tweetContent = getTweetContent(data, options)
+    const html = constructHtml(tweetContent, options)
+    return { html, meta: tweetContent.meta }
   } catch (err) {
     event.res.statusCode = 400
     return { err }
