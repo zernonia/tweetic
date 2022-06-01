@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { toRefs, computed } from "vue"
 import { TweetOptions } from "~~/interface"
 import { useFetchStaticTweet } from "../composables/fetch"
 
