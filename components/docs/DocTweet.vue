@@ -5,6 +5,7 @@ const params = ref({
   css: "tailwind",
   enable_twemoji: true,
   show_media: true,
+  show_quoted_tweet: true,
 })
 
 const { $hljs } = useNuxtApp()
@@ -35,6 +36,7 @@ const highlightResponse = computed(() =>
 
       <Toggle class="mt-2" name="enable_twemoji" v-model="params.enable_twemoji"> enable_twemoji </Toggle>
       <Toggle class="mt-2" name="show_media" v-model="params.show_media"> show_media </Toggle>
+      <Toggle class="mt-2" name="show_quoted_tweet" v-model="params.show_quoted_tweet"> show_quoted_tweet </Toggle>
     </template>
 
     <template #result>

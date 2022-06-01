@@ -7,7 +7,9 @@ export const constructHtml = async (data: TweetContent, options: TweetOptions, i
 
   const { meta, html: content, media_html, quoted_tweet } = data
   const quotedTweetHtml: string =
-    !isQuotedTweet && quoted_tweet?.id ? await getQuotedTweetHtml(quoted_tweet.id, options) : ""
+    options.show_quoted_tweet && !isQuotedTweet && quoted_tweet?.id
+      ? await getQuotedTweetHtml(quoted_tweet.id, options)
+      : ""
 
   const html = ` 
   <div class="${mapClassOptions("tweet")}" data-style="${options.layout}">

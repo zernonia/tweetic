@@ -12,6 +12,8 @@ const tweetsOptions = useStorage<TweetOptions>("tweets-options", {
   css: "",
   show_original_link: false,
   enable_twemoji: true,
+  show_media: true,
+  show_quoted_tweet: true,
 })
 const exportOptions = useStorage("export-options", {})
 const computedInput = computed(() => tweetsInput.value.filter((i) => i != ""))
@@ -110,6 +112,9 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
 
             <Toggle class="mt-2" name="enable_twemoji" v-model="tweetsOptions.enable_twemoji"> Enable Twemoji </Toggle>
             <Toggle class="mt-2" name="show_media" v-model="tweetsOptions.show_media"> Show Media </Toggle>
+            <Toggle class="mt-2" name="show_quoted_tweet" v-model="tweetsOptions.show_quoted_tweet">
+              Show Quoted Tweet
+            </Toggle>
           </div>
 
           <div class="mt-20 flex flex-col">

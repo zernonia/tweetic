@@ -18,6 +18,7 @@ export interface TweetOptions {
   show_original_link?: boolean
   enable_twemoji?: boolean
   show_media?: boolean
+  show_quoted_tweet?: boolean
 }
 
 export interface ExportOptions {
