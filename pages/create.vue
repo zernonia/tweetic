@@ -108,10 +108,8 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
               <option value="tailwind">TailwindCSS</option>
             </select>
 
-            <Toggle class="mt-2" name="show_original_link" v-model="tweetsOptions.show_original_link">
-              Show Original Link
-            </Toggle>
             <Toggle class="mt-2" name="enable_twemoji" v-model="tweetsOptions.enable_twemoji"> Enable Twemoji </Toggle>
+            <Toggle class="mt-2" name="show_media" v-model="tweetsOptions.show_media"> Show Media </Toggle>
           </div>
 
           <div class="mt-20 flex flex-col">

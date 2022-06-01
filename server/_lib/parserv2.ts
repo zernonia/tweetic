@@ -3,7 +3,7 @@ import { TweetOptions, TweetContent } from "~~/interface"
 import { mapClass } from "./reference"
 
 export const constructHtmlv2 = (data: TweetContent, options: TweetOptions) => {
-  const { meta, html: content } = data
+  const { meta, html: content, media_html } = data
   const mapClassOptions = (key: string) => mapClass(key, options)
 
   const html = ` 
@@ -40,6 +40,8 @@ export const constructHtmlv2 = (data: TweetContent, options: TweetOptions) => {
       
     <div class="${mapClassOptions("tweet-content")}">
       ${content}
+
+      ${options.show_media && media_html ? media_html : ""}
     </div>
   </div> 
   `
@@ -153,7 +155,7 @@ export const getTweetContent = (data: { [key: string]: string }, options: TweetO
           const width = img.attr("width")
 
           this.attribs = {
-            "data-type": "media-image",
+            class: "tweet-image",
             src: `${url}?format=${format}`,
             height,
             width,
@@ -164,7 +166,7 @@ export const getTweetContent = (data: { [key: string]: string }, options: TweetO
           // Move the media img to a new container
           media.append(img)
         })
-        media.attr("data-type", `image-container ${images.length}`)
+        media.attr("class", "tweet-media")
         mediaHtml = $("<div>").append(media).html()
       }
     }

@@ -17,6 +17,7 @@ export interface TweetOptions {
   css?: string
   show_original_link?: boolean
   enable_twemoji?: boolean
+  show_media?: boolean
 }
 
 export interface ExportOptions {

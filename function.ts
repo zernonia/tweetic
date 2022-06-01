@@ -74,6 +74,15 @@ export const obtainCss = (tweetOptions: TweetOptions) => {
     width: 1.2em;
     margin: 0 0.05em 0 0.1em;
     vertical-align: -0.1em;
+  }
+  .tweet-media {
+    margin-top: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  .tweet-image {
+    width: 100%;
   }`
   } else {
     style += `
@@ -125,6 +134,15 @@ export const obtainCss = (tweetOptions: TweetOptions) => {
     width: 1.2em;
     margin: 0 0.05em 0 0.1em;
     vertical-align: -0.1em;
+  }
+  .tweet-media {
+    margin-top: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  .tweet-image {
+    width: 100%;
   }`
   }
 

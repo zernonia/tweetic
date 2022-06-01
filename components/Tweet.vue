@@ -5,6 +5,7 @@ const props = defineProps({
   css: { type: String, default: "" },
   show_original_link: { type: Boolean, default: false },
   enable_twemoji: { type: Boolean, default: true },
+  show_media: { type: Boolean, default: true },
 
   redirect: { type: Boolean, default: true },
 })
