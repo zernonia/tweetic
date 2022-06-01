@@ -19,7 +19,6 @@
     "cheerio": "^1.0.0-rc.11",
     "highlight.js": "^11.5.1",
     "lodash-es": "^4.17.21",
-    "node-html-parser": "^5.3.3",
     "twemoji": "^14.0.2",
     "twitter-api-v2": "^1.12.0",
     "vue-toastification": "^2.0.0-rc.5"
