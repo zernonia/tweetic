@@ -123,6 +123,7 @@ useHead({
   overflow: hidden;
 }
 .tweet-summary-card-text {
+  border-top: 1px solid var(--border);
   padding: 0.75rem;
   font-size: 0.95rem;
   color: var(--subtext-primary);
@@ -132,10 +133,6 @@ useHead({
 }
 .tweet-summary-card-text h2 {
   color: var(--text-primary);
-}
-.tweet-image,
-.tweet-media video {
-  width: 100%;
 }
 .tweet-quoted .tweet {
   margin-top: 1rem;

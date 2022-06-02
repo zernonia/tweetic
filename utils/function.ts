@@ -82,6 +82,7 @@ export const obtainCss = (tweetOptions: TweetOptions) => {
     overflow: hidden;
   }
   .tweet-summary-card-text {
+    border-top: 1px solid var(--border);
     padding: 0.75rem;
     font-size: 0.95rem;
     color: var(--subtext-primary);
@@ -158,6 +159,7 @@ export const obtainCss = (tweetOptions: TweetOptions) => {
     overflow: hidden;
   }
   .tweet-summary-card-text {
+    border-top: 1px solid var(--border);
     padding: 0.75rem;
     font-size: 0.95rem;
     color: var(--subtext-primary);

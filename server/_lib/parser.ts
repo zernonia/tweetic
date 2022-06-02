@@ -113,11 +113,27 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
   }
 
   let card_html = ""
+  const mediaClass =
+    options.css == "tailwind" ? "border border-gray-200 rounded-2xl mt-4 overflow-hidden" : "tweet-media"
+
   if (card?.name === "summary" || card?.name === "summary_large_image") {
     html.replace(card.url, "")
-    card_html = `
+    card_html =
+      options.css === "tailwind"
+        ? `
         <a href="${card.url}" target="_blank">
-          <div class="tweet-media">
+          <div class="${mediaClass}">
+            <img src="${card.binding_values.thumbnail_image_large.image_value.url}" >
+            <div class="border-t border-gray-200 text-gray-300 text-[0.95rem] p-3">
+              <span class="text-[0.9rem]">${card.binding_values.vanity_url.string_value}</span>
+              <h2 class="text-black leading-relaxed">${card.binding_values.title.string_value}</h2>
+              <p>${card.binding_values.description.string_value}</p>
+            </div>
+          </div>
+        </a>`
+        : `
+        <a href="${card.url}" target="_blank">
+          <div class="${mediaClass}">
             <img src="${card.binding_values.thumbnail_image_large.image_value.url}" >
             <div class="tweet-summary-card-text">
               <span>${card.binding_values.vanity_url.string_value}</span>
@@ -130,17 +146,17 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
 
   let media_html = ""
   if (photos) {
-    media_html = `<div class="tweet-media">`
+    media_html = `<div class="${mediaClass}">`
     photos.map((photo) => {
-      media_html += `<img class="tweet-image" src="${photo.url}">`
+      media_html += `<img style="width: 100%" class="tweet-image" src="${photo.url}">`
     })
     media_html += `</div>`
   }
   if (video) {
     const mp4 = video.variants.find((i) => i.type === "video/mp4")
     media_html = `
-    <div class="tweet-media">
-      <video autoplay muted loop src="${mp4.src}"></video> 
+    <div class="${mediaClass}">
+      <video style="width: 100%" autoplay muted loop src="${mp4.src}"></video> 
     </div>`
   }
 
