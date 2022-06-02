@@ -14,8 +14,8 @@ export default defineEventHandler(async (event) => {
       show_quoted_tweet: show_quoted_tweet ? JSON.parse(show_quoted_tweet.toString()) : false,
     }
     const data = await getSyndication(id)
-    const html = constructHtml(data, options)
-    return { html }
+    const { html, meta } = constructHtml(data, options)
+    return { html, meta }
   } catch (err) {
     event.res.statusCode = 400
     return { err }
