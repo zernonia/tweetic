@@ -1,5 +1,5 @@
-import { TweetOptions } from "~~/interface"
-import { constructHtml, getTweetContent } from "../_lib/parser"
+import { TweetOptions } from "~~/utils/types"
+import { constructHtml, getSyndication, getTweetContent } from "../_lib/parser"
 
 export default defineEventHandler(async (event) => {
   const { url, layout, css, enable_twemoji, show_media, show_quoted_tweet } = useQuery(event)
@@ -13,10 +13,9 @@ export default defineEventHandler(async (event) => {
       show_media: show_media ? JSON.parse(show_media.toString()) : false,
       show_quoted_tweet: show_quoted_tweet ? JSON.parse(show_quoted_tweet.toString()) : false,
     }
-
-    const { content: tweetContent, htmlString } = await getTweetContent(id, options)
-    const html = await constructHtml(tweetContent, options)
-    return { html, meta: tweetContent.meta, quoted_tweet: tweetContent.quoted_tweet, htmlString }
+    const data = await getSyndication(id)
+    const html = constructHtml(data, options)
+    return { html }
   } catch (err) {
     event.res.statusCode = 400
     return { err }

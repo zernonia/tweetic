@@ -133,7 +133,8 @@ useHead({
 .tweet-summary-card-text h2 {
   color: var(--text-primary);
 }
-.tweet-image {
+.tweet-image,
+.tweet-media video {
   width: 100%;
 }
 .tweet-quoted .tweet {

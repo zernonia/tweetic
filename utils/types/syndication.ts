@@ -11,6 +11,9 @@ export interface TweetSyndication {
   conversation_count: number
   news_action_type: string
   card: Card
+  photos: Photo[]
+  video: Video
+  quoted_tweet: QuotedTweet
 }
 
 export interface ImageValue {
@@ -24,8 +27,9 @@ export interface SelfThread {
 }
 
 export interface Entities {
-  hashtags: any[]
+  hashtags: HashTag[]
   urls: Url[]
+  media: Url[]
   user_mentions: UserMention[]
   symbols: any[]
 }
@@ -35,6 +39,11 @@ export interface Url {
   expanded_url: string
   indices: number[]
   url: string
+}
+
+export interface HashTag {
+  indices: number[]
+  text: string
 }
 
 export interface UserMention {
@@ -245,4 +254,65 @@ export interface CardUrl {
 export interface SummaryPhotoImageOriginal {
   image_value: ImageValue
   type: string
+}
+
+export interface QuotedTweet {
+  lang: string
+  reply_count: number
+  retweet_count: number
+  favorite_count: number
+  created_at: string
+  display_text_range: number[]
+  entities: Entities
+  id_str: string
+  text: string
+  user: User
+  photos: Photo[]
+}
+
+export interface Photo {
+  backgroundColor: BackgroundColor
+  cropCandidates: CropCandidate[]
+  expandedUrl: string
+  url: string
+  width: number
+  height: number
+}
+
+export interface BackgroundColor {
+  red: number
+  green: number
+  blue: number
+}
+
+export interface CropCandidate {
+  x: number
+  y: number
+  w: number
+  h: number
+}
+
+export interface Video {
+  aspectRatio: number[]
+  contentType: string
+  durationMs: number
+  mediaAvailability: MediaAvailability
+  poster: string
+  variants: Variant[]
+  videoId: VideoId
+  viewCount: number
+}
+
+export interface MediaAvailability {
+  status: string
+}
+
+export interface Variant {
+  type: string
+  src: string
+}
+
+export interface VideoId {
+  type: string
+  id: string
 }
