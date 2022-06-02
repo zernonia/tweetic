@@ -113,12 +113,12 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
   }
 
   let card_html = ""
-  if (card?.binding_values?.summary_photo_image_large) {
+  if (card?.name === "summary" || card?.name === "summary_large_image") {
     html.replace(card.url, "")
     card_html = `
         <a href="${card.url}" target="_blank">
           <div class="tweet-media">
-            <img src="${card.binding_values.summary_photo_image_large.image_value.url}" >
+            <img src="${card.binding_values.thumbnail_image_large.image_value.url}" >
             <div class="tweet-summary-card-text">
               <span>${card.binding_values.vanity_url.string_value}</span>
               <h2>${card.binding_values.title.string_value}</h2>
