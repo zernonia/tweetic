@@ -45,13 +45,13 @@ export const constructHtml = (data: TweetSyndication, options: TweetOptions, isQ
       
     <div class="${mapClassOptions("tweet-content")}">
       ${content}
-      ${media_html}
-      ${card_html}
-      ${quoted_html} 
+      ${options.show_media ? media_html : ""}
+      ${options.show_media ? card_html : ""}
+      ${options.show_quoted_tweet ? quoted_html : ""} 
     </div>
   </div> 
   `
-  return html
+  return { html, meta }
 }
 
 export const getSyndication = async (id: string) => {
@@ -159,6 +159,6 @@ const getQuotedHtml = (data: TweetSyndication, options: TweetOptions) => {
 
   const url = `https://twitter.com/${data.user.screen_name}/status/${data.id_str}`
   return `<div class="tweet-quoted">
-       ${constructHtml(data, options, true)} 
+       ${constructHtml(data, options, true).html} 
     </div>`
 }
