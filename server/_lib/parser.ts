@@ -174,13 +174,17 @@ export const getTweetContent = async (id: string, options: TweetOptions) => {
           // Move the media img to a new container
           media.append(img)
         })
+        mediaHtml = $("<div>").append(media).html()
       }
 
       const gif = el.find('[data-scribe="element:poster_image_link"]')
       if (gif.length) {
-        let dataImage = gif.attr("data-image")
-        let src = `https://video.twimg.com/tweet_video/${dataImage.split("tweet_video_thumb/")[1]}.mp4`
-        media.append(`<video autoplay muted loop src="${src}"></video>`)
+        let dataImage = gif.attr("data-image").split("tweet_video_thumb/")[1]
+        if (dataImage) {
+          let src = `https://video.twimg.com/tweet_video/${dataImage}.mp4`
+          media.append(`<video autoplay muted loop src="${src}"></video>`)
+          mediaHtml = $("<div>").append(media).html()
+        }
       }
 
       const summaryCard = el.find(".SummaryCard--large")
@@ -197,8 +201,8 @@ export const getTweetContent = async (id: string, options: TweetOptions) => {
 
         summaryCard.empty().append(image).append(card_content)
         media.attr("class", "tweet-media tweet-summary-card").append(summaryCard)
+        mediaHtml = $("<div>").append(media).html()
       }
-      mediaHtml = $("<div>").append(media).html()
     }
   })
 
