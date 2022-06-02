@@ -20,7 +20,7 @@ useCustomHead(`${capitalizeFirstLetter(keyword.toString())}'s Wall of Tweets! | 
     </div>
 
     <template v-if="data.length">
-      <Masonry :urls="data" :column-width="400" :options="{ layout: 'supabase' }">
+      <Masonry :urls="data" :column-width="400" :options="{ layout: 'supabase', show_media: true }">
         <template v-slot="{ url, options }">
           <Tweet class="flex justify-center" :url="url" v-bind="options"></Tweet>
         </template>
