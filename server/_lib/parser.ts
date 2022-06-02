@@ -113,7 +113,7 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
   }
 
   let card_html = ""
-  if (card) {
+  if (card?.binding_values?.summary_photo_image_large) {
     html.replace(card.url, "")
     card_html = `
         <a href="${card.url}" target="_blank">
