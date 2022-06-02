@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const params = ref({
   url: "https://twitter.com/zernonia/status/1524620865987506176",
-  layout: "supabase",
+  layout: "",
   css: "tailwind",
   enable_twemoji: true,
   show_media: true,
