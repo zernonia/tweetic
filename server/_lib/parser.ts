@@ -131,8 +131,8 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
             <img src="${card.binding_values.thumbnail_image_large.image_value.url}" >
             <div class="border-t border-gray-200 text-gray-300 text-[0.95rem] p-3">
               <span class="text-[0.9rem]">${card.binding_values.vanity_url.string_value}</span>
-              <h2 class="text-black leading-relaxed">${card.binding_values.title.string_value}</h2>
-              <p>${card.binding_values.description.string_value}</p>
+              <h2 class="text-black leading-relaxed my-0.5">${card.binding_values.title.string_value}</h2>
+              <p class="leading-snug">${card.binding_values.description.string_value}</p>
             </div>
           </div>
         </a>`
