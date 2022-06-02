@@ -88,7 +88,7 @@
         <span>Custom CSS class for styling</span>
       </div>
 
-      <div class="w-96 h-96 bg-purple-300 filter blur-[100px] hidden md:block absolute top-48 -z-1"></div>
+      <div class="w-96 h-96 bg-blue-300 filter blur-[100px] hidden md:block absolute top-48 -z-1"></div>
     </div>
   </div>
 </template>
