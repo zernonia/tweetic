@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { capitalizeFirstLetter } from "~~/function"
+import { capitalizeFirstLetter } from "~~/utils/function"
 const route = useRoute()
 const keyword = route.params.keyword?.toString()
 

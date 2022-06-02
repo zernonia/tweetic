@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useStorage } from "@vueuse/core"
 import { useClipboard } from "@vueuse/core"
-import { obtainCss } from "~~/function"
-import { TweetOptions } from "~~/interface"
+import { obtainCss } from "~~/utils/function"
+import { TweetOptions } from "~~/utils/types"
 import { useToast } from "vue-toastification"
 
 const toast = useToast()

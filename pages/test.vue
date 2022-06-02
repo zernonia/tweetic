@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { query } = useRoute()
-const { data } = useFetch("/api/v2/tweet", { params: query })
+const { data } = useFetch("/api/tweet", { params: query })
 </script>
 
 <template>

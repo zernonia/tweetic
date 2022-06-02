@@ -1,4 +1,4 @@
-import { TweetOptions, ExportOptions } from "./interface"
+import { TweetOptions, ExportOptions } from "./types"
 
 export const obtainCss = (tweetOptions: TweetOptions) => {
   if (tweetOptions.css == "tailwind") return ""
