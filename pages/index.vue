@@ -46,36 +46,39 @@
         <span>Static HTML tweets</span>
       </div>
       <Tweet
-        class="md:absolute top-0 left-0"
+        class="md:absolute md:top-0 md:left-0"
         url="https://twitter.com/zernonia/status/1513020247690809346"
         layout="supabase"
       ></Tweet>
       <Tweet
-        class="md:absolute right-0 -top-4"
+        class="md:absolute md:right-0 md:-top-4"
         url="https://twitter.com/sudonymously/status/1521878033929539584"
       ></Tweet>
 
-      <Tweet class="md:absolute left-1/3 top-40" url="https://twitter.com/supabase/status/1524055594587795456"></Tweet>
+      <Tweet
+        class="md:absolute md:left-1/3 md:top-40"
+        url="https://twitter.com/supabase/status/1524055594587795456"
+      ></Tweet>
       <div class="md:absolute flex items-center left-1/2 top-26 text-gray-400">
         <span>Create manually or API</span>
         <Arrow class="w-12 transform rotate-180 mr-4"></Arrow>
       </div>
 
-      <div class="md:absolute flex items-center top-84 left-36 text-gray-400">
+      <div class="md:absolute flex items-center md:top-84 md:left-36 text-gray-400">
         <Arrow class="w-12 transform rotate-20 mr-4"></Arrow>
         <span>Free & Open Source</span>
       </div>
       <Tweet
-        class="md:absolute -left-20 top-108"
+        class="md:absolute md:-left-20 md:top-108"
         url="https://twitter.com/CodiferousCoder/status/1522233113207836675"
       ></Tweet>
       <Tweet
-        class="md:absolute -right-1/10 top-48"
+        class="md:absolute md:-right-1/10 md:top-48"
         url="https://twitter.com/OSSInsight/status/1524071559865937920"
         layout="supabase"
       ></Tweet>
       <Tweet
-        class="md:absolute top-132 right-1/10"
+        class="md:absolute md:top-132 md:right-1/10"
         url="https://twitter.com/sweekiat_lim/status/1517707225430519809"
         layout="supabase"
       ></Tweet>
@@ -84,6 +87,8 @@
         <Arrow class="w-12 transform rotate-x-180 md:rotate-x-0 mr-4"></Arrow>
         <span>Custom CSS class for styling</span>
       </div>
+
+      <div class="w-96 h-96 bg-purple-300 filter blur-[100px] hidden md:block absolute top-48 -z-1"></div>
     </div>
   </div>
 </template>
