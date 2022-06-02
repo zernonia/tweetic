@@ -122,6 +122,17 @@ useHead({
   border-radius: 1rem;
   overflow: hidden;
 }
+.tweet-summary-card-text {
+  padding: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--subtext-primary);
+}
+.tweet-summary-card-text span {
+  font-size: 0.9rem;
+}
+.tweet-summary-card-text h2 {
+  color: var(--text-primary);
+}
 .tweet-image {
   width: 100%;
 }

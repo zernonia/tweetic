@@ -177,6 +177,23 @@ export const getTweetContent = async (id: string, options: TweetOptions) => {
         media.attr("class", "tweet-media")
         mediaHtml = $("<div>").append(media).html()
       }
+
+      const summaryCard = el.find(".SummaryCard--large")
+      if (summaryCard.length) {
+        summaryCard.removeAttr("class").attr("target", "_blank")
+        const image = summaryCard.find("img").removeAttr("class alt")
+        const card_content = summaryCard.find(".SummaryCard-content").attr("class", "tweet-summary-card-text")
+
+        card_content.children().each(function () {
+          this.attribs = {}
+        })
+        // reposition last el to first
+        card_content.children().last().insertBefore(card_content.children().first())
+
+        summaryCard.empty().append(image).append(card_content)
+        media.attr("class", "tweet-media tweet-summary-card").append(summaryCard)
+        mediaHtml = $("<div>").append(media).html()
+      }
     }
   })
 
