@@ -3,15 +3,16 @@ import { mapClass } from "./reference"
 import Twemoji from "twemoji"
 
 export const constructHtml = (data: TweetSyndication, options: TweetOptions, isQuotedTweet = false) => {
-  const mapClassOptions = (key: string) => mapClass(key, options)
+  try {
+    const mapClassOptions = (key: string) => mapClass(key, options)
 
-  const { meta, html: content, user, media_html, card_html, quoted_tweet } = getTweetContent(data, options)
-  const quoted_html = getQuotedHtml(quoted_tweet as any, options)
-  const tweet_class = isQuotedTweet
-    ? mapClassOptions("tweet").replace("w-[400px]", "").replace("w-[500px]", "").concat(" mt-4")
-    : mapClassOptions("tweet")
+    const { meta, html: content, user, media_html, card_html, quoted_tweet } = getTweetContent(data, options)
+    const quoted_html = getQuotedHtml(quoted_tweet as any, options)
+    const tweet_class = isQuotedTweet
+      ? mapClassOptions("tweet").replace("w-[400px]", "").replace("w-[500px]", "").concat(" mt-4")
+      : mapClassOptions("tweet")
 
-  const html: string = ` 
+    const html: string = ` 
   <div class="${tweet_class} " data-style="${options.layout}">
     <div class="${mapClassOptions("tweet-header")}">
       ${
@@ -51,7 +52,10 @@ export const constructHtml = (data: TweetSyndication, options: TweetOptions, isQ
     </div>
   </div> 
   `
-  return { html, meta }
+    return { html, meta }
+  } catch (err) {
+    throw err
+  }
 }
 
 export const getSyndication = async (id: string) => {
@@ -59,68 +63,69 @@ export const getSyndication = async (id: string) => {
 }
 
 export const getTweetContent = (data: TweetSyndication, options: TweetOptions) => {
-  const { entities, user, card, text, quoted_tweet, photos, video } = data
-  let html = text
+  try {
+    const { entities, user, card, text, quoted_tweet, photos, video } = data
+    let html = text
 
-  const meta = {
-    user_id: user.id_str,
-    name: user.name,
-    screen_name: user.screen_name,
-    verified: user.verified,
-    profile_image_url_https: user.profile_image_url_https,
-    url: "https://twitter.com/" + user.screen_name + "/status/" + data.id_str,
-    profile_url: "https://twitter.com/" + user.screen_name,
-    created_at: data.created_at,
-    favorite_count: data.favorite_count,
-    conversation_count: data.conversation_count,
-  }
+    const meta = {
+      user_id: user.id_str,
+      name: user.name,
+      screen_name: user.screen_name,
+      verified: user.verified,
+      profile_image_url_https: user.profile_image_url_https,
+      url: "https://twitter.com/" + user.screen_name + "/status/" + data.id_str,
+      profile_url: "https://twitter.com/" + user.screen_name,
+      created_at: data.created_at,
+      favorite_count: data.favorite_count,
+      conversation_count: data.conversation_count,
+    }
 
-  const linkClass = options.css == "tailwind" ? "text-blue-400" : "tweet-content-link"
-  entities.urls?.forEach((i) => {
-    html = html.replace(
-      i.url,
-      i.display_url.includes("twitter.com")
-        ? ""
-        : `<a class="${linkClass}" href="${i.url}" target="_blank">${i.display_url}</a>`
-    )
-  })
-  entities.media?.forEach((i) => {
-    html = html.replace(i.url, "")
-  })
-  entities.hashtags?.forEach((i) => {
-    html = html.replace(
-      `#${i.text}`,
-      `<a class="${linkClass}" href="https://twitter.com/hashtag/${i.text}" target="_blank">#${i.text}</a>`
-    )
-  })
-  entities.user_mentions?.forEach((i) => {
-    html = html.replace(
-      `@${i.screen_name}`,
-      `<a class="${linkClass}"  href="https://twitter.com/${i.screen_name}" target="_blank">@${i.screen_name}</a>`
-    )
-  })
-  html = html.replace(/\n/g, "<br />")
-
-  if (options.enable_twemoji) {
-    html = Twemoji.parse(html, {
-      folder: "svg",
-      ext: ".svg",
-      className:
-        options.css === "tailwind"
-          ? "inline-block align-text-bottom w-[1.2em] h-[1.2em] mr-[0.05em] ml-[0.1em]"
-          : "emoji",
+    const linkClass = options.css == "tailwind" ? "text-blue-400" : "tweet-content-link"
+    entities.urls?.forEach((i) => {
+      html = html.replace(
+        i.url,
+        i.display_url.includes("twitter.com")
+          ? ""
+          : `<a class="${linkClass}" href="${i.url}" target="_blank">${i.display_url}</a>`
+      )
     })
-  }
+    entities.media?.forEach((i) => {
+      html = html.replace(i.url, "")
+    })
+    entities.hashtags?.forEach((i) => {
+      html = html.replace(
+        `#${i.text}`,
+        `<a class="${linkClass}" href="https://twitter.com/hashtag/${i.text}" target="_blank">#${i.text}</a>`
+      )
+    })
+    entities.user_mentions?.forEach((i) => {
+      html = html.replace(
+        `@${i.screen_name}`,
+        `<a class="${linkClass}"  href="https://twitter.com/${i.screen_name}" target="_blank">@${i.screen_name}</a>`
+      )
+    })
+    html = html.replace(/\n/g, "<br />")
 
-  let card_html = ""
-  const mediaClass =
-    options.css == "tailwind" ? "border border-gray-200 rounded-2xl mt-4 overflow-hidden" : "tweet-media"
+    if (options.enable_twemoji) {
+      html = Twemoji.parse(html, {
+        folder: "svg",
+        ext: ".svg",
+        className:
+          options.css === "tailwind"
+            ? "inline-block align-text-bottom w-[1.2em] h-[1.2em] mr-[0.05em] ml-[0.1em]"
+            : "emoji",
+      })
+    }
 
-  if (card?.name === "summary" || card?.name === "summary_large_image") {
-    html.replace(card.url, "")
-    card_html =
-      options.css === "tailwind"
-        ? `
+    let card_html = ""
+    const mediaClass =
+      options.css == "tailwind" ? "border border-gray-200 rounded-2xl mt-4 overflow-hidden" : "tweet-media"
+
+    if (card?.name === "summary" || card?.name === "summary_large_image") {
+      html.replace(card.url, "")
+      card_html =
+        options.css === "tailwind"
+          ? `
         <a href="${card.url}" target="_blank">
           <div class="${mediaClass}">
             <img src="${card.binding_values.thumbnail_image_large.image_value.url}" >
@@ -131,7 +136,7 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
             </div>
           </div>
         </a>`
-        : `
+          : `
         <a href="${card.url}" target="_blank">
           <div class="${mediaClass}">
             <img src="${card.binding_values.thumbnail_image_large.image_value.url}" >
@@ -142,31 +147,34 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
             </div>
           </div>
         </a>`
-  }
+    }
 
-  let media_html = ""
-  if (photos) {
-    media_html = `<div class="${mediaClass}">`
-    photos.map((photo) => {
-      media_html += `<img style="width: 100%" class="tweet-image" src="${photo.url}">`
-    })
-    media_html += `</div>`
-  }
-  if (video) {
-    const mp4 = video.variants.find((i) => i.type === "video/mp4")
-    media_html = `
+    let media_html = ""
+    if (photos) {
+      media_html = `<div class="${mediaClass}">`
+      photos.map((photo) => {
+        media_html += `<img style="width: 100%" class="tweet-image" src="${photo.url}">`
+      })
+      media_html += `</div>`
+    }
+    if (video) {
+      const mp4 = video.variants.find((i) => i.type === "video/mp4")
+      media_html = `
     <div class="${mediaClass}">
       <video style="width: 100%" autoplay muted loop src="${mp4.src}"></video> 
     </div>`
-  }
+    }
 
-  return {
-    meta,
-    html,
-    user,
-    card_html,
-    media_html,
-    quoted_tweet,
+    return {
+      meta,
+      html,
+      user,
+      card_html,
+      media_html,
+      quoted_tweet,
+    }
+  } catch (err) {
+    throw err
   }
 }
 
