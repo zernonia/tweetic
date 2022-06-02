@@ -1,4 +1,4 @@
-import { TweetOptions } from "~~/interface"
+import { TweetOptions } from "~~/utils/types"
 
 const tailwindClassDefaultReference = {
   tweet: "w-[500px] p-8 text-black border border-gray-200 bg-white rounded-2xl",
@@ -25,7 +25,7 @@ const tailwindClassSupabaseReference = {
   "tweet-content-link": "text-blue-400",
 }
 
-export const mapClass = (key: string, options: TweetOptions) => {
+export const mapClass = (key: string, options: TweetOptions): string => {
   if (options.css == "tailwind") {
     return options.layout == "supabase" ? tailwindClassSupabaseReference[key] : tailwindClassDefaultReference[key]
   } else return key

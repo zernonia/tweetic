@@ -7,9 +7,12 @@ export const constructHtml = (data: TweetSyndication, options: TweetOptions, isQ
 
   const { meta, html: content, user, media_html, card_html, quoted_tweet } = getTweetContent(data, options)
   const quoted_html = getQuotedHtml(quoted_tweet as any, options)
+  const tweet_class = isQuotedTweet
+    ? mapClassOptions("tweet").replace("w-[400px]", "").replace("w-[500px]", "").concat(" mt-4")
+    : mapClassOptions("tweet")
 
   const html: string = ` 
-  <div class="${mapClassOptions("tweet")}" data-style="${options.layout}">
+  <div class="${tweet_class} " data-style="${options.layout}">
     <div class="${mapClassOptions("tweet-header")}">
       ${
         options.layout == "supabase"
