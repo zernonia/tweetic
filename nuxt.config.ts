@@ -2,7 +2,7 @@ import { defineNuxtConfig } from "nuxt"
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-  modules: ["nuxt-windicss"],
+  modules: ["nuxt-windicss", "@nuxtjs/proxy"],
   css: ["~~/assets/main.css"],
   build: {
     transpile: ["twitter-api-v2"],
