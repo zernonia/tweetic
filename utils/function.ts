@@ -93,6 +93,20 @@ export const obtainCss = (tweetOptions: TweetOptions) => {
   .tweet-summary-card-text h2 {
     color: var(--text-primary);
   }
+  .tweet-summary {
+    display: flex;
+  }
+  .tweet-summary img {
+    width: 130px;
+    height: 130px;
+  }
+  .tweet-summary > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid var(--border);
+    border-top: 0px !important;
+  }
 
   .tweet-image {
     width: 100%;
@@ -179,6 +193,20 @@ export const obtainCss = (tweetOptions: TweetOptions) => {
   }
   .tweet-summary-card-text h2 {
     color: var(--text-primary);
+  }
+  .tweet-summary {
+    display: flex;
+  }
+  .tweet-summary img {
+    width: 130px;
+    height: 130px;
+  }
+  .tweet-summary > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid var(--border);
+    border-top: 0px !important;
   }
 
   .tweet-image {

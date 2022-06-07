@@ -146,7 +146,7 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
     const mediaClass =
       options.css == "tailwind" ? "border border-gray-200 rounded-2xl mt-4 overflow-hidden" : "tweet-media"
 
-    if (card?.name === "summary" || card?.name === "summary_large_image") {
+    if (card?.name === "summary_large_image") {
       html.replace(card.url, "")
       card_html =
         options.css === "tailwind"
@@ -163,7 +163,34 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
         </a>`
           : `
         <a href="${card.url}" target="_blank">
-          <div class="${mediaClass}">
+          <div class="${mediaClass} tweet-summary-large-image">
+            <img src="${card.binding_values.thumbnail_image_large.image_value.url}" >
+            <div class="tweet-summary-card-text">
+              <span>${card.binding_values.vanity_url.string_value}</span>
+              <h2>${card.binding_values.title.string_value}</h2>
+              <p>${card.binding_values.description.string_value}</p>
+            </div>
+          </div>
+        </a>`
+    }
+    if (card?.name === "summary") {
+      html.replace(card.url, "")
+      card_html =
+        options.css === "tailwind"
+          ? `
+        <a href="${card.url}" target="_blank">
+          <div class="${mediaClass} flex">
+            <img class="w-[130px] h-[130px]" src="${card.binding_values.thumbnail_image_large.image_value.url}" >
+            <div class="flex flex-col justify-center border-l border-gray-200 text-slate-400 text-[0.95rem] p-3">
+              <span class="text-[0.9rem]">${card.binding_values.vanity_url.string_value}</span>
+              <h2 class="text-black leading-relaxed my-0.5">${card.binding_values.title.string_value}</h2>
+              <p class="leading-snug">${card.binding_values.description.string_value}</p>
+            </div>
+          </div>
+        </a>`
+          : `
+        <a href="${card.url}" target="_blank">
+          <div class="${mediaClass} tweet-summary">
             <img src="${card.binding_values.thumbnail_image_large.image_value.url}" >
             <div class="tweet-summary-card-text">
               <span>${card.binding_values.vanity_url.string_value}</span>

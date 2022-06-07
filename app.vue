@@ -132,6 +132,20 @@ useHead({
   border-radius: 1rem;
   overflow: hidden;
 }
+.tweet-summary {
+  display: flex;
+}
+.tweet-summary img {
+  width: 130px;
+  height: 130px;
+}
+.tweet-summary > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 1px solid var(--border);
+  border-top: 0px !important;
+}
 .tweet-summary-card-text {
   border-top: 1px solid var(--border);
   padding: 0.75rem;
