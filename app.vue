@@ -92,9 +92,19 @@ useHead({
 .tweet-author-info {
   margin-left: 1rem;
 }
+.tweet-author-title {
+  display: flex;
+  align-items: center;
+}
 .tweet-author-name {
   line-height: 1rem;
   font-weight: 500;
+}
+.tweet-author-verified {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: 0.25rem;
+  color: var(--text-secondary);
 }
 .tweet-author-handler {
   line-height: 1.8rem;
