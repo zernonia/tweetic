@@ -6,6 +6,7 @@ const props = defineProps({
   enable_twemoji: { type: Boolean, default: true },
   show_media: { type: Boolean, default: false },
   show_quoted_tweet: { type: Boolean, default: false },
+  show_info: { type: Boolean, default: false },
 
   redirect: { type: Boolean, default: true },
 })

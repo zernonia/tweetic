@@ -1,5 +1,6 @@
 import { TweetOptions, TweetContent, TweetSyndication } from "~~/utils/types"
 import { mapClass } from "./reference"
+import { format } from "date-fns"
 import Twemoji from "twemoji"
 
 export const constructHtml = (data: TweetSyndication, options: TweetOptions, isQuotedTweet = false) => {
@@ -60,6 +61,20 @@ export const constructHtml = (data: TweetSyndication, options: TweetOptions, isQ
       ${options.show_media ? card_html : ""}
       ${options.show_quoted_tweet ? quoted_html : ""} 
     </div>
+
+    ${
+      options.show_info && !isQuotedTweet
+        ? `
+    <div class="${mapClassOptions("tweet-info")}"  >
+    <svg class="${mapClassOptions(
+      "tweet-info-favourite"
+    )}" width="24" height="24" viewBox="0 0 24 24"><path class="fill-current" d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.813-1.148 2.353-2.73 4.644-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.375-7.454 13.11-10.037 13.156H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.035 11.596 8.55 11.658 1.52-.062 8.55-5.917 8.55-11.658 0-2.267-1.822-4.255-3.902-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.015-.03-1.426-2.965-3.955-2.965z"></path></svg>
+    <span>${meta.favorite_count}</span>
+    <div class="${mapClassOptions("tweet-info-date")}">${format(new Date(meta.created_at), "h:mm a · MMM d, y")}</div>
+    </div>
+    `
+        : ""
+    }
   </div> 
   `
     return { html, meta }
@@ -139,7 +154,7 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
         <a href="${card.url}" target="_blank">
           <div class="${mediaClass}">
             <img src="${card.binding_values.thumbnail_image_large.image_value.url}" >
-            <div class="border-t border-gray-200 text-gray-300 text-[0.95rem] p-3">
+            <div class="border-t border-gray-200 text-slate-400 text-[0.95rem] p-3">
               <span class="text-[0.9rem]">${card.binding_values.vanity_url.string_value}</span>
               <h2 class="text-black leading-relaxed my-0.5">${card.binding_values.title.string_value}</h2>
               <p class="leading-snug">${card.binding_values.description.string_value}</p>

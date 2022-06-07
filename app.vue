@@ -148,6 +148,22 @@ useHead({
   margin-top: 1rem;
   width: 100%;
 }
+.tweet-info {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  display: flex;
+  align-items: center;
+  color: var(--subtext-primary);
+}
+.tweet-info-favourite {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.5rem;
+}
+.tweet-info-date {
+  margin-left: 1rem;
+}
 
 [data-style="supabase"] {
   width: 400px;
