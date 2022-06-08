@@ -20,7 +20,7 @@ const exportOptions = useStorage("export-options", {})
 const computedInput = computed(() => tweetsInput.value.filter((i) => i != ""))
 
 const getTweetsHTML = () => {
-  let tweets = document.querySelectorAll(".tweet-container")
+  let tweets = document.querySelectorAll(".tweet-container > div")
   let innerHTMLs = ""
   tweets.forEach((i) => {
     innerHTMLs += i.innerHTML
