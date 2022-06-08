@@ -92,9 +92,19 @@ useHead({
 .tweet-author-info {
   margin-left: 1rem;
 }
+.tweet-author-title {
+  display: flex;
+  align-items: center;
+}
 .tweet-author-name {
   line-height: 1rem;
   font-weight: 500;
+}
+.tweet-author-verified {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: 0.25rem;
+  color: var(--text-secondary);
 }
 .tweet-author-handler {
   line-height: 1.8rem;
@@ -115,6 +125,58 @@ useHead({
   width: 1.2em;
   margin: 0 0.05em 0 0.1em;
   vertical-align: -0.1em;
+}
+.tweet-media {
+  margin-top: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.tweet-summary {
+  display: flex;
+}
+.tweet-summary img {
+  width: 130px;
+  height: 130px;
+}
+.tweet-summary > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 1px solid var(--border);
+  border-top: 0px !important;
+}
+.tweet-summary-card-text {
+  border-top: 1px solid var(--border);
+  padding: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--subtext-primary);
+}
+.tweet-summary-card-text span {
+  font-size: 0.9rem;
+}
+.tweet-summary-card-text h2 {
+  color: var(--text-primary);
+}
+.tweet-quoted .tweet {
+  margin-top: 1rem;
+  width: 100%;
+}
+.tweet-info {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  display: flex;
+  align-items: center;
+  color: var(--subtext-primary);
+}
+.tweet-info-favourite {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.5rem;
+}
+.tweet-info-date {
+  margin-left: 1rem;
 }
 
 [data-style="supabase"] {
