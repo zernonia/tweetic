@@ -16,6 +16,7 @@ export default defineEventHandler(async (event) => {
     }
     const data = await getSyndication(id)
     const { html, meta } = constructHtml(data, options)
+    event.res.setHeader("Access-Control-Allow-Origin", "*")
     return { html, meta }
   } catch (err) {
     event.res.statusCode = 400
