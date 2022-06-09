@@ -31,7 +31,7 @@ const getTweetsHTML = () => {
 const { copy, copied } = useClipboard()
 const copyTweet = async (url: string) => {
   let tweet = document.getElementById(`${url.split("/status/")[1]}`)
-  let text = tweet.innerHTML
+  let text = tweet.querySelector("div").innerHTML
   try {
     await copy(text)
     toast.success("Copied Static Tweet")
