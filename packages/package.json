@@ -34,7 +34,7 @@
     "static-tweets"
   ],
   "scripts": {
-    "build": "vite build && tsc",
+    "build": "tsc --noEmit && vite build",
     "version": " git add -A src",
     "postversion": "git push && git push --tags"
   },
