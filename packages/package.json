@@ -1,6 +1,6 @@
 {
   "name": "static-tweet",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Static tweets generation without API",
   "homepage": "https://www.tweetic.io/",
   "repository": "github:zernonia/tweetic",
