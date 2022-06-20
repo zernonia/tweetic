@@ -9,6 +9,7 @@ const defaultOptions: TweetOptions = {
   show_quoted_tweet: true,
   show_info: true,
 }
+
 export const fetchStaticTweet = async (tweetId: string, options = defaultOptions) => {
   try {
     const data = await getSyndication(tweetId)
@@ -17,3 +18,6 @@ export const fetchStaticTweet = async (tweetId: string, options = defaultOptions
     throw new Error(`${err}`)
   }
 }
+
+export * from "~~/utils/types"
+export * from "~~/utils/_lib"
