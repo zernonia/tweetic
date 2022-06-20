@@ -35,7 +35,7 @@
   ],
   "scripts": {
     "build": "tsc --noEmit && vite build",
-    "version": " git add -A src",
+    "version": " git add -A .",
     "postversion": "git push && git push --tags"
   },
   "devDependencies": {

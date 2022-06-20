@@ -11,14 +11,14 @@
     "esModuleInterop": true,
     "declaration": true,
     "lib": ["esnext", "dom"],
-    "baseUrl": ".",
-    "outDir": "dist",
+    "baseUrl": "..",
+    "outDir": "./packages/dist",
     "paths": {
-      "~~": [".."],
-      "~~/*": ["../*"]
+      "~~": ["."],
+      "~~/*": ["./*"]
     },
     "noEmit": false
   },
-  "include": ["./**/*.ts", "../utils/_lib"],
+  "include": ["./**/*.ts", "../utils/types", "../utils/_lib"],
   "exclude": ["vite.config.ts", "node_modules"]
 }
