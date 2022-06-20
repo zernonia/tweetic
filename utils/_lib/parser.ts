@@ -1,6 +1,7 @@
 import { TweetOptions, TweetContent, TweetSyndication } from "~~/utils/types"
 import { mapClass } from "./reference"
 import { format } from "date-fns"
+import { $fetch } from "ohmyfetch"
 import Twemoji from "twemoji"
 
 export const constructHtml = (data: TweetSyndication, options: TweetOptions, isQuotedTweet = false) => {

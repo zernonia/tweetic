@@ -31,25 +31,22 @@
   ],
   "keywords": [
     "tweets",
-    "static-tweets",
-    "vue",
-    "nuxt"
+    "static-tweets"
   ],
   "scripts": {
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build",
     "version": " git add -A src",
     "postversion": "git push && git push --tags"
   },
   "devDependencies": {
     "@types/twemoji": "^13.1.2",
-    "@vitejs/plugin-vue": "^2.0.0",
+    "typescript": "^4.7.4",
     "vite": "^2.9.7",
-    "vite-plugin-dts": "^1.2.0",
-    "vue-tsc": "^0.34.11",
-    "vue": "^3.2.26"
+    "vite-plugin-dts": "^1.2.0"
   },
   "dependencies": {
     "node-html-parser": "^5.3.3",
+    "ohmyfetch": "^0.4.18",
     "twemoji": "^14.0.2"
   }
 }
