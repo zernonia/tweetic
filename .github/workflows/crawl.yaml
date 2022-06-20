@@ -18,3 +18,9 @@ jobs:
           curl --request GET \
           --url 'https://tweetic.io/api/crawl?keyword=nuxt' \
           --header 'Authorization: Bearer ${{ secrets.API_SECRET_KEY }}'
+      - run: sleep 10
+      - name: Vuejsamsterdam
+        run: |
+          curl --request GET \
+          --url 'https://tweetic.io/api/crawl?keyword=vuejsamsterdam' \
+          --header 'Authorization: Bearer ${{ secrets.API_SECRET_KEY }}'

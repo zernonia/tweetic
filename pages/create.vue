@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useStorage } from "@vueuse/core"
 import { useClipboard } from "@vueuse/core"
-import { obtainCss } from "~~/function"
-import { TweetOptions } from "~~/interface"
+import { obtainCss } from "~~/utils/function"
+import { TweetOptions } from "~~/utils/types"
 import { useToast } from "vue-toastification"
 
 const toast = useToast()
@@ -12,12 +12,15 @@ const tweetsOptions = useStorage<TweetOptions>("tweets-options", {
   css: "",
   show_original_link: false,
   enable_twemoji: true,
+  show_media: true,
+  show_quoted_tweet: true,
+  show_info: true,
 })
 const exportOptions = useStorage("export-options", {})
 const computedInput = computed(() => tweetsInput.value.filter((i) => i != ""))
 
 const getTweetsHTML = () => {
-  let tweets = document.querySelectorAll(".tweet-container")
+  let tweets = document.querySelectorAll(".tweet-container > div")
   let innerHTMLs = ""
   tweets.forEach((i) => {
     innerHTMLs += i.innerHTML
@@ -28,7 +31,7 @@ const getTweetsHTML = () => {
 const { copy, copied } = useClipboard()
 const copyTweet = async (url: string) => {
   let tweet = document.getElementById(`${url.split("/status/")[1]}`)
-  let text = tweet.innerHTML
+  let text = tweet.querySelector("div").innerHTML
   try {
     await copy(text)
     toast.success("Copied Static Tweet")
@@ -108,10 +111,12 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
               <option value="tailwind">TailwindCSS</option>
             </select>
 
-            <Toggle class="mt-2" name="show_original_link" v-model="tweetsOptions.show_original_link">
-              Show Original Link
-            </Toggle>
             <Toggle class="mt-2" name="enable_twemoji" v-model="tweetsOptions.enable_twemoji"> Enable Twemoji </Toggle>
+            <Toggle class="mt-2" name="show_media" v-model="tweetsOptions.show_media"> Show Media </Toggle>
+            <Toggle class="mt-2" name="show_quoted_tweet" v-model="tweetsOptions.show_quoted_tweet">
+              Show Quoted Tweet
+            </Toggle>
+            <Toggle class="mt-2" name="show_info" v-model="tweetsOptions.show_info"> Show Info </Toggle>
           </div>
 
           <div class="mt-20 flex flex-col">
