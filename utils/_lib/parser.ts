@@ -214,7 +214,7 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
       const mp4 = video.variants.find((i) => i.type === "video/mp4")
       media_html = `
     <div class="${mediaClass}">
-      <video style="width: 100%" autoplay muted loop src="${mp4.src}"></video> 
+      <video style="width: 100%" autoplay muted loop src="${mp4?.src}"></video> 
     </div>`
     }
 

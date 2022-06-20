@@ -1,1 +1,1 @@
-export * from "~~/utils/_lib"
+export * from "../utils/_lib"
