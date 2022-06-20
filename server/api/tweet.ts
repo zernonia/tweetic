@@ -1,5 +1,5 @@
 import { TweetOptions } from "~~/utils/types"
-import { constructHtml, getSyndication, getTweetContent } from "../_lib/parser"
+import { constructHtml, getSyndication, getTweetContent } from "~/utils/_lib/parser"
 
 export default defineEventHandler(async (event) => {
   const { url, layout, css, enable_twemoji, show_media, show_quoted_tweet, show_info } = useQuery(event)
