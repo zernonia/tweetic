@@ -62,6 +62,8 @@ useHead({
           alt="Buy Me A Coffee"
           style="height: 32px !important; width: auto !important"
       /></a>
+
+      <Script src="https://www.himaker.io/scripts/embed.min.js" async defer data-widget-id="fmbp30ep"></Script>
     </div>
   </div>
 </template>
