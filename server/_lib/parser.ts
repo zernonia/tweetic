@@ -89,8 +89,8 @@ export const getSyndication = async (id: string) => {
 
 export const getTweetContent = (data: TweetSyndication, options: TweetOptions) => {
   try {
-    const { entities, user, card, text, quoted_tweet, photos, video } = data
-    let html = text
+    const { display_text_range, entities, user, card, text, quoted_tweet, photos, video } = data
+    let html = text.substr(display_text_range[0],)
 
     const meta = {
       user_id: user.id_str,
