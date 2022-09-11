@@ -16,8 +16,10 @@ export const constructHtml = (data: TweetSyndication, options: TweetOptions, isQ
     let favorite_count_str;
     if (favorite_count >= 1000000){
         favorite_count_str = (favorite_count/1000000).toFixed(1)+' m';
-    } else if (favorite_count >= 1000){
+    } else if (favorite_count >= 10000){
         favorite_count_str = (favorite_count/1000).toFixed(1)+' K';
+    } else if (favorite_count >= 1000){
+        favorite_count_str = (favorite_count/1000).toFixed(3).replace('.',',');
     } else {
         favorite_count_str = `${favorite_count}`;
     }
