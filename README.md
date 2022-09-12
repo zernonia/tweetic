@@ -97,3 +97,10 @@ Also, if you like my work, please buy me a coffee ☕😳
 <a href="https://www.buymeacoffee.com/zernonia" target="_blank">
     <img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Logo" >
   </a>
+
+
+# 🔥 Contributors
+
+<a href="https://github.com/zernonia/tweetic/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=zernonia/tweetic" />
+</a>
