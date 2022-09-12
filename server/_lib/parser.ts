@@ -15,14 +15,12 @@ export const constructHtml = (data: TweetSyndication, options: TweetOptions, isQ
     
     let favorite_count_str;
     if (favorite_count >= 1000000){
-        favorite_count_str = (favorite_count/1000000).toFixed(1)+' m';
+        favorite_count_str = (meta.favorite_count/1000000).toFixed(1)+' m';
     } else if (favorite_count >= 10000){
-        favorite_count_str = (favorite_count/1000).toFixed(1)+' K';
-    } else if (favorite_count >= 1000){
-        favorite_count_str = (favorite_count/1000).toFixed(3).replace('.',',');
+        favorite_count_str = (meta.favorite_count/10000).toFixed(1)+' K';
     } else {
-        favorite_count_str = `${favorite_count}`;
-    }
+        favorite_count_str = meta.favorite_count?.toLocaleString("en-US")  
+    } 
     const html: string = ` 
   <div class="${tweet_class} " data-style="${options.layout}">
     <div class="${mapClassOptions("tweet-header")}">
