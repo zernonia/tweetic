@@ -14,9 +14,9 @@ export const constructHtml = (data: TweetSyndication, options: TweetOptions, isQ
       : mapClassOptions("tweet")
     
     let favorite_count_str;
-    if (favorite_count >= 1000000){
+    if (meta.favorite_count >= 1000000){
         favorite_count_str = (meta.favorite_count/1000000).toFixed(1)+' m';
-    } else if (favorite_count >= 10000){
+    } else if (meta.favorite_count >= 10000){
         favorite_count_str = (meta.favorite_count/10000).toFixed(1)+' K';
     } else {
         favorite_count_str = meta.favorite_count?.toLocaleString("en-US")  
