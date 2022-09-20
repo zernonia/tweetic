@@ -4,7 +4,8 @@ import { constructHtml, getSyndication, getTweetContent } from "../_lib/parser"
 
 // Create Capture Group for twitter url.
 const getTwitterId = (url: string): string | boolean => {
-  let match = url.match(/(https:\/\/twitter.com)|([0-9]+)/g)
+  // @see https://regex101.com/r/AAtIUu/1
+  let match = url.match(/(https:\/\/twitter.com\/.*\/status\/)|([0-9]+)/g)
   if (match && match.length === 2) {
     return match[1]
   }
