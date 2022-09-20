@@ -12,17 +12,16 @@ const getTwitterId = (url: string): string | boolean => {
 }
 
 export default defineEventHandler(async (event) => {
-  const query: TweetQueryOptions = useQuery(event)
-  const { url, layout, css, enable_twemoji, show_media, show_quoted_tweet, show_info } = defu(query, { 
-    enable_twemoji: false, 
-    show_media: false, 
-    show_quoted_tweet: false, 
-    show_info: false
-  })
-
-  const id = getTwitterId(url)
-
   try {
+    const query: TweetQueryOptions = useQuery(event)
+    const { url, layout, css, enable_twemoji, show_media, show_quoted_tweet, show_info } = defu(query, { 
+      enable_twemoji: false, 
+      show_media: false, 
+      show_quoted_tweet: false, 
+      show_info: false
+    })
+  
+    const id = getTwitterId(url)
     // Check valid twitter id
     if (!id) throw new Error('Invalid Twitter URL or not defined.')
 
