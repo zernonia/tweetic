@@ -22,6 +22,10 @@ export interface TweetOptions {
   show_info?: boolean
 }
 
+export interface TweetQueryOptions extends TweetOptions {
+  url?: string
+}
+
 export interface ExportOptions {
   css: string
 }
