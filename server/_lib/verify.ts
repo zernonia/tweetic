@@ -1,11 +1,11 @@
 import { CompatibilityEvent } from "h3"
 
 export const verify = (event: CompatibilityEvent) => {
-  const { authorization } = event.req.headers
-  let authorized = true
-  if (process.env.NODE_ENV !== "development" && authorization !== `Bearer ${useRuntimeConfig().API_SECRET_KEY}`) {
+  const { authorization } = useRequestHeaders()
+  const { isDev, TWITTER_API_SECRET_KEY } = useRuntimeConfig()
+  
+  if (!isDev && authorization !== `Bearer ${TWITTER_API_SECRET_KEY}`) {
     event.res.statusCode = 401
-    authorized = false
+    throw new Error("Not authorized");
   }
-  return authorized
 }

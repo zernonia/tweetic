@@ -1,16 +1,9 @@
 import { defu } from 'defu'
-import { TweetOptions, TweetQueryOptions } from "~~/utils/types"
-import { constructHtml, getSyndication, getTweetContent } from "../_lib/parser"
+import { constructHtml, getSyndication } from "../_lib/parser"
 
-// Create Capture Group for twitter url.
-const getTwitterId = (url: string): string | boolean => {
-  // @see https://regex101.com/r/AAtIUu/1
-  let match = url.match(/(https:\/\/twitter.com\/.*\/status\/)|([0-9]+)/g)
-  if (match && match.length === 2) {
-    return match[1]
-  }
-  return false
-}
+import { getTwitterId } from '~~/utils/function'
+import type { TweetOptions, TweetQueryOptions } from "~~/utils/types"
+
 
 export default defineEventHandler(async (event) => {
   try {
@@ -23,8 +16,9 @@ export default defineEventHandler(async (event) => {
     })
   
     const id = getTwitterId(url)
+    
     // Check valid twitter id
-    if (!id) throw new Error('Invalid Twitter URL or not defined.')
+    if (!id) throw new Error('Invalid Twitter URL or not defined.');
 
     const options: TweetOptions = {
       layout: layout?.toString(),
@@ -36,10 +30,10 @@ export default defineEventHandler(async (event) => {
     }
 
     const data = await getSyndication(id.toString())
-    const { html, meta } = constructHtml(data, options)
-    return { html, meta }
-  } catch (err) {
+    
+    return constructHtml({ data, options })
+  } catch (error) {
     event.res.statusCode = 400
-    return { err }
+    return error
   }
 })

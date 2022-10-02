@@ -1,5 +1,3 @@
 <template>
-  <div>
-    <DocsTweet></DocsTweet>
-  </div>
+  <DocsTweet />
 </template>

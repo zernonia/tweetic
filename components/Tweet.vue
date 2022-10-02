@@ -1,44 +1,56 @@
 <script setup lang="ts">
-const props = defineProps({
-  url: String,
-  layout: { type: String, default: "" },
-  css: { type: String, default: "" },
-  enable_twemoji: { type: Boolean, default: true },
-  show_media: { type: Boolean, default: false },
-  show_quoted_tweet: { type: Boolean, default: false },
-  show_info: { type: Boolean, default: false },
+interface TweetProps {
+  url: string
+  redirect?: boolean
+  layout?: string
+  css?: string
+  show_original_link?: boolean
+  enable_twemoji?: boolean
+  show_media?: boolean
+  show_quoted_tweet?: boolean
+  show_info?: boolean
+}
 
-  redirect: { type: Boolean, default: true },
-})
+const props = withDefaults(defineProps<TweetProps>(), {
+  layout: "",
+  css: "",
+  enable_twemoji: true,
+  show_media: false,
+  show_quoted_tweet: false,
+  show_info: false,
+  redirect: true,
+});
 
-const { data, pending } = await useAsyncData(
+const { data, pending, error } = await useAsyncData(
   JSON.stringify(props),
   () =>
     $fetch("/api/tweet", {
       params: { ...props },
     }),
-  {
-    watch: [props],
-  }
-)
+  { watch: [props] }
+);
 
 const onClick = () => {
   if (props.redirect) {
-    window.open(props.url, "_blank")
+    window.open(props.url, "_blank");
   }
-}
-defineExpose({ data })
+};
+
+defineExpose({ data });
 </script>
 
 <template>
   <div class="relative">
     <div
+      v-if="data !== null && data?.html?.length"
       class="ring-0 hover:ring-3 ring-blue-400 transition rounded-2xl cursor-pointer"
-      @click="onClick"
-      v-if="data?.html?.length"
       v-html="data.html"
+      @click="onClick"
     ></div>
-    <div v-if="pending" class="absolute top-0 left-0 w-full h-full overflow-hidden">
+    <div
+      v-else-if="(pending || error) && data === null"
+      class="absolute top-0 left-0 w-full h-full overflow-hidden"
+    >
       <div class="tweet !h-full !w-full" :data-style="props.layout">
         <div class="flex items-center animate-pulse">
           <div class="flex items-center">

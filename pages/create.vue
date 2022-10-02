@@ -69,7 +69,7 @@ const closeModal = (ev: boolean) => {
   isModalOpen.value = ev
   isPreviewingCSS.value = false
 }
-useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
+useCustomHead("Create now!", "Create your own static tweets now!")
 </script>
 
 <template>
@@ -98,7 +98,7 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
 
         <div class="mt-12 md:mt-0 md:ml-6 flex flex-col justify-between">
           <div class="flex flex-col">
-            <h4 class="text-xl mb-2 font-medium">Option</h4>
+            <h4 class="text-xl mb-2 font-medium">Options</h4>
             <label for="layout">Layout</label>
             <select class="w-48" v-model="tweetsOptions.layout" name="layout" id="layout">
               <option value="">Default</option>

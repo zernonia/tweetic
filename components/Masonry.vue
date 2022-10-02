@@ -1,25 +1,33 @@
 <script setup lang="ts">
-import { PropType } from "vue"
 import { useElementBounding } from "@vueuse/core"
-import { TweetOptions } from "~~/interface"
+import type { TweetOptions } from "~~/utils/types"
+
+interface MasonryProps {
+  urls: string[]
+  /**
+   * Column Width 
+   * 
+   * @default 400
+   */
+  columnWidth?: number
+  options?: TweetOptions
+}
+
 const el = ref()
 const { width } = useElementBounding(el)
 
-const props = defineProps({
-  urls: {
-    type: Object as PropType<string[]>,
-    required: true,
-  },
-  columnWidth: {
-    type: Number,
-    default: 400,
-  },
-  options: {
-    type: Object as PropType<TweetOptions>,
-  },
+const props = withDefaults(defineProps<MasonryProps>(), {
+  columnWidth: 400,
 })
+
+const { $device } = useNuxtApp()
 const { urls, columnWidth, options } = toRefs(props)
 const colGroup = ref<string[][]>([])
+
+let ssrColumns = $device?.isMobile ? 1 : $device?.isTablet ? 2 : 3
+const newColumns = createColumns(ssrColumns)
+urls.value.forEach((_: string, i: number) => newColumns[i % ssrColumns].push(_))
+colGroup.value = newColumns
 
 function columnCount(): number {
   const count = Math.floor((el.value?.getBoundingClientRect().width + 16) / (columnWidth.value + 16))
@@ -29,13 +37,6 @@ function columnCount(): number {
 function createColumns(count: number): string[][] {
   return [...new Array(count)].map(() => [])
 }
-
-const { $device } = useNuxtApp()
-
-let ssrColumns = $device?.isMobile ? 1 : $device?.isTablet ? 2 : 3
-const newColumns = createColumns(ssrColumns)
-urls.value.forEach((_: string, i: number) => newColumns[i % ssrColumns].push(_))
-colGroup.value = newColumns
 
 async function fillColumns(itemIndex: number) {
   if (itemIndex >= urls.value.length) {
@@ -57,9 +58,7 @@ const redraw = async () => {
   window.scrollTo({ top: scrollY })
 }
 
-watch([width, urls, columnWidth, options], (n) => {
-  redraw()
-})
+watch([width, urls, columnWidth, options], () => redraw())
 
 onMounted(() => {
   setTimeout(() => {

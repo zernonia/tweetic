@@ -1,3 +1,5 @@
+import type { TweetSyndication } from "./syndication"
+
 export interface TweetOembed {
   author_name: string
   author_url: string
@@ -52,4 +54,25 @@ export interface TweetContent {
     url: string
   }
   media_html?: string
+}
+
+export interface iTweetHTMLOptions {
+  /**
+   * Tweet Content
+   */
+  data: TweetSyndication,
+
+  /**
+   * Tweet Options
+   */
+  options: TweetOptions,
+}
+
+export interface iConstructHTMLOptions extends iTweetHTMLOptions {
+  /**
+   * Is the tweet a quoted tweet?
+   * 
+   * @default false
+   */
+  isQuotedTweet?: boolean
 }
