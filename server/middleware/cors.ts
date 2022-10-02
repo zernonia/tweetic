@@ -1,3 +1,3 @@
-import cors from "cors"
+import { defineCorsEventHandler } from '@nozomuikuta/h3-cors'
 
-export default cors()
+export default defineCorsEventHandler({})

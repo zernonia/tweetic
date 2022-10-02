@@ -3,7 +3,8 @@
 import Logo from "~~/assets/logo.svg"
 
 useHead({
-  title: "Tweetic | Convert Tweets to Static HTML ",
+  title: "Convert Tweets to Static HTML",
+  titleTemplate: "Tweetic | %s",
   viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   charset: "utf-8",
   link: [{ rel: "icon", href: "/logo.png" }],
@@ -43,7 +44,7 @@ useHead({
       </div>
     </div>
 
-    <NuxtPage></NuxtPage>
+    <NuxtPage/>
 
     <div class="flex flex-col md:flex-row items-center justify-center mt-20 space-y-2 md:space-x-2 md:space-y-0">
       <p class="flex items-center w-max">

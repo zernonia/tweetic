@@ -1,26 +1,55 @@
-import { TweetOptions, TweetContent, TweetSyndication } from "~~/utils/types"
-import { mapClass } from "./reference"
-import { format } from "date-fns"
-import Twemoji from "twemoji"
+import Twemoji from "twemoji";
+import { defu } from "defu";
+import { format } from "date-fns";
+import { mapClass } from "./reference";
 
-export const constructHtml = (data: TweetSyndication, options: TweetOptions, isQuotedTweet = false) => {
+import type {
+  iTweetHTMLOptions,
+  iConstructHTMLOptions,
+  TweetSyndication,
+  Entities,
+} from "~~/utils/types";
+
+/**
+ * `constructHtml` Construct HTML from syndication data.
+ *
+ * @param {object} constructOptions - { data, options, isQuotedTweet }
+ */
+export const constructHtml = (constructOptions: iConstructHTMLOptions) => {
   try {
-    const mapClassOptions = (key: string) => mapClass(key, options)
+    const { data, options, isQuotedTweet } = defu(constructOptions, {
+      isQuotedTweet: false,
+    });
 
-    const { meta, html: content, user, media_html, card_html, quoted_tweet } = getTweetContent(data, options)
-    const quoted_html = getQuotedHtml(quoted_tweet as any, options)
+    console.log(options)
+
+    const mapClassOptions = (key: string) => mapClass(key, options);
+
+    const {
+      meta,
+      html: content,
+      user,
+      media_html,
+      card_html,
+      quoted_tweet,
+    } = getTweetContent({ data, options });
+    const quoted_html = getQuotedHtml({ data: quoted_tweet as any, options });
     const tweet_class = isQuotedTweet
-      ? mapClassOptions("tweet").replace("w-[400px]", "").replace("w-[500px]", "").concat(" mt-4")
-      : mapClassOptions("tweet")
-    
+      ? mapClassOptions("tweet")
+          .replace("w-[400px]", "")
+          .replace("w-[500px]", "")
+          .concat(" mt-4")
+      : mapClassOptions("tweet");
+
     let favorite_count_str;
-    if (meta.favorite_count >= 1000000){
-        favorite_count_str = (meta.favorite_count/1000000).toFixed(1)+' m';
-    } else if (meta.favorite_count >= 10000){
-        favorite_count_str = (meta.favorite_count/1000).toFixed(1)+' K';
+    if (meta.favorite_count >= 1000000) {
+      favorite_count_str = (meta.favorite_count / 1000000).toFixed(1) + " m";
+    } else if (meta.favorite_count >= 10000) {
+      favorite_count_str = (meta.favorite_count / 1000).toFixed(1) + " K";
     } else {
-        favorite_count_str = meta.favorite_count?.toLocaleString("en-US")  
-    } 
+      favorite_count_str = meta.favorite_count?.toLocaleString("en-US");
+    }
+
     const html: string = ` 
   <div class="${tweet_class} " data-style="${options.layout}">
     <div class="${mapClassOptions("tweet-header")}">
@@ -30,19 +59,27 @@ export const constructHtml = (data: TweetSyndication, options: TweetOptions, isQ
         <svg class="${mapClassOptions(
           "tweet-logo"
         )}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--mdi" width="32" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M22.46 6c-.77.35-1.6.58-2.46.69c.88-.53 1.56-1.37 1.88-2.38c-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29c0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15c0 1.49.75 2.81 1.91 3.56c-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07a4.28 4.28 0 0 0 4 2.98a8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21C16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56c.84-.6 1.56-1.36 2.14-2.23Z"></path></svg>
-        <img class="${mapClassOptions("tweet-author-image")}" src="${user.profile_image_url_https}" >
+        <img class="${mapClassOptions("tweet-author-image")}" src="${
+              user.profile_image_url_https
+            }" >
         <div class="${mapClassOptions("tweet-author-info")}">
           <p class="${mapClassOptions("tweet-author-name")}"></p>
-          <a class="${mapClassOptions("tweet-author-handler")}" target="_blank" href="https://twitter.com/${
+          <a class="${mapClassOptions(
+            "tweet-author-handler"
+          )}" target="_blank" href="https://twitter.com/${user.screen_name}">@${
               user.screen_name
-            }">@${user.screen_name}</a>
+            }</a>
           </div>
           </div>`
           : `<div class="${mapClassOptions("tweet-author")}">
-          <img class="${mapClassOptions("tweet-author-image")}" src="${user.profile_image_url_https}" >
+          <img class="${mapClassOptions("tweet-author-image")}" src="${
+              user.profile_image_url_https
+            }" >
             <div class="${mapClassOptions("tweet-author-info")}">
               <div class="${mapClassOptions("tweet-author-title")}"
-                <p class="${mapClassOptions("tweet-author-name")}">${user.name}</p>
+                <p class="${mapClassOptions("tweet-author-name")}">${
+              user.name
+            }</p>
                 ${
                   user.verified
                     ? `<svg class="${mapClassOptions(
@@ -51,7 +88,9 @@ export const constructHtml = (data: TweetSyndication, options: TweetOptions, isQ
                     : ""
                 }
               </div>
-              <a class="${mapClassOptions("tweet-author-handler")}" target="_blank" href="https://twitter.com/${
+              <a class="${mapClassOptions(
+                "tweet-author-handler"
+              )}" target="_blank" href="https://twitter.com/${
               user.screen_name
             }">@${user.screen_name}
               </a>
@@ -78,27 +117,53 @@ export const constructHtml = (data: TweetSyndication, options: TweetOptions, isQ
       "tweet-info-favourite"
     )}" width="24" height="24" viewBox="0 0 24 24"><path class="fill-current" d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.813-1.148 2.353-2.73 4.644-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.375-7.454 13.11-10.037 13.156H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.035 11.596 8.55 11.658 1.52-.062 8.55-5.917 8.55-11.658 0-2.267-1.822-4.255-3.902-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.015-.03-1.426-2.965-3.955-2.965z"></path></svg>
     <span>${favorite_count_str}</span>
-    <div class="${mapClassOptions("tweet-info-date")}">${format(new Date(meta.created_at), "h:mm a · MMM d, y")}</div>
+    <div class="${mapClassOptions("tweet-info-date")}">${format(
+            new Date(meta.created_at),
+            "h:mm a · MMM d, y"
+          )}</div>
     </div>
     `
         : ""
     }
   </div> 
-  `
-    return { html, meta }
+  `;
+    return { html, meta };
   } catch (err) {
-    throw err
+    throw err;
   }
-}
+};
 
-export const getSyndication = async (id: string) => {
-  return await $fetch<TweetSyndication>(`https://cdn.syndication.twimg.com/tweet?id=${id}`)
-}
-
-export const getTweetContent = (data: TweetSyndication, options: TweetOptions) => {
+/**
+ * `getTweetContent` returns the content of the tweet
+ *
+ * @param {object} tweetContentOptions - { data, options }
+ *
+ * @returns {object} { meta, html, user, card_html, media_html, quoted_tweet }
+ */
+export const getTweetContent = (tweetContentOptions: iTweetHTMLOptions) => {
   try {
-    const { display_text_range, entities, user, card, text, quoted_tweet, photos, video } = data
-    let html = text.substr(display_text_range[0],)
+    const { data, options } = tweetContentOptions;
+    const {
+      display_text_range,
+      entities,
+      user,
+      card,
+      text,
+      quoted_tweet,
+      photos,
+      video,
+    } = data;
+
+    let card_html = "";
+    let media_html = "";
+    let html = text.substr(display_text_range[0]);
+
+    const mediaClass =
+      options.css === "tailwind"
+        ? "border border-gray-200 rounded-2xl mt-4 overflow-hidden"
+        : "tweet-media";
+    const linkClass =
+      options.css === "tailwind" ? "text-blue-400" : "tweet-content-link";
 
     const meta = {
       user_id: user.id_str,
@@ -111,33 +176,10 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
       created_at: data.created_at,
       favorite_count: data.favorite_count,
       conversation_count: data.conversation_count,
-    }
+    };
 
-    const linkClass = options.css == "tailwind" ? "text-blue-400" : "tweet-content-link"
-    entities.urls?.forEach((i) => {
-      html = html.replace(
-        i.url,
-        i.display_url.includes("twitter.com")
-          ? ""
-          : `<a class="${linkClass}" href="${i.url}" target="_blank">${i.display_url}</a>`
-      )
-    })
-    entities.media?.forEach((i) => {
-      html = html.replace(i.url, "")
-    })
-    entities.hashtags?.forEach((i) => {
-      html = html.replace(
-        `#${i.text}`,
-        `<a class="${linkClass}" href="https://twitter.com/hashtag/${i.text}" target="_blank">#${i.text}</a>`
-      )
-    })
-    entities.user_mentions?.forEach((i) => {
-      html = html.replace(
-        `@${i.screen_name}`,
-        `<a class="${linkClass}"  href="https://twitter.com/${i.screen_name}" target="_blank">@${i.screen_name}</a>`
-      )
-    })
-    html = html.replace(/\n/g, "<br />")
+    // Sanitize HTML entities
+    html = sanitizeEntities(html, linkClass, entities);
 
     if (options.enable_twemoji) {
       html = Twemoji.parse(html, {
@@ -147,15 +189,11 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
           options.css === "tailwind"
             ? "inline-block align-text-bottom w-[1.2em] h-[1.2em] mr-[0.05em] ml-[0.1em]"
             : "emoji",
-      })
+      });
     }
 
-    let card_html = ""
-    const mediaClass =
-      options.css == "tailwind" ? "border border-gray-200 rounded-2xl mt-4 overflow-hidden" : "tweet-media"
-
     if (card?.name === "summary_large_image") {
-      html.replace(card.url, "")
+      html.replace(card.url, "");
       card_html =
         options.css === "tailwind"
           ? `
@@ -179,10 +217,9 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
               <p>${card.binding_values.description.string_value}</p>
             </div>
           </div>
-        </a>`
-    }
-    if (card?.name === "summary") {
-      html.replace(card.url, "")
+        </a>`;
+    } else if (card?.name === "summary") {
+      html.replace(card.url, "");
       card_html =
         options.css === "tailwind"
           ? `
@@ -206,23 +243,22 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
               <p>${card.binding_values.description.string_value}</p>
             </div>
           </div>
-        </a>`
+        </a>`;
     }
 
-    let media_html = ""
     if (photos) {
-      media_html = `<div class="${mediaClass}">`
+      media_html = `<div class="${mediaClass}">`;
       photos.map((photo) => {
-        media_html += `<img style="width: 100%" class="tweet-image" src="${photo.url}">`
-      })
-      media_html += `</div>`
+        media_html += `<img style="width: 100%" class="tweet-image" src="${photo.url}">`;
+      });
+      media_html += `</div>`;
     }
     if (video) {
-      const mp4 = video.variants.find((i) => i.type === "video/mp4")
+      const mp4 = video.variants.find((i) => i.type === "video/mp4");
       media_html = `
     <div class="${mediaClass}">
       <video style="width: 100%" autoplay muted loop src="${mp4.src}"></video> 
-    </div>`
+    </div>`;
     }
 
     return {
@@ -232,17 +268,80 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
       card_html,
       media_html,
       quoted_tweet,
-    }
+    };
   } catch (err) {
-    throw err
+    throw err;
   }
-}
+};
 
-const getQuotedHtml = (data: TweetSyndication, options: TweetOptions) => {
-  if (!data) return ""
+/**
+ * `getSyndication` returns the syndication URL for a tweet
+ *
+ * @param {string} id - The tweet ID
+ */
+export const getSyndication = async (id: string) => {
+  return await $fetch<TweetSyndication>(
+    `https://cdn.syndication.twimg.com/tweet?id=${id}`
+  );
+};
 
-  const url = `https://twitter.com/${data.user.screen_name}/status/${data.id_str}`
+/**
+ * `getQuotedHtml` returns the HTML of a quoted tweet.
+ *
+ * @param quotedHtmlOptions - { data, options }
+ *
+ * @returns {string} - HTML of the quoted tweet
+ */
+const getQuotedHtml = (quotedHtmlOptions: iTweetHTMLOptions): string => {
+  const { data, options } = quotedHtmlOptions;
+
+  if (!data) return "";
+
   return `<div class="tweet-quoted">
-       ${constructHtml(data, options, true).html} 
-    </div>`
-}
+    ${
+      constructHtml({
+        data,
+        options,
+        isQuotedTweet: true,
+      }).html
+    } 
+</div>`;
+};
+
+/**
+ * `sanitizeEntities` returns the HTML with sanitized entities.
+ *
+ * @param linkClass - Class for the link
+ * @param entities - Entities
+ *
+ * @returns {string} - HTML with sanitized entities
+ */
+const sanitizeEntities = (html: string, linkClass: string, entities: Entities): string => {
+  entities.urls?.forEach((i) => {
+    html = html.replace(
+      i.url,
+      i.display_url.includes("twitter.com")
+        ? ""
+        : `<a class="${linkClass}" href="${i.url}" target="_blank">${i.display_url}</a>`
+    );
+  });
+  entities.media?.forEach((i) => {
+    html = html.replace(i.url, "");
+  });
+  entities.hashtags?.forEach((i) => {
+    html = html.replace(
+      `#${i.text}`,
+      `<a class="${linkClass}" href="https://twitter.com/hashtag/${i.text}" target="_blank">#${i.text}</a>`
+    );
+  });
+  entities.user_mentions?.forEach((i) => {
+    html = html.replace(
+      `@${i.screen_name}`,
+      `<a class="${linkClass}"  href="https://twitter.com/${i.screen_name}" target="_blank">@${i.screen_name}</a>`
+    );
+  });
+
+  html = html.replace(/\n/g, "<br />");
+
+  return html;
+};

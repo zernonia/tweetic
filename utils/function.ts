@@ -1,4 +1,4 @@
-import { TweetOptions, ExportOptions } from "./types"
+import { TweetOptions } from "./types"
 
 const baseStyle = `
   :root {
@@ -154,4 +154,13 @@ export const obtainCss = (tweetOptions: TweetOptions) => {
 
 export const capitalizeFirstLetter = (string: string) => {
   return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
+export const getTwitterId = (url: string): string | boolean => {
+  // @see https://regex101.com/r/AAtIUu/1
+  let match = url.match(/(https:\/\/twitter.com\/.*\/status\/)|([0-9]+)/g)
+  if (match && match.length === 2) {
+    return match[1]
+  }
+  return false
 }

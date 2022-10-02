@@ -1,8 +1,11 @@
 <script setup lang="ts">
-const props = defineProps({
-  modelValue: Boolean,
-  name: String,
-})
+
+interface ToggleProps {
+  name?: string;
+  modelValue?: boolean;
+}
+
+const props = defineProps<ToggleProps>()
 const emits = defineEmits(["update:modelValue"])
 
 const onClick = (ev: InputEvent) => {

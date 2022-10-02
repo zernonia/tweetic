@@ -1,30 +1,32 @@
 {
+  "name": "tweetic",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
+    "prepare": "nuxt prepare",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.12",
+    "@nuxtjs/supabase": "^0.1.27",
     "@types/lodash-es": "^4.17.6",
-    "@types/twemoji": "^13.1.2",
-    "nuxt": "3.0.0-rc.3",
-    "nuxt-windicss": "^2.3.1"
+    "nuxt": "3.0.0-rc.11",
+    "nuxt-windicss": "^2.5.2"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^1.35.3",
-    "@vueuse/core": "^8.4.2",
-    "@yeger/vue-masonry-wall": "^3.0.30",
-    "cheerio": "^1.0.0-rc.11",
-    "cors": "^2.8.5",
-    "date-fns": "^2.28.0",
+    "@nozomuikuta/h3-cors": "^0.1.5",
+    "@vueuse/core": "^9.3.0",
+    "@yeger/vue-masonry-wall": "^3.2.7",
+    "cheerio": "^1.0.0-rc.12",
+    "date-fns": "^2.29.3",
     "defu": "^6.1.0",
-    "highlight.js": "^11.5.1",
+    "highlight.js": "^11.6.0",
     "lodash-es": "^4.17.21",
+    "nuxt-umami": "^1.0.2",
     "twemoji": "^14.0.2",
-    "twitter-api-v2": "^1.12.0",
+    "twitter-api-v2": "^1.12.7",
     "vue-toastification": "^2.0.0-rc.5"
   }
 }

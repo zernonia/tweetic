@@ -1,4 +1,6 @@
 <script setup lang="ts">
+useCustomHead("Thank you for your kind word!")
+
 const tweets = ref([
   "https://twitter.com/dominiksumer/status/1524741858009694209",
   "https://twitter.com/maazarin/status/1524732072832774147",
@@ -7,8 +9,6 @@ const tweets = ref([
   "https://twitter.com/ImnNazri/status/1524626328167010304",
   "https://twitter.com/frouo/status/1524840028123320326",
 ])
-
-useCustomHead("Thank you for your kind word! | Tweetic")
 </script>
 
 <template>

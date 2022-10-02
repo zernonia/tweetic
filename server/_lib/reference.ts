@@ -28,7 +28,7 @@ const tailwindClassSupabaseReference = {
 }
 
 export const mapClass = (key: string, options: TweetOptions): string => {
-  if (options.css == "tailwind") {
+  if (options.css === "tailwind") {
     return options.layout == "supabase" ? tailwindClassSupabaseReference[key] : tailwindClassDefaultReference[key]
   } else return key
 }

@@ -50,29 +50,30 @@ Thus created this tool!! 🎉 Enjoy!
 
 ## 🌎 Local Development
 
+When you want to run this project locally, you can follow these steps:
+
 ### Prerequisites
 
-Yarn
+[pnpm@latest](https://pnpm.io/installation)
 
-- ```sh
-  npm install --global yarn
-  ```
+### Environment Variables
 
-### Development
+```bash
+# Supabase Section @see https://supabase.io
+SUPABASE_URL=
+SUPABASE_KEY=
 
-1. Clone the repo
-   ```sh
-   git clone https://github.com/zernonia/tweetic.git
-   ```
-2. Install NPM packages
-   ```sh
-   cd tweetic
-   yarn install
-   ```
-3. Run local development instance
-   ```sh
-   yarn dev
-   ```
+# Twitter Developer Section @see https://developer.twitter.com
+API_SECRET_KEY=
+TWITTER_BEARER_TOKEN=
+```
+
+## 💻 Development
+
+- Clone this repository
+- Enable [Corepack](https://github.com/nodejs/corepack) using `corepack enable`
+- Install dependencies using `pnpm install`
+- Run `dev` watcher with `pnpm dev`
 
 ## ➕ Contributing
 
@@ -95,9 +96,8 @@ Zernonia - [@zernonia](https://twitter.com/zernonia) - zernonia@gmail.com
 Also, if you like my work, please buy me a coffee ☕😳
 
 <a href="https://www.buymeacoffee.com/zernonia" target="_blank">
-    <img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Logo" >
-  </a>
-
+  <img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Logo" >
+</a>
 
 # 🔥 Contributors
 

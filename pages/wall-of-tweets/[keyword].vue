@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { capitalizeFirstLetter } from "~~/utils/function"
-const route = useRoute()
-const keyword = route.params.keyword?.toString()
+const { params } = useRoute()
+const keyword = params.keyword?.toString()
 
-const { data, pending } = await useAsyncData(keyword, () =>
+const { data } = await useAsyncData(`keyword-${keyword}`, () =>
   $fetch("/api/wall-of-tweets", {
     params: { keyword },
   })
 )
 
-useCustomHead(`${capitalizeFirstLetter(keyword.toString())}'s Wall of Tweets! | Tweetic`)
+useCustomHead(`${capitalizeFirstLetter(keyword)}'s Wall of Tweets!`)
 </script>
 
 <template>
