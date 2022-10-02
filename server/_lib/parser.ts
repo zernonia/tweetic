@@ -21,8 +21,6 @@ export const constructHtml = (constructOptions: iConstructHTMLOptions) => {
       isQuotedTweet: false,
     });
 
-    console.log(options)
-
     const mapClassOptions = (key: string) => mapClass(key, options);
 
     const {
