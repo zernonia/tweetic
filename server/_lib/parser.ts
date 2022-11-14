@@ -92,7 +92,7 @@ export const constructHtml = (data: TweetSyndication, options: TweetOptions, isQ
 }
 
 export const getSyndication = async (id: string) => {
-  return await $fetch<TweetSyndication>(`https://cdn.syndication.twimg.com/tweet?id=${id}`)
+  return await $fetch<TweetSyndication>(`https://cdn.syndication.twimg.com/tweet-result?id=${id}`)
 }
 
 export const getTweetContent = (data: TweetSyndication, options: TweetOptions) => {
