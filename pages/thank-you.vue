@@ -6,9 +6,9 @@ const tweets = ref([
   "https://twitter.com/pramit_armpit/status/1524637652565524481",
   "https://twitter.com/ImnNazri/status/1524626328167010304",
   "https://twitter.com/frouo/status/1524840028123320326",
-])
+]);
 
-useCustomHead("Thank you for your kind word! | Tweetic")
+useCustomHead("Thank you for your kind word! | Tweetic");
 </script>
 
 <template>
@@ -17,7 +17,7 @@ useCustomHead("Thank you for your kind word! | Tweetic")
 
     <Masonry :urls="tweets" :column-width="400" :options="{ layout: 'supabase' }">
       <template v-slot="{ url, options }">
-        <Tweet class="flex justify-center" :url="url" v-bind="options"></Tweet>
+        <Tweet class="flex justify-center" :key="url" :url="url" v-bind="options"></Tweet>
       </template>
     </Masonry>
 

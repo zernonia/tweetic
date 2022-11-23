@@ -1,21 +1,21 @@
 <script setup lang="ts">
-const props = defineProps({
+defineProps({
   modelValue: Boolean,
   name: String,
-})
-const emits = defineEmits(["update:modelValue"])
+});
+const emits = defineEmits(["update:modelValue"]);
 
-const onClick = (ev: InputEvent) => {
-  let el = ev.target as HTMLInputElement
-  emits("update:modelValue", el.checked)
-}
+const onClick = (ev: Event) => {
+  let el = ev.target as HTMLInputElement;
+  emits("update:modelValue", el.checked);
+};
 </script>
 
 <template>
   <label :for="name" class="inline-flex flex-col w-max">
     <slot></slot>
     <div class="relative mt-1 cursor-pointer">
-      <input type="checkbox" :id="name" class="sr-only" v-model="modelValue" @change="onClick" />
+      <input type="checkbox" :id="name" class="sr-only" :value="modelValue" @change="onClick" />
       <div class="toggle-bg bg-gray-200 border-2 border-gray-200 h-6 w-11 rounded-full transition"></div>
     </div>
   </label>

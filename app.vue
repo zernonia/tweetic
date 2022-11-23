@@ -1,6 +1,6 @@
 <script setup lang="ts">
 //@ts-ignore
-import Logo from "~~/assets/logo.svg"
+import Logo from "~~/assets/logo.svg";
 
 useHead({
   title: "Tweetic | Convert Tweets to Static HTML ",
@@ -29,7 +29,7 @@ useHead({
       content: "Create your testimonial wall statically and style it however you want! Free • Open Source",
     },
   ],
-})
+});
 </script>
 
 <template>
@@ -62,8 +62,6 @@ useHead({
           alt="Buy Me A Coffee"
           style="height: 32px !important; width: auto !important"
       /></a>
-
-      <Script src="https://www.himaker.io/scripts/embed.min.js" async defer data-widget-id="fmbp30ep"></Script>
     </div>
   </div>
 </template>

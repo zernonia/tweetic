@@ -7,16 +7,16 @@ const params = ref({
   show_media: true,
   show_quoted_tweet: true,
   show_info: true,
-})
+});
 
-const { $hljs } = useNuxtApp()
-const tweetRef = ref()
+const { $hljs } = useNuxtApp();
+const tweetRef = ref();
 const highlightResponse = computed(() =>
   tweetRef.value?.data
     ? $hljs.highlight(JSON.stringify(tweetRef.value.data, null, "  "), { language: "json", ignoreIllegals: false })
         .value
     : ""
-)
+);
 </script>
 
 <template>
