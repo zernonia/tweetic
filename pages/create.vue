@@ -132,22 +132,7 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!");
 
       <h2 class="text-center text-3xl md:text-4xl font-bold">Preview</h2>
 
-      <Masonry
-        :urls="computedInput"
-        :options="tweetsOptions"
-        :column-width="tweetsOptions.layout === 'supabase' ? 400 : 500"
-      >
-        <template v-slot="{ url, options }">
-          <Tweet
-            :id="url.split('/status/')[1]"
-            @click="copyTweet(url)"
-            class="tweet-container flex justify-center"
-            :url="url"
-            :redirect="false"
-            v-bind="options"
-          ></Tweet>
-        </template>
-      </Masonry>
+      <TweetWall is-editing :urls="computedInput" :options="tweetsOptions" @click-tweet="copyTweet"></TweetWall>
 
       <Modal :open="isModalOpen" @close="closeModal">
         <div class="p-4 md:p-8 !pb-0 flex items-center justify-between">

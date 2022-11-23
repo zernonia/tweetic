@@ -207,8 +207,4 @@ useHead({
     max-width: 400px;
   }
 }
-
-.masonry-item {
-  @apply flex justify-center;
-}
 </style>

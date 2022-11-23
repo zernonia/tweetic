@@ -15,11 +15,7 @@ useCustomHead("Thank you for your kind word! | Tweetic");
   <div class="mb-32">
     <h2 class="text-4xl md:text-6xl text-center font-semibold my-8 md:my-20">Thank you everyone!!</h2>
 
-    <Masonry :urls="tweets" :column-width="400" :options="{ layout: 'supabase' }">
-      <template v-slot="{ url, options }">
-        <Tweet class="flex justify-center" :key="url" :url="url" v-bind="options"></Tweet>
-      </template>
-    </Masonry>
+    <TweetWall :urls="tweets" :options="{ layout: 'supabase' }"></TweetWall>
 
     <p class="text-center mt-8 md:mt-20">...and everyone who likes and retweet!</p>
   </div>

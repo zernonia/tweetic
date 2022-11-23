@@ -29,7 +29,7 @@ defineExpose({ data });
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative h-max">
     <div
       class="ring-0 hover:ring-3 ring-blue-400 transition rounded-2xl cursor-pointer"
       @click="onClick"

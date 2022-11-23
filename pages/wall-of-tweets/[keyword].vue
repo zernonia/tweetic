@@ -1,15 +1,10 @@
 <script setup lang="ts">
-import { capitalizeFirstLetter } from "~~/utils/function"
-const route = useRoute()
-const keyword = route.params.keyword?.toString()
+import { capitalizeFirstLetter } from "~~/utils/function";
+const route = useRoute();
+const keyword = route.params.keyword?.toString();
 
-const { data, pending } = await useAsyncData(keyword, () =>
-  $fetch("/api/wall-of-tweets", {
-    params: { keyword },
-  })
-)
-
-useCustomHead(`${capitalizeFirstLetter(keyword.toString())}'s Wall of Tweets! | Tweetic`)
+const { data, pending } = await useLazyFetch("/api/wall-of-tweets", { params: { keyword }, key: keyword });
+useCustomHead(`${capitalizeFirstLetter(keyword.toString())}'s Wall of Tweets! | Tweetic`);
 </script>
 
 <template>
@@ -19,13 +14,14 @@ useCustomHead(`${capitalizeFirstLetter(keyword.toString())}'s Wall of Tweets! | 
       <h3 class="font-semibold text-2xl md:text-4xl text-gray-300">Wall of Tweets</h3>
     </div>
 
-    <template v-if="data.length">
-      <Masonry :urls="data" :column-width="400" :options="{ layout: 'supabase', show_media: true, show_info: true }">
-        <template v-slot="{ url, options }">
-          <Tweet class="flex justify-center" :url="url" v-bind="options"></Tweet>
-        </template>
-      </Masonry>
-    </template>
+    <div v-if="pending" class="text-gray-300 text-center font-semibold text-2xl">Loading...</div>
+
+    <TweetWall
+      v-else-if="data?.length"
+      :urls="data"
+      :options="{ layout: 'supabase', show_media: true, show_info: true }"
+    ></TweetWall>
+
     <p v-else class="text-center my-40 text-gray-300 font-semibold">No tweets crawled...</p>
   </div>
 </template>
