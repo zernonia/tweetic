@@ -33,6 +33,7 @@ useHead({
 </script>
 
 <template>
+  <NuxtLoadingIndicator></NuxtLoadingIndicator>
   <div class="p-4 md:p-8 w-full max-w-screen-[1300px]">
     <div class="flex items-center justify-between mb-6">
       <NuxtLink to="/"><img :src="Logo" alt="tweetic logo" class="h-12 md:h-16" /></NuxtLink>
