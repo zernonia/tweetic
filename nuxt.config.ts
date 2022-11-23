@@ -11,4 +11,9 @@ export default defineNuxtConfig({
     SUPABASE_URL: process.env.SUPABASE_URL,
     SUPABASE_KEY: process.env.SUPABASE_KEY,
   },
+  routeRules: {
+    "/": { static: true },
+    "/wall-of-tweets/**": { static: true },
+    "/api/**": { cors: true },
+  },
 });
