@@ -1,7 +1,7 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   modules: ["nuxt-windicss", "@nuxtjs/supabase"],
-  css: ["~~/assets/main.css"],
+  css: ["~~/assets/main.css", "vue-toastification/dist/index.css"],
   build: {
     transpile: ["twitter-api-v2"],
   },

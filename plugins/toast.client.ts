@@ -1,5 +1,4 @@
 import Toast, { PluginOptions, POSITION } from "vue-toastification/dist/index.mjs";
-import "vue-toastification/dist/index.css";
 
 const options: PluginOptions = {
   position: POSITION.TOP_CENTER,
