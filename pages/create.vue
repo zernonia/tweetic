@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useStorage } from "@vueuse/core"
-import { useClipboard } from "@vueuse/core"
-import { obtainCss } from "~~/utils/function"
-import { TweetOptions } from "~~/utils/types"
-import { useToast } from "vue-toastification"
+import { useStorage } from "@vueuse/core";
+import { useClipboard } from "@vueuse/core";
+import { obtainCss } from "~~/utils/function";
+import { TweetOptions } from "~~/utils/types";
+import { useToast } from "vue-toastification";
 
-const toast = useToast()
-const tweetsInput = useStorage("tweets", ["", "", "", "", ""])
+const toast = useToast();
+const tweetsInput = useStorage("tweets", ["", "", "", "", ""]);
 const tweetsOptions = useStorage<TweetOptions>("tweets-options", {
   layout: "",
   css: "",
@@ -15,61 +15,62 @@ const tweetsOptions = useStorage<TweetOptions>("tweets-options", {
   show_media: true,
   show_quoted_tweet: true,
   show_info: true,
-})
-const exportOptions = useStorage("export-options", {})
-const computedInput = computed(() => tweetsInput.value.filter((i) => i != ""))
+});
+const exportOptions = useStorage("export-options", {});
+const computedInput = computed(() => tweetsInput.value.filter((i) => i != ""));
 
 const getTweetsHTML = () => {
-  let tweets = document.querySelectorAll(".tweet-container > div")
-  let innerHTMLs = ""
+  let tweets = document.querySelectorAll(".tweet-container > div");
+  let innerHTMLs = "";
   tweets.forEach((i) => {
-    innerHTMLs += i.innerHTML
-  })
-  return innerHTMLs
-}
+    innerHTMLs += i.innerHTML;
+  });
+  return innerHTMLs;
+};
 
-const { copy, copied } = useClipboard()
+const { copy, copied } = useClipboard();
 const copyTweet = async (url: string) => {
-  let tweet = document.getElementById(`${url.split("/status/")[1]}`)
-  let text = tweet.querySelector("div").innerHTML
+  let tweet = document.getElementById(`${url.split("/status/")[1]}`);
+  let text = tweet?.querySelector("div")?.innerHTML;
   try {
-    await copy(text)
-    toast.success("Copied Static Tweet")
+    if (!text) throw Error("No html found");
+    await copy(text);
+    toast.success("Copied Static Tweet");
   } catch (err) {
-    toast.error("Something wrong...")
+    toast.error("Something wrong...");
   }
-}
+};
 const copyAll = async () => {
-  let text = getTweetsHTML() + obtainCss(tweetsOptions.value)
-  if (!text.length) return
+  let text = getTweetsHTML() + obtainCss(tweetsOptions.value);
+  if (!text.length) return;
   try {
-    await copy(text)
-    toast.success("Copied All Static Tweets")
+    await copy(text);
+    toast.success("Copied All Static Tweets");
   } catch (err) {
-    toast.error("Something wrong...")
+    toast.error("Something wrong...");
   }
-}
+};
 
 const downloadAll = () => {
-  let innerHTML = getTweetsHTML()
-  if (!innerHTML.length) return
-  const a = document.createElement("a")
-  a.download = "download.html"
-  a.href = "data:text/html;charset=UTF-8," + encodeURIComponent(getTweetsHTML()) + obtainCss(tweetsOptions.value)
-  a.click()
-  a.remove()
-}
+  let innerHTML = getTweetsHTML();
+  if (!innerHTML.length) return;
+  const a = document.createElement("a");
+  a.download = "download.html";
+  a.href = "data:text/html;charset=UTF-8," + encodeURIComponent(getTweetsHTML()) + obtainCss(tweetsOptions.value);
+  a.click();
+  a.remove();
+};
 
-const isModalOpen = ref(false)
-const isPreviewingCSS = ref(false)
+const isModalOpen = ref(false);
+const isPreviewingCSS = ref(false);
 const openModal = () => {
-  isModalOpen.value = true
-}
+  isModalOpen.value = true;
+};
 const closeModal = (ev: boolean) => {
-  isModalOpen.value = ev
-  isPreviewingCSS.value = false
-}
-useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
+  isModalOpen.value = ev;
+  isPreviewingCSS.value = false;
+};
+useCustomHead("Tweetic | Create now!", "Create your own static tweets now!");
 </script>
 
 <template>
@@ -131,22 +132,7 @@ useCustomHead("Tweetic | Create now!", "Create your own static tweets now!")
 
       <h2 class="text-center text-3xl md:text-4xl font-bold">Preview</h2>
 
-      <Masonry
-        :urls="computedInput"
-        :options="tweetsOptions"
-        :column-width="tweetsOptions.layout === 'supabase' ? 400 : 500"
-      >
-        <template v-slot="{ url, options }">
-          <Tweet
-            :id="url.split('/status/')[1]"
-            @click="copyTweet(url)"
-            class="tweet-container flex justify-center"
-            :url="url"
-            :redirect="false"
-            v-bind="options"
-          ></Tweet>
-        </template>
-      </Masonry>
+      <TweetWall is-editing :urls="computedInput" :options="tweetsOptions" @click-tweet="copyTweet"></TweetWall>
 
       <Modal :open="isModalOpen" @close="closeModal">
         <div class="p-4 md:p-8 !pb-0 flex items-center justify-between">

@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { onClickOutside } from "@vueuse/core"
+import { onClickOutside } from "@vueuse/core";
 const prop = defineProps({
   open: Boolean,
-})
-const emit = defineEmits(["close"])
+});
+const emit = defineEmits(["close"]);
 
-const target = ref()
+const target = ref();
 onClickOutside(target, (e) => {
-  emit("close")
-})
+  emit("close");
+});
 
 watch(
   () => prop.open,
   (n) => {
-    n ? document.body.classList.add("overflow-hidden") : document.body.classList.remove("overflow-hidden")
+    n ? document.body.classList.add("overflow-hidden") : document.body.classList.remove("overflow-hidden");
   }
-)
+);
 </script>
 
 <template>

@@ -1,4 +1,4 @@
-import { TweetOptions } from "~~/utils/types"
+import { TweetOptions } from "~~/utils/types";
 
 const tailwindClassBasic = {
   "tweet-header": " flex items-center justify-between",
@@ -12,7 +12,7 @@ const tailwindClassBasic = {
   "tweet-info": "mt-4 text-sm flex items-center text-slate-400",
   "tweet-info-favourite": "w-5 h-5 mr-2",
   "tweet-info-date": "ml-4",
-}
+};
 
 const tailwindClassDefaultReference = {
   ...tailwindClassBasic,
@@ -20,15 +20,15 @@ const tailwindClassDefaultReference = {
   "tweet-author-title": "flex items-center",
   "tweet-author-verified": "ml-1 w-5 h-5 text-blue-400",
   "tweet-logo": "text-blue-400",
-}
+};
 const tailwindClassSupabaseReference = {
   ...tailwindClassBasic,
   tweet: "w-[400px] p-8 text-black border border-gray-200 bg-white rounded-2xl",
   "tweet-logo": "bg-blue-400 text-white w-5 h-5 absolute -top-1 -left-2 rounded-full p-[0.2rem]",
-}
+};
 
 export const mapClass = (key: string, options: TweetOptions): string => {
   if (options.css == "tailwind") {
-    return options.layout == "supabase" ? tailwindClassSupabaseReference[key] : tailwindClassDefaultReference[key]
-  } else return key
-}
+    return options.layout == "supabase" ? tailwindClassSupabaseReference[key] : tailwindClassDefaultReference[key];
+  } else return key;
+};

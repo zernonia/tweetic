@@ -1,26 +1,26 @@
-import { TweetOptions, TweetContent, TweetSyndication } from "~~/utils/types"
-import { mapClass } from "./reference"
-import { format } from "date-fns"
-import Twemoji from "twemoji"
+import { TweetOptions, TweetContent, TweetSyndication } from "~~/utils/types";
+import { mapClass } from "./reference";
+import { format } from "date-fns";
+import Twemoji from "twemoji";
 
 export const constructHtml = (data: TweetSyndication, options: TweetOptions, isQuotedTweet = false) => {
   try {
-    const mapClassOptions = (key: string) => mapClass(key, options)
+    const mapClassOptions = (key: string) => mapClass(key, options);
 
-    const { meta, html: content, user, media_html, card_html, quoted_tweet } = getTweetContent(data, options)
-    const quoted_html = getQuotedHtml(quoted_tweet as any, options)
+    const { meta, html: content, user, media_html, card_html, quoted_tweet } = getTweetContent(data, options);
+    const quoted_html = getQuotedHtml(quoted_tweet as any, options);
     const tweet_class = isQuotedTweet
       ? mapClassOptions("tweet").replace("w-[400px]", "").replace("w-[500px]", "").concat(" mt-4")
-      : mapClassOptions("tweet")
-    
+      : mapClassOptions("tweet");
+
     let favorite_count_str;
-    if (meta.favorite_count >= 1000000){
-        favorite_count_str = (meta.favorite_count/1000000).toFixed(1)+' m';
-    } else if (meta.favorite_count >= 10000){
-        favorite_count_str = (meta.favorite_count/1000).toFixed(1)+' K';
+    if (meta.favorite_count >= 1000000) {
+      favorite_count_str = (meta.favorite_count / 1000000).toFixed(1) + " m";
+    } else if (meta.favorite_count >= 10000) {
+      favorite_count_str = (meta.favorite_count / 1000).toFixed(1) + " K";
     } else {
-        favorite_count_str = meta.favorite_count?.toLocaleString("en-US")  
-    } 
+      favorite_count_str = meta.favorite_count?.toLocaleString("en-US");
+    }
     const html: string = ` 
   <div class="${tweet_class} " data-style="${options.layout}">
     <div class="${mapClassOptions("tweet-header")}">
@@ -84,21 +84,21 @@ export const constructHtml = (data: TweetSyndication, options: TweetOptions, isQ
         : ""
     }
   </div> 
-  `
-    return { html, meta }
+  `;
+    return { html, meta };
   } catch (err) {
-    throw err
+    throw err;
   }
-}
+};
 
 export const getSyndication = async (id: string) => {
-  return await $fetch<TweetSyndication>(`https://cdn.syndication.twimg.com/tweet-result?id=${id}`)
-}
+  return await $fetch<TweetSyndication>(`https://cdn.syndication.twimg.com/tweet-result?id=${id}`);
+};
 
 export const getTweetContent = (data: TweetSyndication, options: TweetOptions) => {
   try {
-    const { display_text_range, entities, user, card, text, quoted_tweet, photos, video } = data
-    let html = text.substr(display_text_range[0],)
+    const { display_text_range, entities, user, card, text, quoted_tweet, photos, video } = data;
+    let html = text.substr(display_text_range[0]);
 
     const meta = {
       user_id: user.id_str,
@@ -111,33 +111,33 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
       created_at: data.created_at,
       favorite_count: data.favorite_count,
       conversation_count: data.conversation_count,
-    }
+    };
 
-    const linkClass = options.css == "tailwind" ? "text-blue-400" : "tweet-content-link"
+    const linkClass = options.css == "tailwind" ? "text-blue-400" : "tweet-content-link";
     entities.urls?.forEach((i) => {
       html = html.replace(
         i.url,
         i.display_url.includes("twitter.com")
           ? ""
           : `<a class="${linkClass}" href="${i.url}" target="_blank">${i.display_url}</a>`
-      )
-    })
+      );
+    });
     entities.media?.forEach((i) => {
-      html = html.replace(i.url, "")
-    })
+      html = html.replace(i.url, "");
+    });
     entities.hashtags?.forEach((i) => {
       html = html.replace(
         `#${i.text}`,
         `<a class="${linkClass}" href="https://twitter.com/hashtag/${i.text}" target="_blank">#${i.text}</a>`
-      )
-    })
+      );
+    });
     entities.user_mentions?.forEach((i) => {
       html = html.replace(
         `@${i.screen_name}`,
         `<a class="${linkClass}"  href="https://twitter.com/${i.screen_name}" target="_blank">@${i.screen_name}</a>`
-      )
-    })
-    html = html.replace(/\n/g, "<br />")
+      );
+    });
+    html = html.replace(/\n/g, "<br />");
 
     if (options.enable_twemoji) {
       html = Twemoji.parse(html, {
@@ -147,15 +147,15 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
           options.css === "tailwind"
             ? "inline-block align-text-bottom w-[1.2em] h-[1.2em] mr-[0.05em] ml-[0.1em]"
             : "emoji",
-      })
+      });
     }
 
-    let card_html = ""
+    let card_html = "";
     const mediaClass =
-      options.css == "tailwind" ? "border border-gray-200 rounded-2xl mt-4 overflow-hidden" : "tweet-media"
+      options.css == "tailwind" ? "border border-gray-200 rounded-2xl mt-4 overflow-hidden" : "tweet-media";
 
     if (card?.name === "summary_large_image") {
-      html.replace(card.url, "")
+      html.replace(card.url, "");
       card_html =
         options.css === "tailwind"
           ? `
@@ -179,10 +179,10 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
               <p>${card.binding_values.description.string_value}</p>
             </div>
           </div>
-        </a>`
+        </a>`;
     }
     if (card?.name === "summary") {
-      html.replace(card.url, "")
+      html.replace(card.url, "");
       card_html =
         options.css === "tailwind"
           ? `
@@ -206,23 +206,23 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
               <p>${card.binding_values.description.string_value}</p>
             </div>
           </div>
-        </a>`
+        </a>`;
     }
 
-    let media_html = ""
+    let media_html = "";
     if (photos) {
-      media_html = `<div class="${mediaClass}">`
+      media_html = `<div class="${mediaClass}">`;
       photos.map((photo) => {
-        media_html += `<img style="width: 100%" class="tweet-image" src="${photo.url}">`
-      })
-      media_html += `</div>`
+        media_html += `<img style="width: 100%" class="tweet-image" src="${photo.url}">`;
+      });
+      media_html += `</div>`;
     }
     if (video) {
-      const mp4 = video.variants.find((i) => i.type === "video/mp4")
+      const mp4 = video.variants.find((i) => i.type === "video/mp4");
       media_html = `
     <div class="${mediaClass}">
       <video style="width: 100%" autoplay muted loop src="${mp4.src}"></video> 
-    </div>`
+    </div>`;
     }
 
     return {
@@ -232,17 +232,17 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
       card_html,
       media_html,
       quoted_tweet,
-    }
+    };
   } catch (err) {
-    throw err
+    throw err;
   }
-}
+};
 
 const getQuotedHtml = (data: TweetSyndication, options: TweetOptions) => {
-  if (!data) return ""
+  if (!data) return "";
 
-  const url = `https://twitter.com/${data.user.screen_name}/status/${data.id_str}`
+  const url = `https://twitter.com/${data.user.screen_name}/status/${data.id_str}`;
   return `<div class="tweet-quoted">
        ${constructHtml(data, options, true).html} 
-    </div>`
-}
+    </div>`;
+};

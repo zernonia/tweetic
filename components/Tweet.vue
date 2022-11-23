@@ -9,7 +9,7 @@ const props = defineProps({
   show_info: { type: Boolean, default: false },
 
   redirect: { type: Boolean, default: true },
-})
+});
 
 const { data, pending } = await useAsyncData(
   JSON.stringify(props),
@@ -17,21 +17,19 @@ const { data, pending } = await useAsyncData(
     $fetch("/api/tweet", {
       params: { ...props },
     }),
-  {
-    watch: [props],
-  }
-)
+  { watch: [props] }
+);
 
 const onClick = () => {
   if (props.redirect) {
-    window.open(props.url, "_blank")
+    window.open(props.url, "_blank");
   }
-}
-defineExpose({ data })
+};
+defineExpose({ data });
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative h-max">
     <div
       class="ring-0 hover:ring-3 ring-blue-400 transition rounded-2xl cursor-pointer"
       @click="onClick"

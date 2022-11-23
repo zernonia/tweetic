@@ -1,14 +1,15 @@
-import { TwitterApi } from "twitter-api-v2"
-import { verify } from "../_lib/verify"
-import { supabase } from "../_lib/supabase"
+import { TwitterApi } from "twitter-api-v2";
+import { verify } from "../_lib/verify";
+import { serverSupabaseClient } from "#supabase/server";
 
 export default defineEventHandler(async (event) => {
-  const authorized = verify(event)
-  if (!authorized) return "Unauthorized"
+  const authorized = verify(event);
+  const client = serverSupabaseClient(event);
+  if (!authorized) return "Unauthorized";
 
-  const { keyword } = useQuery(event)
-  const twitterClient = new TwitterApi(useRuntimeConfig().TWITTER_BEARER_TOKEN)
-  const roClient = twitterClient.readOnly
+  const { keyword } = getQuery(event);
+  const twitterClient = new TwitterApi(useRuntimeConfig().TWITTER_BEARER_TOKEN);
+  const roClient = twitterClient.readOnly;
 
   const results = await roClient.v2.search(
     `${
@@ -18,23 +19,23 @@ export default defineEventHandler(async (event) => {
       expansions: "author_id",
       max_results: 100,
     }
-  )
+  );
 
   const tweets = results.data.data.map((i) => {
-    let author_name = results.data.includes.users.find((j) => j.id === i.author_id)?.username
+    let author_name = results.data?.includes?.users?.find((j) => j.id === i.author_id)?.username;
 
     return {
       id: i.id,
       url: `${author_name}/status/${i.id}`,
       keyword,
       raw: i,
-    }
-  })
+    };
+  });
 
-  const { data, error } = await supabase.from("wall_of_tweets").upsert(tweets)
+  const { data, error } = await client.from("wall_of_tweets").upsert(tweets);
 
   return {
     data,
     error,
-  }
-})
+  };
+});
