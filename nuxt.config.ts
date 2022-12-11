@@ -15,6 +15,5 @@ export default defineNuxtConfig({
     "/": { static: true },
     "/thank-you": { static: true },
     "/wall-of-tweets/**": { static: true },
-    "/api/**": { cors: false },
   },
 });

@@ -1,6 +1,7 @@
 import { defu } from "defu";
 import { TweetOptions, TweetQueryOptions, TweetSyndication } from "~~/utils/types";
-import { constructHtml, getSyndication, getTweetContent } from "../_lib/parser";
+import { constructHtml, getSyndication } from "../_lib/parser";
+import { setResponseHeader } from "h3";
 
 // Create Capture Group for twitter url.
 const getTwitterId = (url: string): string | boolean => {
@@ -15,6 +16,8 @@ const getTwitterId = (url: string): string | boolean => {
 const cachedData: { [key: string]: TweetSyndication } = {};
 
 export default defineEventHandler(async (event) => {
+  setResponseHeader(event, "Access-Control-Allow-Origin", "*");
+
   try {
     const query: TweetQueryOptions = getQuery(event);
     const { url, layout, css, enable_twemoji, show_media, show_quoted_tweet, show_info } = defu(query, {
