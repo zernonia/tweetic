@@ -51,6 +51,6 @@ export default defineEventHandler(async (event) => {
     const { html, meta } = constructHtml(data, options);
     return { html, meta };
   } catch (err) {
-    return sendError(event, Error(`${err}`), true);
+    return {};
   }
 });
