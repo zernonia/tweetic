@@ -3,7 +3,7 @@ import { capitalizeFirstLetter } from "~~/utils/function";
 const route = useRoute();
 const keyword = route.params.keyword?.toString();
 
-const { data } = await useFetch("/api/wall-of-tweets", { params: { keyword }, key: keyword });
+const { data, pending } = await useLazyFetch("/api/wall-of-tweets", { params: { keyword }, key: keyword });
 useCustomHead(`${capitalizeFirstLetter(keyword.toString())}'s Wall of Tweets! | Tweetic`);
 </script>
 
@@ -20,6 +20,7 @@ useCustomHead(`${capitalizeFirstLetter(keyword.toString())}'s Wall of Tweets! | 
       :options="{ layout: 'supabase', show_media: true, show_info: true }"
     ></TweetWall>
 
+    <p v-if="pending" class="text-center my-40 text-gray-300 font-semibold">Loading...</p>
     <p v-else class="text-center my-40 text-gray-300 font-semibold">No tweets crawled...</p>
   </div>
 </template>
