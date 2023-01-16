@@ -141,6 +141,7 @@ export const getTweetContent = (data: TweetSyndication, options: TweetOptions) =
 
     if (options.enable_twemoji) {
       html = Twemoji.parse(html, {
+        base: "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/",
         folder: "svg",
         ext: ".svg",
         className:
