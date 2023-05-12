@@ -10,15 +10,15 @@ export const useCustomHead = (title: string, description?: string, image?: strin
         name: "twitter:description",
         content: description ?? "Convert Tweets to Static HTML | Free • Open Source",
       },
-      { name: "twitter:image", content: image ?? "https://tweetic.io/og.png" },
+      { name: "twitter:image", content: image ?? "https://tweetic.zernonia.com/og.png" },
       { property: "og:type", content: "website" },
       { property: "og:title", content: title },
-      { property: "og:url", content: "https://tweetic.io" },
-      { property: "og:image", content: image ?? "https://tweetic.io/og.png" },
+      { property: "og:url", content: "https://tweetic.zernonia.com" },
+      { property: "og:image", content: image ?? "https://tweetic.zernonia.com/og.png" },
       {
         property: "og:description",
         content: description ?? "Convert Tweets to Static HTML | Free • Open Source",
       },
     ],
-  })
-}
+  });
+};

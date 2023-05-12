@@ -20,7 +20,7 @@ const highlightResponse = computed(() =>
 </script>
 
 <template>
-  <DocsBase method="GET" url="https://tweetic.io/api/tweet" description="Obtain static tweets">
+  <DocsBase method="GET" url="https://tweetic.zernonia.com/api/tweet" description="Obtain static tweets">
     <template #config>
       <label for="url">url</label>
       <input type="text" name="url" id="url" v-model="params.url" />

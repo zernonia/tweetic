@@ -13,7 +13,7 @@
     Free • Open Source • API ready
     <br />
     <br />
-    <a href="https://tweetic.io/">View Demo</a>
+    <a href="https://tweetic.zernonia.com/">View Demo</a>
     ·
     <a href="https://github.com/zernonia/tweetic/issues">Report Bug</a>
     ·
@@ -97,7 +97,6 @@ Also, if you like my work, please buy me a coffee ☕😳
 <a href="https://www.buymeacoffee.com/zernonia" target="_blank">
     <img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Logo" >
   </a>
-
 
 # 🔥 Contributors
 
